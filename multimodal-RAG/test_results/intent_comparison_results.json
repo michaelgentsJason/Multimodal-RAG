@@ -1,0 +1,846 @@
+[
+  {
+    "doc_id": "4126467",
+    "pdf_path": "4126467.pdf",
+    "query": "Which tables outline the required flow and openings for flushing pipelines?\nSelect table names from the doc that best answer the question, do not alter or analyze the table names themselves.",
+    "evidence_pages": [
+      77
+    ],
+    "task_tag": "Locating",
+    "subTask": [
+      "Cross_Table_Locating"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        25,
+        67
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 29.164403676986694,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        76,
+        77
+      ],
+      "correct_pages": [
+        77
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 208.07237768173218,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4185438",
+    "pdf_path": "4185438.pdf",
+    "query": "What is defined as an action of a group G on an object A in a category C, as per Definition 4.5?",
+    "evidence_pages": [
+      140
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "SP_Text_Understanding",
+      "SP_Layout_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        139,
+        141
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 49.42306351661682,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        105,
+        133
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 367.450975894928,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4046173",
+    "pdf_path": "4046173.pdf",
+    "query": "How many occurrences of 'Stainless' categories are spread across different pages ?",
+    "evidence_pages": [
+      61,
+      62
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "MP_Layout_Reasoning",
+      "MP_Table_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        60,
+        61
+      ],
+      "correct_pages": [
+        61
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 20.669614791870117,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        60,
+        61
+      ],
+      "correct_pages": [
+        61
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 121.47732830047607,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4176503",
+    "pdf_path": "4176503.pdf",
+    "query": "Black students, who made up just 12.3% of the student population, represented just one quarter of out-of-school suspensions, yes or no?",
+    "evidence_pages": [
+      111
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "SP_Text_Understanding",
+      "SP_Layout_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        105,
+        111
+      ],
+      "correct_pages": [
+        111
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 37.98156762123108,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        108,
+        111
+      ],
+      "correct_pages": [
+        111
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 313.7782037258148,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4148165",
+    "pdf_path": "4148165.pdf",
+    "query": "The document mention addressing the fairness issue of the \"benefiting conscientious objector\"-alternative service,yes or no?",
+    "evidence_pages": [
+      99,
+      100
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "MP_Layout_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        101,
+        102
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 36.164395809173584,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        101,
+        102
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 229.28749799728394,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4145761",
+    "pdf_path": "4145761.pdf",
+    "query": "How many ways are there to mute/unmute a microphone during a Nextcloud Talk call?",
+    "evidence_pages": [
+      117,
+      118
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "MP_Text_Understanding",
+      "MP_Figure_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        100,
+        117
+      ],
+      "correct_pages": [
+        117
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 43.58188605308533,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        100,
+        117
+      ],
+      "correct_pages": [
+        117
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 322.8907301425934,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4066338",
+    "pdf_path": "4066338.pdf",
+    "query": "What's name of the figure at the page which contains a table whose name is \"Table 5.1: Gender performance using LBP texture and full face. Percentage values represent the class-specific accuracies and the average class-specific accuracy for each experiment. VeriLook pre-dicted no gender on 2.75% and 0.89% of male and female images respectively in the FRGC dataset. In the MORPH dataset it predicted no gender on 0.5% and 11.26% of male and female images.\"?",
+    "evidence_pages": [
+      90
+    ],
+    "task_tag": "Locating",
+    "subTask": [
+      "Figure_Table_Locating"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        25,
+        90
+      ],
+      "correct_pages": [
+        90
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 43.387320041656494,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        56,
+        90
+      ],
+      "correct_pages": [
+        90
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 407.3625342845917,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4072232",
+    "pdf_path": "4072232.pdf",
+    "query": "What's name of the table talking about the Aquatic nuisance species？",
+    "evidence_pages": [
+      125
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "SP_Table_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        112,
+        126
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 45.97297263145447,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        112,
+        111
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 337.5879011154175,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4147727",
+    "pdf_path": "4147727.pdf",
+    "query": "How many different ratings of 1492-MCA branch circuit breakers are listed in Table?",
+    "evidence_pages": [
+      110,
+      111
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "MP_Table_Reasoning",
+      "MP_Figure_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        114,
+        110
+      ],
+      "correct_pages": [
+        110
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 44.84717559814453,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        113,
+        111
+      ],
+      "correct_pages": [
+        111
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 347.68736600875854,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4174854",
+    "pdf_path": "4174854.pdf",
+    "query": "Count the total number of primary and alias network variables supported by CNP on a typical Neuron hosted device.",
+    "evidence_pages": [
+      74
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "SP_Text_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        74,
+        30
+      ],
+      "correct_pages": [
+        74
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 32.92371988296509,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        74,
+        30
+      ],
+      "correct_pages": [
+        74
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 256.36692237854004,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4061601",
+    "pdf_path": "4061601.pdf",
+    "query": "How much did the total restructuring liability increase at December 31, 2016, compared to December 31, 2015?",
+    "evidence_pages": [
+      69
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "SP_Table_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        69,
+        6
+      ],
+      "correct_pages": [
+        69
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 24.081610202789307,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        69,
+        6
+      ],
+      "correct_pages": [
+        69
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 243.96089482307434,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4031704",
+    "pdf_path": "4031704.pdf",
+    "query": "How many team members did \"Spike It Up Sports Track Club A\" confirm for the 4x100 Meter Relay 17-18 year old Men?",
+    "evidence_pages": [
+      66
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "SP_Layout_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        66,
+        67
+      ],
+      "correct_pages": [
+        66
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 23.80102825164795,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        66,
+        31
+      ],
+      "correct_pages": [
+        66
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 235.85339760780334,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4057714",
+    "pdf_path": "4057714.pdf",
+    "query": "Count the total number of steps in the continuum of harm as described in the document.",
+    "evidence_pages": [
+      49,
+      50
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "MP_Text_Reasoning",
+      "MP_Layout_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        49,
+        50
+      ],
+      "correct_pages": [
+        49,
+        50
+      ],
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "retrieval_time": 41.678422689437866,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        49,
+        50
+      ],
+      "correct_pages": [
+        49,
+        50
+      ],
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "retrieval_time": 267.8890345096588,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4111230",
+    "pdf_path": "4111230.pdf",
+    "query": "Which dataset scree plot denotes the EM imputation method?\n(A). CCA\n(B). CCA with long transformed item 25\n(C). EM imputed dataset\n(D). EM with long transformed item 25\nChoose the letter name in front of the right option from A, B, C, D.",
+    "evidence_pages": [
+      112
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "SP_Figure_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        112,
+        54
+      ],
+      "correct_pages": [
+        112
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 38.67893958091736,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        112,
+        54
+      ],
+      "correct_pages": [
+        112
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 299.4842429161072,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4132494",
+    "pdf_path": "4132494.pdf",
+    "query": "French economy ranks higher than all states in the United States, yes or no?",
+    "evidence_pages": [
+      97,
+      105
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "MP_Text_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        72,
+        40
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 36.959150552749634,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        106,
+        71
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 336.6770353317261,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4086173",
+    "pdf_path": "4086173.pdf",
+    "query": "In male-dominated occupations, both men and women report higher job satisfaction, yes or no?",
+    "evidence_pages": [
+      105,
+      106
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "MP_Table_Understanding",
+      "MP_Figure_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        105,
+        109
+      ],
+      "correct_pages": [
+        105
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 39.477484464645386,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        105,
+        109
+      ],
+      "correct_pages": [
+        105
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 241.35326862335205,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4173940",
+    "pdf_path": "4173940.pdf",
+    "query": "What is the total number of  \"Newborn\" inpatient beds across buildings BLD-00411, BLD-00413, and BLD-00418?",
+    "evidence_pages": [
+      79,
+      81,
+      84
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "MP_Table_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        84,
+        79
+      ],
+      "correct_pages": [
+        84,
+        79
+      ],
+      "recall": 0.6666666666666666,
+      "precision": 1.0,
+      "f1": 0.8,
+      "retrieval_time": 29.756475925445557,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        84,
+        79
+      ],
+      "correct_pages": [
+        84,
+        79
+      ],
+      "recall": 0.6666666666666666,
+      "precision": 1.0,
+      "f1": 0.8,
+      "retrieval_time": 232.20307898521423,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4100212",
+    "pdf_path": "4100212.pdf",
+    "query": "List names of the other tables at the page which contains a table whose name is \"TABLE 232: TpX2: ASCII Table\".",
+    "evidence_pages": [
+      79
+    ],
+    "task_tag": "Locating",
+    "subTask": [
+      "Figure_Table_Locating"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        81,
+        3
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 37.44774580001831,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        81,
+        82
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "retrieval_time": 242.86932635307312,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4190947",
+    "pdf_path": "4190947.pdf",
+    "query": "What is the maximum displacement of the valve leaflets away from the center of the computational domain in the rigid wall tissue valve model?",
+    "evidence_pages": [
+      94
+    ],
+    "task_tag": "Reasoning",
+    "subTask": [
+      "SP_Text_Reasoning"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        100,
+        94
+      ],
+      "correct_pages": [
+        94
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 39.199260234832764,
+      "success": true
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        100,
+        94
+      ],
+      "correct_pages": [
+        94
+      ],
+      "recall": 1.0,
+      "precision": 0.5,
+      "f1": 0.6666666666666666,
+      "retrieval_time": 344.509482383728,
+      "success": true
+    }
+  },
+  {
+    "doc_id": "4069930",
+    "pdf_path": "4069930.pdf",
+    "query": "What are the key titles related to 'charity' across the document?",
+    "evidence_pages": [
+      96,
+      98,
+      101,
+      103
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "MP_Text_Understanding",
+      "MP_Layout_Understanding",
+      "MP_Figure_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        96,
+        102
+      ],
+      "correct_pages": [
+        96
+      ],
+      "recall": 0.25,
+      "precision": 0.5,
+      "f1": 0.3333333333333333,
+      "retrieval_time": 32.91676902770996,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        96,
+        102
+      ],
+      "correct_pages": [
+        96
+      ],
+      "recall": 0.25,
+      "precision": 0.5,
+      "f1": 0.3333333333333333,
+      "retrieval_time": 291.24879217147827,
+      "success": false
+    }
+  },
+  {
+    "doc_id": "4072260",
+    "pdf_path": "4072260.pdf",
+    "query": "Which item must be created after restoring both the configuration and stores databases to the new server?",
+    "evidence_pages": [
+      86,
+      87
+    ],
+    "task_tag": "Understanding",
+    "subTask": [
+      "MP_Table_Understanding"
+    ],
+    "single_intent": {
+      "retrieved_pages": [
+        11,
+        87
+      ],
+      "correct_pages": [
+        87
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 31.698191165924072,
+      "success": false
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        11,
+        87
+      ],
+      "correct_pages": [
+        87
+      ],
+      "recall": 0.5,
+      "precision": 0.5,
+      "f1": 0.5,
+      "retrieval_time": 227.45122361183167,
+      "success": false
+    }
+  }
+]

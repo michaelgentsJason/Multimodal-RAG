@@ -1,0 +1,6 @@
+2025-06-09 23:31:10,766 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-09 23:31:10,874 - INFO - DeepSearch_Beta模块初始化
+2025-06-09 23:33:10,132 - INFO - 🔍 意图拆分结果: ['Enumerate the key features associated with "Huddle" section.']
+2025-06-09 23:33:10,133 - INFO - 🔍 检索意图 1/1: Enumerate the key features associated with "Huddle" section.
+2025-06-09 23:33:38,193 - INFO - 📊 最终结果: 5 条
+2025-06-09 23:33:38,193 - INFO - [0.0, 0.0, 0.0, 0.0, 0.0]

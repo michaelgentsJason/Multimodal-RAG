@@ -1,0 +1,44 @@
+文档 1 多意图拆解分析报告
+==================================================
+
+📄 文档: 4057524.pdf
+❓ 原始查询: Enumerate the key features associated with "Huddle" section.
+📋 证据页面: [117]
+
+🎯 意图拆解结果:
+------------------------------
+1. What are the primary functional characteristics of the 'Huddle' section?
+2. How is the 'Huddle' section designed to facilitate collaboration?
+3. What distinguishes the 'Huddle' section from other similar collaborative spaces?
+4. What technical features enable real-time interaction in the 'Huddle' section?
+5. What user interface elements are critical to the 'Huddle' section's operation?
+6. What specific tools or widgets are integrated into the 'Huddle' section?
+7. How does the 'Huddle' section address privacy and data security concerns?
+8. What are the key limitations or constraints of the 'Huddle' section's design?
+9. What metrics or success criteria define the effectiveness of the 'Huddle' section?
+10. What user accessibility features are incorporated into the 'Huddle' section?
+
+📊 拆解统计:
+   - 原始查询词数: 8
+   - 拆解意图数量: 10
+
+🔍 检索结果对比:
+------------------------------
+单意图检索:
+   - 检索页面: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+   - 正确页面: []
+   - F1值: 0.0000
+   - 用时: 51.61秒
+
+多意图检索:
+   - 检索页面: [1]
+   - 正确页面: []
+   - F1值: 0.0000
+   - 用时: 543.98秒
+
+📈 性能提升:
+------------------------------
+   - 召回率变化: +0.0000
+   - 精确率变化: +0.0000
+   - F1值变化: +0.0000
+   ➖ 两种方法表现相当

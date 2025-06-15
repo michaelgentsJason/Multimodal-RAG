@@ -1,0 +1,253 @@
+2025-06-09 01:23:50,354 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-09 01:23:50,429 - INFO - DeepSearch_Beta模块初始化
+2025-06-09 01:26:04,106 - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-06-09 01:26:04,119 - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-06-09 01:34:19,274 - WARNING - Error while downloading from https://huggingface.co/vidore/colqwen2.5-base/resolve/92908120384b7a2110c5beda3ab29cbdb2c08e49/model-00001-of-00002.safetensors: HTTPSConnectionPool(host='cas-bridge.xethub.hf.co', port=443): Read timed out.
+Trying to resume download...
+2025-06-09 01:35:39,412 - ERROR - ❌ 模型初始化失败: Torch not compiled with CUDA enabled
+2025-06-09 01:35:39,412 - ERROR - ❌ 测试过程中发生错误: Torch not compiled with CUDA enabled
+Traceback (most recent call last):
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 604, in main
+    tester = ColPaliMultiIntentTester(args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 75, in __init__
+    self._setup_models()
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 129, in _setup_models
+    self.mm_matcher = MultimodalMatcher(
+                      ^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\retriever_multimodal_bge.py", line 443, in __init__
+    self._setup_models()
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\retriever_multimodal_bge.py", line 454, in _setup_models
+    self.image_model = ColQwen2_5.from_pretrained(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 272, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 4455, in from_pretrained
+    ) = cls._load_pretrained_model(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 4841, in _load_pretrained_model
+    caching_allocator_warmup(model_to_load, expanded_device_map)
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 5849, in caching_allocator_warmup
+    device_memory = torch.cuda.mem_get_info(device)[0]
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\torch\cuda\memory.py", line 712, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\torch\cuda\__init__.py", line 398, in cudart
+    _lazy_init()
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\torch\cuda\__init__.py", line 310, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+2025-06-09 01:39:14,801 - INFO - PyTorch version 2.5.1 available.
+2025-06-09 01:39:16,779 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-09 01:39:16,849 - INFO - DeepSearch_Beta模块初始化
+2025-06-09 01:39:16,850 - WARNING -   ⚠️ CUDA不可用，将使用CPU模式
+2025-06-09 01:39:16,850 - WARNING -   ⚠️ CUDA不可用，将使用CPU模式
+2025-06-09 01:40:05,399 - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-06-09 01:40:09,298 - ERROR - ❌ 多模态匹配器初始化失败: Torch not compiled with CUDA enabled
+2025-06-09 01:40:09,298 - ERROR - ❌ 文本检索器设置失败: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-09 01:40:09,298 - ERROR - ❌ 模型初始化失败: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-09 01:40:09,298 - ERROR - ❌ 测试过程中发生错误: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+Traceback (most recent call last):
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 177, in _setup_models
+    self.mm_matcher = MultimodalMatcher(
+                      ^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\retriever_multimodal_bge.py", line 443, in __init__
+    self._setup_models()
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\retriever_multimodal_bge.py", line 454, in _setup_models
+    self.image_model = ColQwen2_5.from_pretrained(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 272, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 4455, in from_pretrained
+    ) = cls._load_pretrained_model(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 4841, in _load_pretrained_model
+    caching_allocator_warmup(model_to_load, expanded_device_map)
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 5849, in caching_allocator_warmup
+    device_memory = torch.cuda.mem_get_info(device)[0]
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\torch\cuda\memory.py", line 712, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\torch\cuda\__init__.py", line 398, in cudart
+    _lazy_init()
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\torch\cuda\__init__.py", line 310, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 715, in main
+    tester = ColPaliMultiIntentTester(args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 109, in __init__
+    self._setup_models()
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 190, in _setup_models
+    self.mm_matcher = self._setup_text_only_matcher(retriever_config)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 209, in _setup_text_only_matcher
+    matcher = EmbeddingMatcher(
+              ^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\tool_retriever_embed.py", line 139, in __init__
+    self.client = self._get_openai_client()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\tool_retriever_embed.py", line 186, in _get_openai_client
+    return OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\openai\_client.py", line 126, in __init__
+    raise OpenAIError(
+openai.OpenAIError: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-09 02:09:51,687 - INFO - PyTorch version 2.5.1+cu118 available.
+2025-06-09 02:09:56,651 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-09 02:09:56,830 - INFO - DeepSearch_Beta模块初始化
+2025-06-09 02:10:12,484 - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-06-09 02:10:40,010 - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-06-09 02:10:43,097 - ERROR - ❌ PDF转换失败: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 02:10:43,097 - ERROR - ❌ 无法处理PDF文档
+2025-06-09 02:10:43,098 - ERROR - ❌ PDF转换失败: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 02:10:43,098 - ERROR - ❌ 无法处理PDF文档
+2025-06-09 02:10:43,098 - ERROR - ❌ PDF转换失败: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 02:10:43,098 - ERROR - ❌ 无法处理PDF文档
+2025-06-09 02:10:43,099 - ERROR - ❌ PDF转换失败: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 02:10:43,099 - ERROR - ❌ 无法处理PDF文档
+2025-06-09 02:10:43,099 - ERROR - ❌ PDF转换失败: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 02:10:43,099 - ERROR - ❌ 无法处理PDF文档
+2025-06-09 02:10:43,102 - WARNING - ⚠️ 没有有效结果可分析
+2025-06-09 02:23:03,020 - INFO - PyTorch version 2.5.1+cu118 available.
+2025-06-09 02:23:05,168 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-09 02:23:05,238 - INFO - DeepSearch_Beta模块初始化
+2025-06-09 02:27:19,177 - ERROR - ❌ 多模态匹配器初始化失败: (ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: e3ee7787-e5a7-40bd-9d2c-94d17696fff1)')
+2025-06-09 02:27:19,183 - ERROR - ❌ 文本检索器设置失败: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-09 02:27:19,183 - ERROR - ❌ 模型初始化失败: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-09 02:27:19,183 - ERROR - ❌ 测试过程中发生错误: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\socket.py", line 718, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 177, in _setup_models
+    self.mm_matcher = MultimodalMatcher(
+                      ^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\retriever_multimodal_bge.py", line 443, in __init__
+    self._setup_models()
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\retriever_multimodal_bge.py", line 454, in _setup_models
+    self.image_model = ColQwen2_5.from_pretrained(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 272, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\modeling_utils.py", line 4540, in from_pretrained
+    model.load_adapter(
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\transformers\integrations\peft.py", line 226, in load_adapter
+    adapter_state_dict = load_peft_weights(peft_model_id, token=token, device=device, **adapter_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\peft\utils\save_and_load.py", line 542, in load_peft_weights
+    has_remote_safetensors_file = file_exists(
+                                  ^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\hf_api.py", line 2967, in file_exists
+    get_hf_file_metadata(url, token=token)
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\file_download.py", line 1450, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\file_download.py", line 286, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\file_download.py", line 309, in _request_wrapper
+    response = http_backoff(method=method, url=url, **params, retry_on_exceptions=(), retry_on_status_codes=(429,))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\utils\_http.py", line 310, in http_backoff
+    response = session.request(method=method, url=url, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\huggingface_hub\utils\_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: (ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: e3ee7787-e5a7-40bd-9d2c-94d17696fff1)')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 715, in main
+    tester = ColPaliMultiIntentTester(args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 109, in __init__
+    self._setup_models()
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 190, in _setup_models
+    self.mm_matcher = self._setup_text_only_matcher(retriever_config)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\new_multi_intent_retrieval.py", line 209, in _setup_text_only_matcher
+    matcher = EmbeddingMatcher(
+              ^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\tool_retriever_embed.py", line 139, in __init__
+    self.client = self._get_openai_client()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\deep_retrieve\tool_retriever_embed.py", line 186, in _get_openai_client
+    return OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.conda\envs\myenv\Lib\site-packages\openai\_client.py", line 126, in __init__
+    raise OpenAIError(
+openai.OpenAIError: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable

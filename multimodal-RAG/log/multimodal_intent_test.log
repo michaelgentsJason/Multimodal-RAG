@@ -1,0 +1,367 @@
+2025-05-06 15:10:12,748 - INFO - === 日志系统初始化完成，日志文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/log/multimodal_intent_test.log ===
+2025-05-06 15:10:15,382 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-05-06 15:10:15,470 - INFO - DeepSearch_Beta模块初始化
+2025-05-06 15:10:15,474 - INFO - 初始化检索模型...
+2025-05-06 15:10:26,089 - INFO - 已初始化标准多模态匹配器
+2025-05-06 15:10:26,090 - INFO - 模型初始化完成
+2025-05-06 15:10:26,092 - INFO - 开始多模态多意图检索测试...
+2025-05-06 15:10:26,093 - INFO - 开始测试单意图和多意图检索效果对比...
+2025-05-06 15:10:26,093 - INFO - 加载测试数据: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/selected_LongDocURL_public_with_subtask_category.jsonl
+2025-05-06 15:10:26,098 - INFO - 成功加载 40 条测试数据
+2025-05-06 15:10:29,200 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4064501.json
+2025-05-06 15:10:29,200 - INFO - 成功创建 66 个文档对象
+2025-05-06 15:10:30,847 - INFO - 🔍 意图拆分结果: ['Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.']
+2025-05-06 15:10:30,847 - INFO - 🔍 检索意图 1/1: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-05-06 15:10:51,918 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:10:51,918 - ERROR - 处理文档 4064501.pdf 时出错: 'page'
+2025-05-06 15:11:00,683 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4129670.json
+2025-05-06 15:11:00,684 - INFO - 成功创建 129 个文档对象
+2025-05-06 15:25:57,912 - INFO - === 日志系统初始化完成，日志文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/log/multimodal_intent_test.log ===
+2025-05-06 15:26:01,055 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-05-06 15:26:01,147 - INFO - DeepSearch_Beta模块初始化
+2025-05-06 15:26:01,151 - INFO - 初始化检索模型...
+2025-05-06 15:26:11,660 - INFO - 已初始化标准多模态匹配器
+2025-05-06 15:26:11,662 - INFO - 模型初始化完成
+2025-05-06 15:26:11,665 - INFO - 开始多模态多意图检索测试...
+2025-05-06 15:26:11,667 - INFO - 开始测试单意图和多意图检索效果对比...
+2025-05-06 15:26:11,667 - INFO - 加载测试数据: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/selected_LongDocURL_public_with_subtask_category.jsonl
+2025-05-06 15:26:11,672 - INFO - 成功加载 40 条测试数据
+2025-05-06 15:26:14,767 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4064501.json
+2025-05-06 15:26:14,768 - INFO - 成功创建 66 个文档对象
+2025-05-06 15:26:16,254 - INFO - 🔍 意图拆分结果: ['Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.']
+2025-05-06 15:26:16,254 - INFO - 🔍 检索意图 1/1: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-05-06 15:26:38,495 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:26:38,496 - INFO - [7.03125, 6.71875, 6.25, 6.25, 6.09375, 6.03125, 6.0, 5.96875, 5.96875, 5.96875]
+2025-05-06 15:26:47,506 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4129670.json
+2025-05-06 15:26:47,506 - INFO - 成功创建 129 个文档对象
+2025-05-06 15:26:50,044 - INFO - 🔍 意图拆分结果: ["Which section best matches the follwing description: \n<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>\nSelect titles from the doc that best answer the question, do not alter or analyze the titles themselves."]
+2025-05-06 15:26:50,044 - INFO - 🔍 检索意图 1/1: Which section best matches the follwing description: 
+<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>
+Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.
+2025-05-06 15:27:31,524 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:27:31,525 - INFO - [28.125, 27.75, 26.25, 25.5, 25.5, 25.375, 25.375, 25.375, 25.25, 25.25]
+2025-05-06 15:27:37,909 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4012567.json
+2025-05-06 15:27:37,909 - INFO - 成功创建 113 个文档对象
+2025-05-06 15:27:40,265 - INFO - 🔍 意图拆分结果: ['What is the maximum percentage of "total application percentage" for the Mesket Census Area in Texas on Map 5.2?']
+2025-05-06 15:27:40,266 - INFO - 🔍 检索意图 1/1: What is the maximum percentage of "total application percentage" for the Mesket Census Area in Texas on Map 5.2?
+2025-05-06 15:28:15,959 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:28:15,959 - INFO - [8.9375, 8.3125, 7.6875, 7.375, 7.28125, 7.25, 7.21875, 7.21875, 7.1875, 7.15625]
+2025-05-06 15:28:34,286 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4057714.json
+2025-05-06 15:28:34,287 - INFO - 成功创建 129 个文档对象
+2025-05-06 15:28:37,106 - INFO - 🔍 意图拆分结果: ['Count the total number of steps in the continuum of harm as described in the document.']
+2025-05-06 15:28:37,107 - INFO - 🔍 检索意图 1/1: Count the total number of steps in the continuum of harm as described in the document.
+2025-05-06 15:29:17,366 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:29:17,367 - INFO - [7.8125, 7.78125, 7.75, 7.75, 7.75, 7.6875, 7.6875, 7.5625, 7.5625, 7.5625]
+2025-05-06 15:29:29,672 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4196005.json
+2025-05-06 15:29:29,673 - INFO - 成功创建 98 个文档对象
+2025-05-06 15:29:31,676 - INFO - 🔍 意图拆分结果: ['Which demographic is most likely to experience material hardship in Kent County?']
+2025-05-06 15:29:31,676 - INFO - 🔍 检索意图 1/1: Which demographic is most likely to experience material hardship in Kent County?
+2025-05-06 15:30:03,542 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:30:03,543 - INFO - [6.75, 6.625, 6.5625, 6.53125, 6.53125, 6.5, 6.46875, 6.46875, 6.4375, 6.4375]
+2025-05-06 15:30:09,116 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4174854.json
+2025-05-06 15:30:09,116 - INFO - 成功创建 98 个文档对象
+2025-05-06 15:30:11,177 - INFO - 🔍 意图拆分结果: ['Count the total number of primary and alias network variables supported by CNP on a typical Neuron hosted device.']
+2025-05-06 15:30:11,177 - INFO - 🔍 检索意图 1/1: Count the total number of primary and alias network variables supported by CNP on a typical Neuron hosted device.
+2025-05-06 15:30:43,249 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:30:43,250 - INFO - [8.375, 8.3125, 8.125, 8.0625, 7.90625, 7.90625, 7.625, 7.59375, 7.5625, 7.53125]
+2025-05-06 15:31:28,303 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4005877.json
+2025-05-06 15:31:28,304 - INFO - 成功创建 124 个文档对象
+2025-05-06 15:31:31,395 - INFO - 🔍 意图拆分结果: ['Where is the discussion on social and economic inequality, particularly in relation to housing?\nSelect titles from the doc that best answer the question, do not alter or analyze the titles themselves.']
+2025-05-06 15:31:31,396 - INFO - 🔍 检索意图 1/1: Where is the discussion on social and economic inequality, particularly in relation to housing?
+Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.
+2025-05-06 15:32:13,810 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:32:13,810 - INFO - [13.875, 13.3125, 12.875, 12.75, 12.6875, 12.6875, 12.5625, 12.5625, 12.5625, 12.5]
+2025-05-06 15:32:22,932 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4072232.json
+2025-05-06 15:32:22,932 - INFO - 成功创建 138 个文档对象
+2025-05-06 15:32:25,195 - INFO - 🔍 意图拆分结果: ["What's name of the table talking about the Aquatic nuisance species？"]
+2025-05-06 15:32:25,195 - INFO - 🔍 检索意图 1/1: What's name of the table talking about the Aquatic nuisance species？
+2025-05-06 15:33:10,102 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:33:10,102 - INFO - [9.6875, 9.5625, 9.375, 9.375, 9.25, 9.0625, 9.0625, 9.0, 9.0, 8.9375]
+2025-05-06 15:33:22,405 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4069930.json
+2025-05-06 15:33:22,405 - INFO - 成功创建 103 个文档对象
+2025-05-06 15:33:24,086 - INFO - 🔍 意图拆分结果: ["What are the key titles related to 'charity' across the document?"]
+2025-05-06 15:33:24,087 - INFO - 🔍 检索意图 1/1: What are the key titles related to 'charity' across the document?
+2025-05-06 15:33:56,085 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:33:56,086 - INFO - [9.25, 9.1875, 8.9375, 8.8125, 8.6875, 8.6875, 8.5625, 8.3125, 8.25, 8.1875]
+2025-05-06 15:34:02,256 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4176503.json
+2025-05-06 15:34:02,257 - INFO - 成功创建 112 个文档对象
+2025-05-06 15:34:04,110 - INFO - 🔍 意图拆分结果: ['Black students, who made up just 12.3% of the student population, represented just one quarter of out-of-school suspensions, yes or no?']
+2025-05-06 15:34:04,110 - INFO - 🔍 检索意图 1/1: Black students, who made up just 12.3% of the student population, represented just one quarter of out-of-school suspensions, yes or no?
+2025-05-06 15:34:40,821 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:34:40,822 - INFO - [6.40625, 6.40625, 6.375, 6.3125, 6.28125, 6.28125, 6.28125, 6.28125, 6.25, 6.25]
+2025-05-06 15:34:46,202 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4138347.json
+2025-05-06 15:34:46,203 - INFO - 成功创建 122 个文档对象
+2025-05-06 15:34:48,173 - INFO - 🔍 意图拆分结果: ['What was the date  for the document titled "LETTER OF UNDERSTANDING NO. 8"?']
+2025-05-06 15:34:48,174 - INFO - 🔍 检索意图 1/1: What was the date  for the document titled "LETTER OF UNDERSTANDING NO. 8"?
+2025-05-06 15:35:26,368 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:35:26,368 - INFO - [15.0, 14.0625, 14.0625, 14.0625, 14.0625, 14.0625, 14.0625, 14.0625, 14.0625, 14.0625]
+2025-05-06 15:35:32,535 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4111230.json
+2025-05-06 15:35:32,535 - INFO - 成功创建 116 个文档对象
+2025-05-06 15:35:34,452 - INFO - 🔍 意图拆分结果: ['Which dataset scree plot denotes the EM imputation method?\n(A). CCA\n(B). CCA with long transformed item 25\n(C). EM imputed dataset\n(D). EM with long transformed item 25\nChoose the letter name in front of the right option from A, B, C, D.']
+2025-05-06 15:35:34,453 - INFO - 🔍 检索意图 1/1: Which dataset scree plot denotes the EM imputation method?
+(A). CCA
+(B). CCA with long transformed item 25
+(C). EM imputed dataset
+(D). EM with long transformed item 25
+Choose the letter name in front of the right option from A, B, C, D.
+2025-05-06 15:36:11,718 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:36:11,718 - INFO - [14.9375, 13.75, 12.375, 12.0, 11.9375, 11.875, 11.8125, 11.6875, 11.625, 11.625]
+2025-05-06 15:36:21,433 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4174181.json
+2025-05-06 15:36:21,433 - INFO - 成功创建 122 个文档对象
+2025-05-06 15:36:23,428 - INFO - 🔍 意图拆分结果: ['Which tables compare Unix/Linux and Windows permissions and list key topics and summaries for Chapter 7?\nSelect table names from the doc that best answer the question, do not alter or analyze the table names themselves.']
+2025-05-06 15:36:23,428 - INFO - 🔍 检索意图 1/1: Which tables compare Unix/Linux and Windows permissions and list key topics and summaries for Chapter 7?
+Select table names from the doc that best answer the question, do not alter or analyze the table names themselves.
+2025-05-06 15:37:03,164 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:37:03,164 - INFO - [14.8125, 14.625, 14.4375, 14.25, 13.5, 13.5, 13.4375, 13.375, 13.375, 13.375]
+2025-05-06 15:37:08,823 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4094684.json
+2025-05-06 15:37:08,824 - INFO - 成功创建 113 个文档对象
+2025-05-06 15:37:10,716 - INFO - 🔍 意图拆分结果: ['How many production photos are depicted in Appendix D, across all pages?']
+2025-05-06 15:37:10,717 - INFO - 🔍 检索意图 1/1: How many production photos are depicted in Appendix D, across all pages?
+2025-05-06 15:37:46,339 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:37:46,340 - INFO - [7.53125, 7.09375, 7.0, 6.90625, 6.875, 6.75, 6.59375, 6.28125, 6.25, 6.21875]
+2025-05-06 15:37:52,172 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4129570.json
+2025-05-06 15:37:52,173 - INFO - 成功创建 91 个文档对象
+2025-05-06 15:37:53,688 - INFO - 🔍 意图拆分结果: ['How many alternatives offered by the insurance subcommittee are there to prevent misuse of genetic information in insurance?']
+2025-05-06 15:37:53,688 - INFO - 🔍 检索意图 1/1: How many alternatives offered by the insurance subcommittee are there to prevent misuse of genetic information in insurance?
+2025-05-06 15:38:23,601 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:38:23,602 - INFO - [5.71875, 5.59375, 5.5625, 5.5625, 5.5625, 5.5625, 5.5625, 5.53125, 5.53125, 5.53125]
+2025-05-06 15:38:43,486 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4066338.json
+2025-05-06 15:38:43,487 - INFO - 成功创建 130 个文档对象
+2025-05-06 15:38:45,619 - INFO - 🔍 意图拆分结果: ['What\'s name of the figure at the page which contains a table whose name is "Table 5.1: Gender performance using LBP texture and full face. Percentage values represent the class-specific accuracies and the average class-specific accuracy for each experiment. VeriLook pre-dicted no gender on 2.75% and 0.89% of male and female images respectively in the FRGC dataset. In the MORPH dataset it predicted no gender on 0.5% and 11.26% of male and female images."?']
+2025-05-06 15:38:45,620 - INFO - 🔍 检索意图 1/1: What's name of the figure at the page which contains a table whose name is "Table 5.1: Gender performance using LBP texture and full face. Percentage values represent the class-specific accuracies and the average class-specific accuracy for each experiment. VeriLook pre-dicted no gender on 2.75% and 0.89% of male and female images respectively in the FRGC dataset. In the MORPH dataset it predicted no gender on 0.5% and 11.26% of male and female images."?
+2025-05-06 15:39:27,474 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:39:27,475 - INFO - [18.375, 18.375, 17.125, 17.125, 16.875, 16.125, 16.0, 15.9375, 15.8125, 15.75]
+2025-05-06 15:39:51,353 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4091919.json
+2025-05-06 15:39:51,353 - INFO - 成功创建 89 个文档对象
+2025-05-06 15:39:53,382 - INFO - 🔍 意图拆分结果: ['How many drones in the $500-$1000 range have a camera with no distortion lens, preventing a fisheye effect, as described in the text?']
+2025-05-06 15:39:53,382 - INFO - 🔍 检索意图 1/1: How many drones in the $500-$1000 range have a camera with no distortion lens, preventing a fisheye effect, as described in the text?
+2025-05-06 15:40:22,670 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:40:22,670 - INFO - [6.75, 6.5, 6.375, 6.15625, 6.0, 6.0, 5.96875, 5.84375, 5.71875, 5.6875]
+2025-05-06 15:40:27,282 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4132494.json
+2025-05-06 15:40:27,282 - INFO - 成功创建 111 个文档对象
+2025-05-06 15:40:29,117 - INFO - 🔍 意图拆分结果: ['French economy ranks higher than all states in the United States, yes or no?']
+2025-05-06 15:40:29,117 - INFO - 🔍 检索意图 1/1: French economy ranks higher than all states in the United States, yes or no?
+2025-05-06 15:41:04,818 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:41:04,818 - INFO - [6.59375, 6.5, 6.5, 6.4375, 6.4375, 6.4375, 6.4375, 6.40625, 6.375, 6.375]
+2025-05-06 15:42:50,282 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4063393.json
+2025-05-06 15:42:50,283 - INFO - 成功创建 118 个文档对象
+2025-05-06 15:42:52,203 - INFO - 🔍 意图拆分结果: ['What is the primary conclusion about the effectiveness of skin carotenoid status as a biomarker?']
+2025-05-06 15:42:52,203 - INFO - 🔍 检索意图 1/1: What is the primary conclusion about the effectiveness of skin carotenoid status as a biomarker?
+2025-05-06 15:43:28,922 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:43:28,923 - INFO - [9.75, 8.75, 7.84375, 7.5625, 7.53125, 7.5, 7.34375, 7.34375, 7.21875, 7.21875]
+2025-05-06 15:43:34,499 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4010333.json
+2025-05-06 15:43:34,499 - INFO - 成功创建 123 个文档对象
+2025-05-06 15:43:36,535 - INFO - 🔍 意图拆分结果: ['How many steps are mentioned in the notification process for unauthorized disclosure detailed in Annex 6?']
+2025-05-06 15:43:36,535 - INFO - 🔍 检索意图 1/1: How many steps are mentioned in the notification process for unauthorized disclosure detailed in Annex 6?
+2025-05-06 15:44:16,936 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:44:16,936 - INFO - [6.15625, 6.09375, 6.03125, 6.03125, 6.0, 6.0, 5.9375, 5.9375, 5.9375, 5.90625]
+2025-05-06 15:44:21,628 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4106951.json
+2025-05-06 15:44:21,629 - INFO - 成功创建 115 个文档对象
+2025-05-06 15:44:23,540 - INFO - 🔍 意图拆分结果: ['The document contains an article titled "DARWINISM AND ITS PERVERSIONS",yes or no?']
+2025-05-06 15:44:23,541 - INFO - 🔍 检索意图 1/1: The document contains an article titled "DARWINISM AND ITS PERVERSIONS",yes or no?
+2025-05-06 15:45:01,374 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:45:01,375 - INFO - [10.25, 10.125, 10.125, 10.125, 10.125, 10.125, 10.0625, 10.0625, 10.0625, 10.0625]
+2025-05-06 15:45:08,056 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4072260.json
+2025-05-06 15:45:08,057 - INFO - 成功创建 97 个文档对象
+2025-05-06 15:45:09,666 - INFO - 🔍 意图拆分结果: ['Which item must be created after restoring both the configuration and stores databases to the new server?']
+2025-05-06 15:45:09,666 - INFO - 🔍 检索意图 1/1: Which item must be created after restoring both the configuration and stores databases to the new server?
+2025-05-06 15:45:40,636 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:45:40,636 - INFO - [7.125, 6.75, 6.625, 6.34375, 6.3125, 6.28125, 6.28125, 6.21875, 6.15625, 6.09375]
+2025-05-06 15:45:47,552 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4185438.json
+2025-05-06 15:45:47,552 - INFO - 成功创建 147 个文档对象
+2025-05-06 15:45:49,905 - INFO - 🔍 意图拆分结果: ['What is defined as an action of a group G on an object A in a category C, as per Definition 4.5?']
+2025-05-06 15:45:49,905 - INFO - 🔍 检索意图 1/1: What is defined as an action of a group G on an object A in a category C, as per Definition 4.5?
+2025-05-06 15:46:37,973 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:46:37,974 - INFO - [9.125, 8.875, 7.71875, 7.5625, 7.5625, 7.125, 7.0, 6.78125, 6.75, 6.53125]
+2025-05-06 15:46:53,122 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4148165.json
+2025-05-06 15:46:53,122 - INFO - 成功创建 110 个文档对象
+2025-05-06 15:46:55,027 - INFO - 🔍 意图拆分结果: ['The document mention addressing the fairness issue of the "benefiting conscientious objector"-alternative service,yes or no?']
+2025-05-06 15:46:55,027 - INFO - 🔍 检索意图 1/1: The document mention addressing the fairness issue of the "benefiting conscientious objector"-alternative service,yes or no?
+2025-05-06 15:47:30,243 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:47:30,243 - INFO - [8.5625, 8.4375, 8.4375, 8.375, 8.3125, 8.3125, 8.3125, 8.3125, 8.3125, 8.3125]
+2025-05-06 15:47:34,745 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4077673.json
+2025-05-06 15:47:34,745 - INFO - 成功创建 74 个文档对象
+2025-05-06 15:47:35,952 - INFO - 🔍 意图拆分结果: ['How many notices are considered redundant or irrelevant and will be eliminated according to the Quick Start proposal?']
+2025-05-06 15:47:35,953 - INFO - 🔍 检索意图 1/1: How many notices are considered redundant or irrelevant and will be eliminated according to the Quick Start proposal?
+2025-05-06 15:47:59,810 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:47:59,810 - INFO - [5.59375, 5.4375, 5.40625, 5.40625, 5.375, 5.34375, 5.3125, 5.3125, 5.3125, 5.3125]
+2025-05-06 15:48:10,687 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4145761.json
+2025-05-06 15:48:10,687 - INFO - 成功创建 135 个文档对象
+2025-05-06 15:48:12,829 - INFO - 🔍 意图拆分结果: ['How many ways are there to mute/unmute a microphone during a Nextcloud Talk call?']
+2025-05-06 15:48:12,830 - INFO - 🔍 检索意图 1/1: How many ways are there to mute/unmute a microphone during a Nextcloud Talk call?
+2025-05-06 15:48:55,271 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:48:55,271 - INFO - [6.71875, 6.59375, 6.5, 6.375, 6.21875, 6.125, 6.09375, 6.0625, 6.0625, 6.0625]
+2025-05-06 15:49:04,410 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4027862.json
+2025-05-06 15:49:04,411 - INFO - 成功创建 102 个文档对象
+2025-05-06 15:49:04,824 - INFO - 🔍 意图拆分结果: ['What was the total export quantity for Japanese Muskmelon in 2020?']
+2025-05-06 15:49:04,824 - INFO - 🔍 检索意图 1/1: What was the total export quantity for Japanese Muskmelon in 2020?
+2025-05-06 15:49:33,662 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:49:33,663 - INFO - [7.125, 6.6875, 6.5, 6.40625, 6.375, 5.96875, 5.90625, 5.875, 5.78125, 5.65625]
+2025-05-06 15:49:37,522 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4126467.json
+2025-05-06 15:49:37,522 - INFO - 成功创建 83 个文档对象
+2025-05-06 15:49:38,918 - INFO - 🔍 意图拆分结果: ['Which tables outline the required flow and openings for flushing pipelines?\nSelect table names from the doc that best answer the question, do not alter or analyze the table names themselves.']
+2025-05-06 15:49:38,918 - INFO - 🔍 检索意图 1/1: Which tables outline the required flow and openings for flushing pipelines?
+Select table names from the doc that best answer the question, do not alter or analyze the table names themselves.
+2025-05-06 15:50:05,477 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:50:05,478 - INFO - [12.5625, 12.3125, 12.25, 12.125, 12.125, 11.9375, 11.875, 11.875, 11.8125, 11.8125]
+2025-05-06 15:51:23,369 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4057524.json
+2025-05-06 15:51:23,370 - INFO - 成功创建 148 个文档对象
+2025-05-06 15:51:25,752 - INFO - 🔍 意图拆分结果: ['Enumerate the key features associated with "Huddle" section.']
+2025-05-06 15:51:25,752 - INFO - 🔍 检索意图 1/1: Enumerate the key features associated with "Huddle" section.
+2025-05-06 15:52:11,683 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:52:11,683 - INFO - [6.75, 6.625, 6.28125, 6.1875, 6.15625, 6.125, 6.03125, 5.9375, 5.875, 5.875]
+2025-05-06 15:52:17,364 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4107960.json
+2025-05-06 15:52:17,364 - INFO - 成功创建 86 个文档对象
+2025-05-06 15:52:18,770 - INFO - 🔍 意图拆分结果: ['What is the average number of samples an operator can analyze in an 8-hour day according to the analysis time summary?']
+2025-05-06 15:52:18,770 - INFO - 🔍 检索意图 1/1: What is the average number of samples an operator can analyze in an 8-hour day according to the analysis time summary?
+2025-05-06 15:52:47,136 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:52:47,136 - INFO - [7.0625, 6.25, 5.6875, 5.0625, 4.90625, 4.78125, 4.65625, 4.59375, 4.59375, 4.5625]
+2025-05-06 15:52:51,244 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4170122.json
+2025-05-06 15:52:51,245 - INFO - 成功创建 113 个文档对象
+2025-05-06 15:52:53,118 - INFO - 🔍 意图拆分结果: ["What is the difference in the 'Original 2017 Budget' between 'SOCIAL SECURITY' (Dept 9030) in Fund 007 (Page 96) and 'SOCIAL SECURITY' (Dept 9030) in Fund 009 (Page 109)?"]
+2025-05-06 15:52:53,119 - INFO - 🔍 检索意图 1/1: What is the difference in the 'Original 2017 Budget' between 'SOCIAL SECURITY' (Dept 9030) in Fund 007 (Page 96) and 'SOCIAL SECURITY' (Dept 9030) in Fund 009 (Page 109)?
+2025-05-06 15:53:29,361 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:53:29,362 - INFO - [17.125, 15.5, 14.6875, 14.625, 14.1875, 14.1875, 14.125, 14.0, 13.875, 13.8125]
+2025-05-06 15:53:43,570 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4057121.json
+2025-05-06 15:53:43,571 - INFO - 成功创建 119 个文档对象
+2025-05-06 15:53:45,616 - INFO - 🔍 意图拆分结果: ['What is the title of Exhibit 21.1?']
+2025-05-06 15:53:45,616 - INFO - 🔍 检索意图 1/1: What is the title of Exhibit 21.1?
+2025-05-06 15:54:25,238 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:54:25,239 - INFO - [10.1875, 10.1875, 9.75, 9.5625, 9.4375, 9.4375, 9.375, 9.375, 9.125, 9.125]
+2025-05-06 15:54:32,074 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4031704.json
+2025-05-06 15:54:32,074 - INFO - 成功创建 71 个文档对象
+2025-05-06 15:54:33,236 - INFO - 🔍 意图拆分结果: ['How many team members did "Spike It Up Sports Track Club A" confirm for the 4x100 Meter Relay 17-18 year old Men?']
+2025-05-06 15:54:33,236 - INFO - 🔍 检索意图 1/1: How many team members did "Spike It Up Sports Track Club A" confirm for the 4x100 Meter Relay 17-18 year old Men?
+2025-05-06 15:54:56,488 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:54:56,488 - INFO - [6.28125, 6.25, 6.1875, 6.1875, 6.1875, 6.15625, 6.15625, 6.15625, 6.15625, 6.125]
+2025-05-06 15:55:00,311 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4173940.json
+2025-05-06 15:55:00,312 - INFO - 成功创建 91 个文档对象
+2025-05-06 15:55:01,794 - INFO - 🔍 意图拆分结果: ['What is the total number of  "Newborn" inpatient beds across buildings BLD-00411, BLD-00413, and BLD-00418?']
+2025-05-06 15:55:01,794 - INFO - 🔍 检索意图 1/1: What is the total number of  "Newborn" inpatient beds across buildings BLD-00411, BLD-00413, and BLD-00418?
+2025-05-06 15:55:30,505 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:55:30,505 - INFO - [9.375, 9.3125, 9.0, 8.9375, 8.9375, 8.9375, 8.75, 8.75, 8.5625, 8.5625]
+2025-05-06 15:55:40,735 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4046173.json
+2025-05-06 15:55:40,736 - INFO - 成功创建 62 个文档对象
+2025-05-06 15:55:41,683 - INFO - 🔍 意图拆分结果: ["How many occurrences of 'Stainless' categories are spread across different pages ?"]
+2025-05-06 15:55:41,684 - INFO - 🔍 检索意图 1/1: How many occurrences of 'Stainless' categories are spread across different pages ?
+2025-05-06 15:56:01,794 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:56:01,794 - INFO - [10.25, 9.375, 9.375, 9.3125, 9.125, 9.125, 8.9375, 8.875, 8.8125, 8.625]
+2025-05-06 15:56:14,603 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4088173.json
+2025-05-06 15:56:14,604 - INFO - 成功创建 136 个文档对象
+2025-05-06 15:56:16,202 - INFO - 🔍 意图拆分结果: ['Which organization produced the Aponjon-MAMA project？']
+2025-05-06 15:56:16,203 - INFO - 🔍 检索意图 1/1: Which organization produced the Aponjon-MAMA project？
+2025-05-06 15:56:58,445 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:56:58,445 - INFO - [6.84375, 5.875, 5.6875, 5.15625, 4.78125, 4.71875, 4.59375, 4.5625, 4.46875, 4.46875]
+2025-05-06 15:57:02,184 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4050613.json
+2025-05-06 15:57:02,184 - INFO - 成功创建 91 个文档对象
+2025-05-06 15:57:03,679 - INFO - 🔍 意图拆分结果: ['What is the total number of inpatient beds across all four buildings (BLD-03877, BLD-05669, BLD-05670, BLD-05671) for "Medical /Surgical (Include GYN)" units in 2018?']
+2025-05-06 15:57:03,680 - INFO - 🔍 检索意图 1/1: What is the total number of inpatient beds across all four buildings (BLD-03877, BLD-05669, BLD-05670, BLD-05671) for "Medical /Surgical (Include GYN)" units in 2018?
+2025-05-06 15:57:32,323 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:57:32,324 - INFO - [12.9375, 12.875, 12.8125, 12.75, 12.75, 12.6875, 12.625, 12.5625, 12.5625, 12.5625]
+2025-05-06 15:57:42,671 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4147727.json
+2025-05-06 15:57:42,672 - INFO - 成功创建 136 个文档对象
+2025-05-06 15:57:44,877 - INFO - 🔍 意图拆分结果: ['How many different ratings of 1492-MCA branch circuit breakers are listed in Table?']
+2025-05-06 15:57:44,877 - INFO - 🔍 检索意图 1/1: How many different ratings of 1492-MCA branch circuit breakers are listed in Table?
+2025-05-06 15:58:28,615 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:58:28,615 - INFO - [10.0, 9.6875, 9.625, 9.625, 9.5625, 9.5625, 9.5, 9.5, 9.5, 9.375]
+2025-05-06 15:58:38,637 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4078345.json
+2025-05-06 15:58:38,637 - INFO - 成功创建 109 个文档对象
+2025-05-06 15:58:40,606 - INFO - 🔍 意图拆分结果: ['In terms of employment rates, who is more negatively impacted by "low-wage workers" vs "high-wage workers"?']
+2025-05-06 15:58:40,607 - INFO - 🔍 检索意图 1/1: In terms of employment rates, who is more negatively impacted by "low-wage workers" vs "high-wage workers"?
+2025-05-06 15:59:16,800 - INFO - 📊 最终结果: 10 条
+2025-05-06 15:59:16,800 - INFO - [6.9375, 6.90625, 6.875, 6.8125, 6.8125, 6.78125, 6.75, 6.71875, 6.71875, 6.71875]
+2025-05-06 15:59:26,179 - INFO - 成功读取预处理文本文件: /content/drive/MyDrive/DeepSearch/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/paddleocr_save/4086173.json
+2025-05-06 15:59:26,180 - INFO - 成功创建 117 个文档对象
+2025-05-06 15:59:28,143 - INFO - 🔍 意图拆分结果: ['In male-dominated occupations, both men and women report higher job satisfaction, yes or no?']
+2025-05-06 15:59:28,143 - INFO - 🔍 检索意图 1/1: In male-dominated occupations, both men and women report higher job satisfaction, yes or no?
+2025-05-06 16:00:06,264 - INFO - 📊 最终结果: 10 条
+2025-05-06 16:00:06,265 - INFO - [5.5625, 5.34375, 5.34375, 5.3125, 5.28125, 5.28125, 5.25, 5.25, 5.25, 5.25]
+2025-05-06 16:00:06,545 - INFO - 
+============ 标准检索: 单意图 vs 多意图检索性能分析 ============
+2025-05-06 16:00:06,545 - INFO - 测试文档数: 40
+2025-05-06 16:00:06,545 - INFO - 
+单意图检索性能:
+2025-05-06 16:00:06,546 - INFO -   平均召回率: 0.1133
+2025-05-06 16:00:06,546 - INFO -   平均精确率: 0.0225
+2025-05-06 16:00:06,546 - INFO -   平均F1值: 0.0361
+2025-05-06 16:00:06,546 - INFO -   平均检索时间: 37.10秒
+2025-05-06 16:00:06,546 - INFO -   成功率: 7.50% (3/40)
+2025-05-06 16:00:06,546 - INFO - 意图模式对比测试结果已保存到: /content/drive/MyDrive/DeepSearch/multimodal-RAG/test_results/intent_comparison_results_standard.json
+2025-05-06 16:00:06,547 - INFO - 测试完成，总耗时: 2034.88秒
+2025-05-06 16:00:06,547 - INFO - 结果已保存到: /content/drive/MyDrive/DeepSearch/multimodal-RAG/test_results
+2025-06-09 04:43:22,320 - INFO - === 日志系统初始化完成，日志文件: log\multimodal_intent_test.log ===
+2025-06-09 04:43:24,630 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-09 04:43:24,713 - INFO - DeepSearch_Beta模块初始化
+2025-06-09 04:43:24,716 - INFO - 初始化检索模型...
+2025-06-09 04:43:43,136 - INFO - 已初始化标准多模态匹配器
+2025-06-09 04:43:43,138 - INFO - 模型初始化完成
+2025-06-09 04:43:43,138 - INFO - 开始多模态多意图检索测试...
+2025-06-09 04:43:43,138 - INFO - 开始测试单意图和多意图检索效果对比...
+2025-06-09 04:43:43,138 - INFO - 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-09 04:43:43,150 - INFO - 成功加载 40 条测试数据
+2025-06-09 04:43:43,155 - ERROR - 处理文档 4064501.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,155 - ERROR - 处理文档 4129670.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,156 - ERROR - 处理文档 4012567.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,156 - ERROR - 处理文档 4057714.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,156 - ERROR - 处理文档 4196005.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,157 - ERROR - 处理文档 4174854.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,157 - ERROR - 处理文档 4005877.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,158 - ERROR - 处理文档 4072232.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,158 - ERROR - 处理文档 4069930.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,158 - ERROR - 处理文档 4176503.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,159 - ERROR - 处理文档 4138347.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,159 - ERROR - 处理文档 4111230.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,159 - ERROR - 处理文档 4174181.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,160 - ERROR - 处理文档 4094684.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,160 - ERROR - 处理文档 4129570.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,160 - ERROR - 处理文档 4066338.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,161 - ERROR - 处理文档 4091919.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,161 - ERROR - 处理文档 4132494.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,161 - ERROR - 处理文档 4063393.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,162 - ERROR - 处理文档 4010333.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,162 - ERROR - 处理文档 4106951.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,162 - ERROR - 处理文档 4072260.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,163 - ERROR - 处理文档 4185438.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,163 - ERROR - 处理文档 4148165.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,163 - ERROR - 处理文档 4077673.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,164 - ERROR - 处理文档 4145761.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,164 - ERROR - 处理文档 4027862.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,164 - ERROR - 处理文档 4126467.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,165 - ERROR - 处理文档 4057524.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,165 - ERROR - 处理文档 4107960.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,165 - ERROR - 处理文档 4170122.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,166 - ERROR - 处理文档 4057121.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,166 - ERROR - 处理文档 4031704.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,166 - ERROR - 处理文档 4173940.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,166 - ERROR - 处理文档 4046173.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,167 - ERROR - 处理文档 4088173.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,167 - ERROR - 处理文档 4050613.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,168 - ERROR - 处理文档 4147727.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,168 - ERROR - 处理文档 4078345.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,168 - ERROR - 处理文档 4086173.pdf 时出错: Unable to get page count. Is poppler installed and in PATH?
+2025-06-09 04:43:43,169 - WARNING - 没有可用的结果进行分析
+2025-06-09 04:43:43,169 - INFO - 意图模式对比测试结果已保存到: ./test_results\intent_comparison_results_standard.json
+2025-06-09 04:43:43,169 - INFO - 测试完成，总耗时: 0.03秒
+2025-06-09 04:43:43,169 - INFO - 结果已保存到: ./test_results
+2025-06-09 04:45:59,817 - INFO - === 日志系统初始化完成，日志文件: log\multimodal_intent_test.log ===
+2025-06-09 04:46:05,094 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-09 04:46:05,296 - INFO - DeepSearch_Beta模块初始化
+2025-06-09 04:46:05,299 - INFO - 初始化检索模型...
+2025-06-09 04:46:30,732 - INFO - 已初始化标准多模态匹配器
+2025-06-09 04:46:30,733 - INFO - 模型初始化完成
+2025-06-09 04:46:30,734 - INFO - 开始多模态多意图检索测试...
+2025-06-09 04:46:30,734 - INFO - 开始测试单意图和多意图检索效果对比...
+2025-06-09 04:46:30,734 - INFO - 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-09 04:46:30,743 - INFO - 成功加载 40 条测试数据
+2025-06-09 04:46:30,751 - INFO - 成功读取预处理文本文件: D:\Desktop\colpali_longdoc\picked_LongDoc\paddleocr_save\4064501.json
+2025-06-09 04:46:30,751 - INFO - 成功创建 66 个文档对象（仅文本模式）
+2025-06-09 04:46:30,753 - INFO - 🔍 意图拆分结果: ['Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.']
+2025-06-09 04:46:30,753 - INFO - 🔍 检索意图 1/1: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-06-09 04:47:21,248 - INFO - 📊 最终结果: 10 条
+2025-06-09 04:47:21,248 - INFO - [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+2025-06-09 04:47:21,250 - INFO - 成功读取预处理文本文件: D:\Desktop\colpali_longdoc\picked_LongDoc\paddleocr_save\4129670.json
+2025-06-09 04:47:21,250 - INFO - 成功创建 129 个文档对象（仅文本模式）
+2025-06-09 04:47:21,251 - INFO - 🔍 意图拆分结果: ["Which section best matches the follwing description: \n<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>\nSelect titles from the doc that best answer the question, do not alter or analyze the titles themselves."]
+2025-06-09 04:47:21,251 - INFO - 🔍 检索意图 1/1: Which section best matches the follwing description: 
+<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>
+Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.

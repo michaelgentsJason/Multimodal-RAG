@@ -1,0 +1,341 @@
+[
+  {
+    "doc_id": "4057524",
+    "pdf_path": "4057524.pdf",
+    "query": "Enumerate the key features associated with \"Huddle\" section.",
+    "evidence_pages": [
+      117
+    ],
+    "intent_decomposition": {
+      "original_query": "Enumerate the key features associated with \"Huddle\" section.",
+      "decomposed_intents": [
+        "What are the primary functional features of the 'Huddle' section?",
+        "What design principles or aesthetics define the 'Huddle' section's interface?",
+        "What collaboration tools or technologies does the 'Huddle' section utilize?",
+        "In what contexts or use-cases is the 'Huddle' section commonly employed?",
+        "What distinctive advantages does the 'Huddle' section offer compared to other collaborative sections?",
+        "How does the 'Huddle' section facilitate user interaction or participation?",
+        "What user permissions or access-control mechanisms are integral to the 'Huddle' section?"
+      ],
+      "intent_count": 7,
+      "coverage_analysis": {
+        "original_word_count": 8,
+        "intent_coverage": [
+          {
+            "intent": "What are the primary functional features of the 'Huddle' section?",
+            "word_overlap": 2,
+            "coverage_ratio": 0.25,
+            "new_words": [
+              "section?",
+              "what",
+              "are",
+              "of",
+              "primary",
+              "functional",
+              "'huddle'"
+            ]
+          },
+          {
+            "intent": "What design principles or aesthetics define the 'Huddle' section's interface?",
+            "word_overlap": 1,
+            "coverage_ratio": 0.125,
+            "new_words": [
+              "define",
+              "what",
+              "interface?",
+              "aesthetics",
+              "or",
+              "design",
+              "section's",
+              "principles",
+              "'huddle'"
+            ]
+          },
+          {
+            "intent": "What collaboration tools or technologies does the 'Huddle' section utilize?",
+            "word_overlap": 1,
+            "coverage_ratio": 0.125,
+            "new_words": [
+              "collaboration",
+              "what",
+              "does",
+              "section",
+              "technologies",
+              "or",
+              "utilize?",
+              "'huddle'",
+              "tools"
+            ]
+          },
+          {
+            "intent": "In what contexts or use-cases is the 'Huddle' section commonly employed?",
+            "word_overlap": 1,
+            "coverage_ratio": 0.125,
+            "new_words": [
+              "what",
+              "commonly",
+              "employed?",
+              "section",
+              "in",
+              "is",
+              "use-cases",
+              "or",
+              "contexts",
+              "'huddle'"
+            ]
+          },
+          {
+            "intent": "What distinctive advantages does the 'Huddle' section offer compared to other collaborative sections?",
+            "word_overlap": 1,
+            "coverage_ratio": 0.125,
+            "new_words": [
+              "what",
+              "does",
+              "section",
+              "'huddle'",
+              "compared",
+              "other",
+              "sections?",
+              "offer",
+              "to",
+              "collaborative",
+              "advantages",
+              "distinctive"
+            ]
+          },
+          {
+            "intent": "How does the 'Huddle' section facilitate user interaction or participation?",
+            "word_overlap": 1,
+            "coverage_ratio": 0.125,
+            "new_words": [
+              "interaction",
+              "does",
+              "section",
+              "facilitate",
+              "how",
+              "or",
+              "user",
+              "participation?",
+              "'huddle'"
+            ]
+          },
+          {
+            "intent": "What user permissions or access-control mechanisms are integral to the 'Huddle' section?",
+            "word_overlap": 1,
+            "coverage_ratio": 0.125,
+            "new_words": [
+              "section?",
+              "integral",
+              "what",
+              "permissions",
+              "are",
+              "to",
+              "or",
+              "mechanisms",
+              "user",
+              "access-control",
+              "'huddle'"
+            ]
+          }
+        ]
+      }
+    },
+    "single_intent": {
+      "retrieved_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "success": false,
+      "retrieval_time": 10.468405723571777,
+      "results": [
+        {
+          "text": "HOn\n2O2O FURNITURE COLLECTION",
+          "score": 0.0,
+          "page": 1
+        },
+        {
+          "text": "CONTENTS\n2\nWE ARE HON\n50\nDESKS\n14\nSEATING",
+          "score": 0.0,
+          "page": 2
+        },
+        {
+          "text": "72\nWORK-\nSTATIONS\n82\nSTORAGE\n92\nTABLES\n118\nIndustry\n124 Fabrics & Finishes\n144 Index",
+          "score": 0.0,
+          "page": 3
+        },
+        {
+          "text": "WEARE\nHON",
+          "score": 0.0,
+          "page": 4
+        },
+        {
+          "text": "At HoN, we know that your workplace reflects your company,\nyour values and your people. Ours does too. We're a company\nborn in the heart of America and made great by the hardworking\npeople who are a part of it. We believe in keeping things real and\ndoing things right. That's why we take pride in working as a team\nto handcraft thoughtful products designed with you in mind—and\nalways strive to make style and comfort easily accessible so you\ncan create a workspace that's authentically you.\nHOn. hon.com WE ARE HON 3",
+          "score": 0.0,
+          "page": 5
+        }
+      ]
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        1,
+        2,
+        3
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "success": false,
+      "retrieval_time": 69.75842094421387,
+      "results": [
+        {
+          "text": "HOn\n2O2O FURNITURE COLLECTION",
+          "score": 0.0,
+          "page": 1
+        },
+        {
+          "text": "CONTENTS\n2\nWE ARE HON\n50\nDESKS\n14\nSEATING",
+          "score": 0.0,
+          "page": 2
+        },
+        {
+          "text": "72\nWORK-\nSTATIONS\n82\nSTORAGE\n92\nTABLES\n118\nIndustry\n124 Fabrics & Finishes\n144 Index",
+          "score": 0.0,
+          "page": 3
+        }
+      ]
+    }
+  },
+  {
+    "doc_id": "4057121",
+    "pdf_path": "4057121.pdf",
+    "query": "What is the title of Exhibit 21.1?",
+    "evidence_pages": [
+      113
+    ],
+    "intent_decomposition": {
+      "original_query": "What is the title of Exhibit 21.1?",
+      "decomposed_intents": [
+        "What is the title of Exhibit 21.1?"
+      ],
+      "intent_count": 1,
+      "coverage_analysis": {
+        "original_word_count": 7,
+        "intent_coverage": [
+          {
+            "intent": "What is the title of Exhibit 21.1?",
+            "word_overlap": 7,
+            "coverage_ratio": 1.0,
+            "new_words": []
+          }
+        ]
+      }
+    },
+    "single_intent": {
+      "retrieved_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "success": false,
+      "retrieval_time": 173.3889970779419,
+      "results": [
+        {
+          "text": "２0Ｏ４ ANNUＡＬ REPORT\nGRAY\nTELEVISION, INC.",
+          "score": 0.0,
+          "page": 1
+        },
+        {
+          "text": "GRAY TELEVISION,INC\nray earned record profits in 2004 by focusing on local communities in mid-size markets. By providing\ninformative local content, Gray's operations have earned the loyalty of its viewers and readers.\nthree key areas to provide continuing growth:\n Extending exceptional news services to local communities\n■ Improving operations through innovative marketing initiatives and focused cost control\nAcquiring, on a selective basis, well-managed properties in mid-sized markets that offer excellent future\ngrowth potential.\nWith the start up of WCAV-TV in Charlottesville, Virginia in August 2004 and the acquisition of KKCO-TV\nin Grand Junction, Colorado in January 2005, Gray's outstanding portfolio of full power television stations\nhas grown to 31. Of these, 23 stations are ranked number 1 in local news and 22 stations are ranked number\n1 overall in their respective markets. Our newspapers also continue to be news leaders in their respective markets.\nGray's market-leading operations provide it with an excellent continuing opportunity to grow, maximize\noperating performance and to increase shareholder value.",
+          "score": 0.0,
+          "page": 2
+        },
+        {
+          "text": "TELEVISION BROADCASTING\n2\n6\nVOLUNTEERTV\n11\nWKYT\nKAKE10\n15\nWMTV\n27 NeWSFiRST\nNEWS\nWOWT\nKKTV\nWCTV\nWITN 7\n1011\nNETWES\nasternCarolina'sNewsChann\nKWTXI\nNEWS\nON\n023\n吕UR\n13NEWS\nO\nWEAU-TV\nASHM\nWBKO1\nMsia a DAk\nWTOK\n25\n28\nNEWS\nwymt\nWCAV\nNEWSPAPER PUBLISHING\n29\n30\nRockdale Citizen\nHERALD\nThe Ooshen News\nNewton Citizen\nWIRELESS MESSAGING\nGrayLink",
+          "score": 0.0,
+          "page": 3
+        },
+        {
+          "text": "TELEVISION BROADCASTING\nStation\nIn Market\nTelevision\nFCC License\n Station\nNews\nCommercial\n Share of\nHouseholds\nDMA\nAnalog\n-Affiliation--\nExpiration\nRank in\nRank in\n Stations in\nHousehold\n (a) in.\nRank (a)  Market\n Station  Channel\nNetwork\nExpiration\nDate\nDMA (b)\nDMA (c)\nDMA (d)\nViewing (b)\nthousands\n59\nKnoxville, TN \nWVLT\n8\nCBS\n12/31/14\n8/1/05\n2\n2\n5\n23%\n514\n2\n64\n Lexington, KY\nWKYT\n27\nCBS\n12/31/14\n8/1/05\n1\n4\n36%\n481\n66\nWichita——Hutchinson, KS KAKE\n10\nABC\n12/31/13\n6/1/06\n3\n3\n6\n23%\n446\n(Colby, KS] \nKLBY (e)\n4\nABC\n12/31/13\n6/1/06\n3\n3\n(Garden City, KS) \nKUPK [e]\n13\nABC\n12/31/13\n6/1/06\n76\nOmaha, NE\nWOWT\n6\nNBC\n1/1/12\n6/1/06\n1\n5\n33%\n396\n4\n5\n85\nMadison, WI\nWMTV\n15\nNBC\n1/1/12\n12/1/05\n2\n2\n4\n26%\n364\n6\n92\n Colorado Springs, CO\nKKTV\n11\nCBS\n12/31/14\n4/1/06\n1\n5\n34%\n313\n95\nWaco-Temple-Bryan, TX\nKWTX\n10\nCBS\n12/31/14\n8/1/06\n1\n1\n5\n44%\n309\n(Bryan, TX)\nKBTX [g]\n3\nCBS\n12/31/14\n8/1/06\n1\n8\n103\nLincoln—Hastings\nKOLN\n10\nCBS\n12/31/14\n6/1/06\n1\n1\n5\n53%\n275\n6\nKearney, NE \nKGIN (h] \n11\nCBS\n12/31/14\n6/1/06\n1\n1\n(Grand Island, NE) \n10\n105\nGreenville—New Bern—\nWITN\n7\nNBC\n1/1/12\n12/1/04(k)\n2\n2\n4\n33%\n270\nWashington, NC\n109\nTallahassee, FL——\nWCTV\n6\nCBS\n12/31/14\n4/1/05(k)\n11\n1\n4\n58%\n260\nThomasville, GA\n12\n110\n Lansing, MI \nWILX\n10\nNBC\n1/1/12\n10/1/05\n2\n1\n4\n34%\n259\n13\n114\nReno, NV\nKOLO\n8\nABC\n12/31/13\n10/1/06\n1\n1\n5\n30%\n247\n14\n115\nAugusta, GA\nWRDW\n12\nCBS\n12/31/14\n4/1/05[k]\n1\n4\n39%\n247\n15\n127\nLa Crosse—-\nWEAU\n13\nNBC\n1/1/12\n12/1/05\n1\n4\n36%\n206\nEau Claire, WI\n16\n133\nWausau--\nWSAW\n7\nCBS\n12/31/14\n12/1/05\n1\n1\n4\n43%\n182\n Rhinelander, WI\n17\n134\nRockford, IL\nWIFR\n23\nCBS\n12/31/14\n12/1/05\n2\n2\n4\n30%\n181\n18\n137\nTopeka, KS\nWIBW\n13\nCBS\n12/31/14\n6/1/06\n1\n4\n50%\n1\n171\n19\n160\n Panama City, FL\nWJHG\n7\nNBC\n1/1/12\n2/1/05(k)\n1\n1\n3\n49%\n135\n20\n161\n Sherman,TX—Ada, OK \nKXII\n12\nCBS\n12/31/14\n8/1/06\n1\n1\n68%\n124\n21\n172\nDothan, AL\nWTVY\n4\nCBS\n12/31/14\n4/1/05[k]\n1\n3\n73%\n66\n181\n Harrisonburg, VA\nWHSV\n3\nABC\n12/31/13\n10/1/12\n1\n22\n96%\n86\n23\n182\nBowling Green, KY\nWBKO\n13\nABC\n12/31/13\n8/1/05\n1\n2\n85%\n81\n1\n24\n184\nMeridian, MS\nWTOK\n11\nABC\n12/31/13\n6/1/05\n3\n67%\n72\n7\n25\n185\nCharlottesville, VA\nWCAV(i)\n19\nCBS\n8/15/14\nNA[I)\n2\n2\n2\n[i]\n70\nWVAW(i\n27\nABC\n12/31/13\n10/1/12\n26\n187\nParkersburg, WV\nWTAP\n15\nNBC\n1/1/12\n10/1/04(k)\n1\n1\n%96\n65\n27\n189\nGrand Junction, CO\nKKCO\n11\nNBC\n7/30/06 \n4/1/06 \n1\n1\n4\n37%\n64\n28\nNote(f)\nHazard, KY\nWYMT\n57\nCBS\n12/31/14\n8/1/05\n1\n1\n1\n30%\n169\n6,086(j)\n[a]Based on data published by Nielsen\nWYMT, station rank in DMA, station news rank in DMA and in market share data is based upon our\n(b)Based on the averageof Nielsendata for November July,May and February 2004 rating periods.\nreview of the Nielsen data for the November, May and February 2004 rating periods.WYMT does not\nSunday to Saturday, 6 a.m. to 2 a.m.\nreceive data for the July rating period.\n[c) In market share data is based on our review of the Nielsen data for the November, July, May and\n)KBTXisasatelite stationof KWTXunderFCCrules\nFebruary 2004 rating periods during various news hours.\n(h)]KGIN is a satellite station of KOLN under FCC rules.\n[d We have included only stations that BIA has reported at one share or more in three of the four most\ni)WCAVWVAW began broadcasting inAugust 2004.Currently, there is no ranking dataavailable.\n(j)Approximatly 5% of alUS televisionhouseholds.\nseenLoteing\nfanftdflin\nstationsin theLexington,KYDMA.\n[)KLBYand KUPKare satelitestations of KAKEunderFederalCommunicationCommissiontheFCCruls.\nfSecal6countytradingareaasdefinedbyNielsenandispartof thLxingtonKMFr\ndate of the license is expected to be October 1, 2012.\nNEWSPAPER PUBLISHING\nEstimated\nPublication\nMarket\nMarket Population\nHouseholds\nCirculation\nGwinnett Daily Post\nGwinnett County, GA\n650,000\n217,000\n62,000 Daily / 103,000 Sunday\n29\nThe Albany Herald \n Albany, GA \n325,000\n119,000\n26,000 Daily/28,000 Sunday \n30\n31\nThe Goshen News\nGoshen, IN \n117,000\n40,000\n16,000 Daily /16,000 Sunday\nRockdale Citizen/\nRockdale and Newton County, GA\n132,000\n45,000\n32\n8,000 Daily / 14,000 Sunday\nNewton Citizen\nWIRELESS MESSAGING\nOperation\nMarket\nService\nGrayLink \nAL, FL and GA\nWireless Messaging\n33",
+          "score": 0.0,
+          "page": 4
+        },
+        {
+          "text": "FINANCIALHIGHLIGHTS\nHistorical\n2o Historical\n7\nSaoa Histaricn\n$150\nCampound Grewth\nCempound Greweh\n295\n$E 15\n$199\n5871\n$1\n$66\n9129\n31\n$\n$10-\n$47\n98\n9\n9\n$10\nE1\n2oo4RevenuebySegment\n2oo4RevenuebyCategory\n2o04MediaCashFlow(1)\n$347million\nS347 million\n$152 million\nClassifieds-\nPublishing 4%\nPublishing\nPublishing\nRetail -\nPaging 2%\nand Other\nPublishing 7%\nandOther\n15%\nOther3%\n10%\nPolitical 12%\nCirculation\n2%\nNetwork\n%\nBroadcasting\nBroadcasting\nNational.\nLocal-\nBroadcasting\nBroadcasting\n%06\n85%\n20%\n47%\nYear Ended December 31,\n2004\n2003\n% Change\n(in thousands, except percentages)\nNet Revenue:\n Broadcasting (less agency commissions)\n$293,273\n$ 243,061\n21 %\n Publishing and other\n53,294\n52,310\n2 %\nTotal Net Revenue\n$ 346,567\n$ 295,371\n17 %\nMedia Cash Flow:\nBroadcasting\n$137,227\n$99,510\n38 %\nPublishing and other\n14,964\n15,115\n(1) %\nTotal Media Cash Flow(l)\n$ 152,191\n$ 114,625\n33 %\nMedia Cash Flow Margins:\n Broadcasting\n47 %\n41 %\nPublishing\n28 %\n29 %\nTotal Media Cash Flow Margins(I)\n44 % \n39 %\n() See “Annual Report Notes\" immediately following the enclosed Form 10-K for definitions of “Media Cash Flow” and “Media Cash Flow Margin.\"",
+          "score": 0.0,
+          "page": 5
+        }
+      ]
+    },
+    "multi_intent": {
+      "retrieved_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "correct_pages": [],
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0,
+      "success": false,
+      "retrieval_time": 223.3691098690033,
+      "results": [
+        {
+          "text": "２0Ｏ４ ANNUＡＬ REPORT\nGRAY\nTELEVISION, INC.",
+          "score": 0.0,
+          "page": 1
+        },
+        {
+          "text": "GRAY TELEVISION,INC\nray earned record profits in 2004 by focusing on local communities in mid-size markets. By providing\ninformative local content, Gray's operations have earned the loyalty of its viewers and readers.\nthree key areas to provide continuing growth:\n Extending exceptional news services to local communities\n■ Improving operations through innovative marketing initiatives and focused cost control\nAcquiring, on a selective basis, well-managed properties in mid-sized markets that offer excellent future\ngrowth potential.\nWith the start up of WCAV-TV in Charlottesville, Virginia in August 2004 and the acquisition of KKCO-TV\nin Grand Junction, Colorado in January 2005, Gray's outstanding portfolio of full power television stations\nhas grown to 31. Of these, 23 stations are ranked number 1 in local news and 22 stations are ranked number\n1 overall in their respective markets. Our newspapers also continue to be news leaders in their respective markets.\nGray's market-leading operations provide it with an excellent continuing opportunity to grow, maximize\noperating performance and to increase shareholder value.",
+          "score": 0.0,
+          "page": 2
+        },
+        {
+          "text": "TELEVISION BROADCASTING\n2\n6\nVOLUNTEERTV\n11\nWKYT\nKAKE10\n15\nWMTV\n27 NeWSFiRST\nNEWS\nWOWT\nKKTV\nWCTV\nWITN 7\n1011\nNETWES\nasternCarolina'sNewsChann\nKWTXI\nNEWS\nON\n023\n吕UR\n13NEWS\nO\nWEAU-TV\nASHM\nWBKO1\nMsia a DAk\nWTOK\n25\n28\nNEWS\nwymt\nWCAV\nNEWSPAPER PUBLISHING\n29\n30\nRockdale Citizen\nHERALD\nThe Ooshen News\nNewton Citizen\nWIRELESS MESSAGING\nGrayLink",
+          "score": 0.0,
+          "page": 3
+        },
+        {
+          "text": "TELEVISION BROADCASTING\nStation\nIn Market\nTelevision\nFCC License\n Station\nNews\nCommercial\n Share of\nHouseholds\nDMA\nAnalog\n-Affiliation--\nExpiration\nRank in\nRank in\n Stations in\nHousehold\n (a) in.\nRank (a)  Market\n Station  Channel\nNetwork\nExpiration\nDate\nDMA (b)\nDMA (c)\nDMA (d)\nViewing (b)\nthousands\n59\nKnoxville, TN \nWVLT\n8\nCBS\n12/31/14\n8/1/05\n2\n2\n5\n23%\n514\n2\n64\n Lexington, KY\nWKYT\n27\nCBS\n12/31/14\n8/1/05\n1\n4\n36%\n481\n66\nWichita——Hutchinson, KS KAKE\n10\nABC\n12/31/13\n6/1/06\n3\n3\n6\n23%\n446\n(Colby, KS] \nKLBY (e)\n4\nABC\n12/31/13\n6/1/06\n3\n3\n(Garden City, KS) \nKUPK [e]\n13\nABC\n12/31/13\n6/1/06\n76\nOmaha, NE\nWOWT\n6\nNBC\n1/1/12\n6/1/06\n1\n5\n33%\n396\n4\n5\n85\nMadison, WI\nWMTV\n15\nNBC\n1/1/12\n12/1/05\n2\n2\n4\n26%\n364\n6\n92\n Colorado Springs, CO\nKKTV\n11\nCBS\n12/31/14\n4/1/06\n1\n5\n34%\n313\n95\nWaco-Temple-Bryan, TX\nKWTX\n10\nCBS\n12/31/14\n8/1/06\n1\n1\n5\n44%\n309\n(Bryan, TX)\nKBTX [g]\n3\nCBS\n12/31/14\n8/1/06\n1\n8\n103\nLincoln—Hastings\nKOLN\n10\nCBS\n12/31/14\n6/1/06\n1\n1\n5\n53%\n275\n6\nKearney, NE \nKGIN (h] \n11\nCBS\n12/31/14\n6/1/06\n1\n1\n(Grand Island, NE) \n10\n105\nGreenville—New Bern—\nWITN\n7\nNBC\n1/1/12\n12/1/04(k)\n2\n2\n4\n33%\n270\nWashington, NC\n109\nTallahassee, FL——\nWCTV\n6\nCBS\n12/31/14\n4/1/05(k)\n11\n1\n4\n58%\n260\nThomasville, GA\n12\n110\n Lansing, MI \nWILX\n10\nNBC\n1/1/12\n10/1/05\n2\n1\n4\n34%\n259\n13\n114\nReno, NV\nKOLO\n8\nABC\n12/31/13\n10/1/06\n1\n1\n5\n30%\n247\n14\n115\nAugusta, GA\nWRDW\n12\nCBS\n12/31/14\n4/1/05[k]\n1\n4\n39%\n247\n15\n127\nLa Crosse—-\nWEAU\n13\nNBC\n1/1/12\n12/1/05\n1\n4\n36%\n206\nEau Claire, WI\n16\n133\nWausau--\nWSAW\n7\nCBS\n12/31/14\n12/1/05\n1\n1\n4\n43%\n182\n Rhinelander, WI\n17\n134\nRockford, IL\nWIFR\n23\nCBS\n12/31/14\n12/1/05\n2\n2\n4\n30%\n181\n18\n137\nTopeka, KS\nWIBW\n13\nCBS\n12/31/14\n6/1/06\n1\n4\n50%\n1\n171\n19\n160\n Panama City, FL\nWJHG\n7\nNBC\n1/1/12\n2/1/05(k)\n1\n1\n3\n49%\n135\n20\n161\n Sherman,TX—Ada, OK \nKXII\n12\nCBS\n12/31/14\n8/1/06\n1\n1\n68%\n124\n21\n172\nDothan, AL\nWTVY\n4\nCBS\n12/31/14\n4/1/05[k]\n1\n3\n73%\n66\n181\n Harrisonburg, VA\nWHSV\n3\nABC\n12/31/13\n10/1/12\n1\n22\n96%\n86\n23\n182\nBowling Green, KY\nWBKO\n13\nABC\n12/31/13\n8/1/05\n1\n2\n85%\n81\n1\n24\n184\nMeridian, MS\nWTOK\n11\nABC\n12/31/13\n6/1/05\n3\n67%\n72\n7\n25\n185\nCharlottesville, VA\nWCAV(i)\n19\nCBS\n8/15/14\nNA[I)\n2\n2\n2\n[i]\n70\nWVAW(i\n27\nABC\n12/31/13\n10/1/12\n26\n187\nParkersburg, WV\nWTAP\n15\nNBC\n1/1/12\n10/1/04(k)\n1\n1\n%96\n65\n27\n189\nGrand Junction, CO\nKKCO\n11\nNBC\n7/30/06 \n4/1/06 \n1\n1\n4\n37%\n64\n28\nNote(f)\nHazard, KY\nWYMT\n57\nCBS\n12/31/14\n8/1/05\n1\n1\n1\n30%\n169\n6,086(j)\n[a]Based on data published by Nielsen\nWYMT, station rank in DMA, station news rank in DMA and in market share data is based upon our\n(b)Based on the averageof Nielsendata for November July,May and February 2004 rating periods.\nreview of the Nielsen data for the November, May and February 2004 rating periods.WYMT does not\nSunday to Saturday, 6 a.m. to 2 a.m.\nreceive data for the July rating period.\n[c) In market share data is based on our review of the Nielsen data for the November, July, May and\n)KBTXisasatelite stationof KWTXunderFCCrules\nFebruary 2004 rating periods during various news hours.\n(h)]KGIN is a satellite station of KOLN under FCC rules.\n[d We have included only stations that BIA has reported at one share or more in three of the four most\ni)WCAVWVAW began broadcasting inAugust 2004.Currently, there is no ranking dataavailable.\n(j)Approximatly 5% of alUS televisionhouseholds.\nseenLoteing\nfanftdflin\nstationsin theLexington,KYDMA.\n[)KLBYand KUPKare satelitestations of KAKEunderFederalCommunicationCommissiontheFCCruls.\nfSecal6countytradingareaasdefinedbyNielsenandispartof thLxingtonKMFr\ndate of the license is expected to be October 1, 2012.\nNEWSPAPER PUBLISHING\nEstimated\nPublication\nMarket\nMarket Population\nHouseholds\nCirculation\nGwinnett Daily Post\nGwinnett County, GA\n650,000\n217,000\n62,000 Daily / 103,000 Sunday\n29\nThe Albany Herald \n Albany, GA \n325,000\n119,000\n26,000 Daily/28,000 Sunday \n30\n31\nThe Goshen News\nGoshen, IN \n117,000\n40,000\n16,000 Daily /16,000 Sunday\nRockdale Citizen/\nRockdale and Newton County, GA\n132,000\n45,000\n32\n8,000 Daily / 14,000 Sunday\nNewton Citizen\nWIRELESS MESSAGING\nOperation\nMarket\nService\nGrayLink \nAL, FL and GA\nWireless Messaging\n33",
+          "score": 0.0,
+          "page": 4
+        },
+        {
+          "text": "FINANCIALHIGHLIGHTS\nHistorical\n2o Historical\n7\nSaoa Histaricn\n$150\nCampound Grewth\nCempound Greweh\n295\n$E 15\n$199\n5871\n$1\n$66\n9129\n31\n$\n$10-\n$47\n98\n9\n9\n$10\nE1\n2oo4RevenuebySegment\n2oo4RevenuebyCategory\n2o04MediaCashFlow(1)\n$347million\nS347 million\n$152 million\nClassifieds-\nPublishing 4%\nPublishing\nPublishing\nRetail -\nPaging 2%\nand Other\nPublishing 7%\nandOther\n15%\nOther3%\n10%\nPolitical 12%\nCirculation\n2%\nNetwork\n%\nBroadcasting\nBroadcasting\nNational.\nLocal-\nBroadcasting\nBroadcasting\n%06\n85%\n20%\n47%\nYear Ended December 31,\n2004\n2003\n% Change\n(in thousands, except percentages)\nNet Revenue:\n Broadcasting (less agency commissions)\n$293,273\n$ 243,061\n21 %\n Publishing and other\n53,294\n52,310\n2 %\nTotal Net Revenue\n$ 346,567\n$ 295,371\n17 %\nMedia Cash Flow:\nBroadcasting\n$137,227\n$99,510\n38 %\nPublishing and other\n14,964\n15,115\n(1) %\nTotal Media Cash Flow(l)\n$ 152,191\n$ 114,625\n33 %\nMedia Cash Flow Margins:\n Broadcasting\n47 %\n41 %\nPublishing\n28 %\n29 %\nTotal Media Cash Flow Margins(I)\n44 % \n39 %\n() See “Annual Report Notes\" immediately following the enclosed Form 10-K for definitions of “Media Cash Flow” and “Media Cash Flow Margin.\"",
+          "score": 0.0,
+          "page": 5
+        }
+      ]
+    }
+  }
+]
