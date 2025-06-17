@@ -365,3 +365,466 @@ Select table names from the doc that best answer the question, do not alter or a
 2025-06-09 04:47:21,251 - INFO - 🔍 检索意图 1/1: Which section best matches the follwing description: 
 <description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>
 Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.
+2025-06-16 08:52:40,964 - INFO - === 多意图检索测试开始 ===
+2025-06-16 08:52:43,593 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-16 08:52:43,692 - INFO - DeepSearch_Beta模块初始化
+2025-06-16 08:52:43,692 - INFO - 🚀 初始化多意图检索模型...
+2025-06-16 08:52:43,719 - INFO - 🎮 使用设备: cuda:0
+2025-06-16 08:53:03,863 - INFO - ✅ 已初始化多模态匹配器
+2025-06-16 08:53:03,863 - INFO - ✅ 模型初始化完成
+2025-06-16 08:53:03,863 - INFO - 🚀 开始多意图检索测试...
+2025-06-16 08:53:03,863 - INFO - 🎯 开始多意图检索测试...
+2025-06-16 08:53:03,864 - INFO - 📚 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-16 08:53:03,867 - INFO - ✅ 成功加载 3 条测试数据
+2025-06-16 08:53:03,868 - INFO - 
+============================================================
+2025-06-16 08:53:03,868 - INFO - 🔍 处理文档 1/3: 4064501.pdf
+2025-06-16 08:53:03,868 - INFO - ❓ 查询: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-06-16 08:53:03,868 - INFO - 📋 证据页面: [48, 49]
+2025-06-16 08:53:03,868 - ERROR - ❌ PDF转换失败: 4064501.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:53:03,868 - WARNING - ⚠️ 跳过文档 4064501.pdf: 无有效内容
+2025-06-16 08:53:03,868 - INFO - 
+============================================================
+2025-06-16 08:53:03,868 - INFO - 🔍 处理文档 2/3: 4129670.pdf
+2025-06-16 08:53:03,868 - INFO - ❓ 查询: Which section best matches the follwing description: 
+<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>
+Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.
+2025-06-16 08:53:03,868 - INFO - 📋 证据页面: [118, 120, 121, 122]
+2025-06-16 08:53:03,869 - ERROR - ❌ PDF转换失败: 4129670.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:53:03,869 - WARNING - ⚠️ 跳过文档 4129670.pdf: 无有效内容
+2025-06-16 08:53:03,869 - INFO - 
+============================================================
+2025-06-16 08:53:03,869 - INFO - 🔍 处理文档 3/3: 4012567.pdf
+2025-06-16 08:53:03,869 - INFO - ❓ 查询: What is the maximum percentage of "total application percentage" for the Mesket Census Area in Texas on Map 5.2?
+2025-06-16 08:53:03,869 - INFO - 📋 证据页面: [81]
+2025-06-16 08:53:03,870 - ERROR - ❌ PDF转换失败: 4012567.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:53:03,870 - WARNING - ⚠️ 跳过文档 4012567.pdf: 无有效内容
+2025-06-16 08:53:03,870 - WARNING - ⚠️ 没有可用的结果进行分析
+2025-06-16 08:53:03,870 - INFO - 🎉 多意图检索测试结果已保存到: ./test_results\multi_intent_results.json
+2025-06-16 08:53:03,870 - INFO - 
+🎉 测试完成！
+2025-06-16 08:53:03,870 - INFO - ⏱️ 总耗时: 0.01秒
+2025-06-16 08:53:03,871 - INFO - 📁 结果已保存到: ./test_results
+2025-06-16 08:56:21,972 - INFO - === 多意图检索测试开始 ===
+2025-06-16 08:56:24,487 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-16 08:56:24,580 - INFO - DeepSearch_Beta模块初始化
+2025-06-16 08:56:24,580 - INFO - 🚀 初始化多意图检索模型...
+2025-06-16 08:56:24,611 - INFO - 🎮 使用设备: cuda:0
+2025-06-16 08:56:42,126 - INFO - ✅ 已初始化多模态匹配器
+2025-06-16 08:56:42,126 - INFO - ✅ 模型初始化完成
+2025-06-16 08:56:42,126 - INFO - 🚀 开始多意图检索测试...
+2025-06-16 08:56:42,126 - INFO - 🎯 开始多意图检索测试...
+2025-06-16 08:56:42,126 - INFO - 📚 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-16 08:56:42,128 - INFO - ✅ 成功加载 3 条测试数据
+2025-06-16 08:56:42,129 - INFO - 
+============================================================
+2025-06-16 08:56:42,129 - INFO - 🔍 处理文档 1/3: 4064501.pdf
+2025-06-16 08:56:42,129 - INFO - ❓ 查询: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-06-16 08:56:42,129 - INFO - 📋 证据页面: [48, 49]
+2025-06-16 08:56:42,130 - ERROR - ❌ PDF转换失败: 4064501.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:56:42,130 - WARNING - ⚠️ 跳过文档 4064501.pdf: 无有效内容
+2025-06-16 08:56:42,130 - INFO - 
+============================================================
+2025-06-16 08:56:42,130 - INFO - 🔍 处理文档 2/3: 4129670.pdf
+2025-06-16 08:56:42,130 - INFO - ❓ 查询: Which section best matches the follwing description: 
+<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>
+Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.
+2025-06-16 08:56:42,130 - INFO - 📋 证据页面: [118, 120, 121, 122]
+2025-06-16 08:56:42,131 - ERROR - ❌ PDF转换失败: 4129670.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:56:42,131 - WARNING - ⚠️ 跳过文档 4129670.pdf: 无有效内容
+2025-06-16 08:56:42,131 - INFO - 
+============================================================
+2025-06-16 08:56:42,131 - INFO - 🔍 处理文档 3/3: 4012567.pdf
+2025-06-16 08:56:42,131 - INFO - ❓ 查询: What is the maximum percentage of "total application percentage" for the Mesket Census Area in Texas on Map 5.2?
+2025-06-16 08:56:42,131 - INFO - 📋 证据页面: [81]
+2025-06-16 08:56:42,131 - ERROR - ❌ PDF转换失败: 4012567.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:56:42,131 - WARNING - ⚠️ 跳过文档 4012567.pdf: 无有效内容
+2025-06-16 08:56:42,132 - WARNING - ⚠️ 没有可用的结果进行分析
+2025-06-16 08:56:42,132 - INFO - 🎉 多意图检索测试结果已保存到: ./test_results\multi_intent_results.json
+2025-06-16 08:56:42,132 - INFO - 
+🎉 测试完成！
+2025-06-16 08:56:42,132 - INFO - ⏱️ 总耗时: 0.01秒
+2025-06-16 08:56:42,132 - INFO - 📁 结果已保存到: ./test_results
+2025-06-16 08:58:18,569 - INFO - === 多意图检索测试开始 ===
+2025-06-16 08:58:22,678 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-16 08:58:22,820 - INFO - DeepSearch_Beta模块初始化
+2025-06-16 08:58:22,820 - INFO - 🚀 初始化多意图检索模型...
+2025-06-16 08:58:22,868 - INFO - 🎮 使用设备: cuda:0
+2025-06-16 08:58:45,835 - INFO - ✅ 已初始化多模态匹配器
+2025-06-16 08:58:45,835 - INFO - ✅ 模型初始化完成
+2025-06-16 08:58:45,835 - INFO - 🚀 开始多意图检索测试...
+2025-06-16 08:58:45,835 - INFO - 🎯 开始多意图检索测试...
+2025-06-16 08:58:45,835 - INFO - 📚 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-16 08:58:45,840 - INFO - ✅ 成功加载 3 条测试数据
+2025-06-16 08:58:45,841 - INFO - 
+============================================================
+2025-06-16 08:58:45,841 - INFO - 🔍 处理文档 1/3: 4064501.pdf
+2025-06-16 08:58:45,841 - INFO - ❓ 查询: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-06-16 08:58:45,841 - INFO - 📋 证据页面: [48, 49]
+2025-06-16 08:58:52,305 - INFO - 📖 成功转换PDF: 4064501.pdf, 页数: 66
+2025-06-16 08:58:52,313 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\paddleocr_save\4064501.json
+2025-06-16 08:58:52,313 - INFO - 📑 成功创建 66 个文档对象
+2025-06-16 08:58:52,313 - INFO - 📝 总文本长度: 71696 字符
+2025-06-16 08:59:19,958 - INFO - 🔍 意图拆分结果: ["What is the total number of inpatient beds listed for 'South Wing Phase 1'?", "What is the total number of inpatient beds listed for 'South Wing Phase 2'?", "Are there any notes/security restrictions/materials management details affecting bed counts in 'South Wing Phase 1'?", "Are there any notes/security restrictions/materials management details affecting bed counts in 'South Wing Phase 2'?"]
+2025-06-16 08:59:19,958 - INFO - 🔍 检索意图 1/4: What is the total number of inpatient beds listed for 'South Wing Phase 1'?
+2025-06-16 09:01:34,998 - INFO - 🔍 检索意图 2/4: What is the total number of inpatient beds listed for 'South Wing Phase 2'?
+2025-06-16 09:03:50,929 - INFO - 🔍 检索意图 3/4: Are there any notes/security restrictions/materials management details affecting bed counts in 'South Wing Phase 1'?
+2025-06-16 09:06:09,987 - INFO - 🔍 检索意图 4/4: Are there any notes/security restrictions/materials management details affecting bed counts in 'South Wing Phase 2'?
+2025-06-16 09:08:28,960 - INFO - 📊 最终结果: 5 条
+2025-06-16 09:08:28,960 - INFO - [0.43322712516784667, 0.4322255887985229, 0.4324731202125549, 0.4392605037689209, 0.4302577228546143]
+2025-06-16 09:08:29,012 - INFO - ⏱️ 检索耗时: 576.70秒
+2025-06-16 09:08:29,012 - INFO - 🎯 检索到页面: [48, 49, 52, 53, 54]
+2025-06-16 09:08:29,012 - INFO - ✅ 正确页面: [48, 49]
+2025-06-16 09:08:29,012 - INFO - 📊 检索分数: [0.4392605037689209, 0.43322712516784667, 0.4324731202125549, 0.4322255887985229, 0.4302577228546143]
+2025-06-16 09:08:29,012 - INFO - 📈 召回率: 1.0000
+2025-06-16 09:08:29,012 - INFO - 📈 精确率: 0.4000
+2025-06-16 09:08:29,012 - INFO - 📈 F1值: 0.5714
+2025-06-16 09:08:29,012 - INFO - 
+============================================================
+2025-06-16 09:08:29,012 - INFO - 🔍 处理文档 2/3: 4129670.pdf
+2025-06-16 09:08:29,012 - INFO - ❓ 查询: Which section best matches the follwing description: 
+<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>
+Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.
+2025-06-16 09:08:29,012 - INFO - 📋 证据页面: [118, 120, 121, 122]
+2025-06-16 09:08:53,507 - INFO - 📖 成功转换PDF: 4129670.pdf, 页数: 129
+2025-06-16 09:08:53,532 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\paddleocr_save\4129670.json
+2025-06-16 09:08:53,533 - INFO - 📑 成功创建 129 个文档对象
+2025-06-16 09:08:53,533 - INFO - 📝 总文本长度: 259207 字符
+2025-06-16 09:09:20,150 - INFO - 🔍 意图拆分结果: ['Which section of the document describes the role and campaigns of Marco Conner DiAquoi at Transportation Alternatives, focusing on road safety and micromobility advocacy in NYC?', "Which section of the document details Alex Elegudin's professional background with Wheeling Forward and his prior roles in accessibility regulations at NYC government agencies?", 'What section of the document addresses the titles or responsibilities related to leading e-bike/e-scooter legalization efforts and implementing speed safety camera initiatives in New York City?', "Which part of the document matches Alex Elegudin's career history across legal practice and accessibility program management at Taxi and Limousine Commission?", 'What sections discuss the leadership of transport advocacy organizations versus disability rights advocacy groups in New York City?']
+2025-06-16 09:09:20,150 - INFO - 🔍 检索意图 1/5: Which section of the document describes the role and campaigns of Marco Conner DiAquoi at Transportation Alternatives, focusing on road safety and micromobility advocacy in NYC?
+2025-06-16 09:15:32,648 - INFO - 🔍 检索意图 2/5: Which section of the document details Alex Elegudin's professional background with Wheeling Forward and his prior roles in accessibility regulations at NYC government agencies?
+2025-06-16 09:21:41,863 - INFO - 🔍 检索意图 3/5: What section of the document addresses the titles or responsibilities related to leading e-bike/e-scooter legalization efforts and implementing speed safety camera initiatives in New York City?
+2025-06-16 09:28:06,613 - INFO - 🔍 检索意图 4/5: Which part of the document matches Alex Elegudin's career history across legal practice and accessibility program management at Taxi and Limousine Commission?
+2025-06-16 09:37:52,296 - INFO - 🔍 检索意图 5/5: What sections discuss the leadership of transport advocacy organizations versus disability rights advocacy groups in New York City?
+2025-06-16 09:43:36,938 - INFO - 📊 最终结果: 12 条
+2025-06-16 09:43:36,938 - INFO - [0.408164665222168, 0.3924856667518616, 0.43365428733825684, 0.4019947075843811, 0.39343736982345584, 0.41530714607238767, 0.3556351218223572, 0.3466742858886719, 0.4275281167030334, 0.3833492817878723, 0.4345797843933105, 0.4283623247146606]
+2025-06-16 09:43:37,035 - INFO - ⏱️ 检索耗时: 2083.45秒
+2025-06-16 09:43:37,035 - INFO - 🎯 检索到页面: [2, 5, 9, 22, 68, 72, 92, 100, 118, 121]
+2025-06-16 09:43:37,035 - INFO - ✅ 正确页面: [118, 121]
+2025-06-16 09:43:37,035 - INFO - 📊 检索分数: [0.4345797843933105, 0.43365428733825684, 0.4283623247146606, 0.4275281167030334, 0.41530714607238767]
+2025-06-16 09:43:37,035 - INFO - 📈 召回率: 0.5000
+2025-06-16 09:43:37,035 - INFO - 📈 精确率: 0.2000
+2025-06-16 09:43:37,035 - INFO - 📈 F1值: 0.2857
+2025-06-16 09:43:37,035 - INFO - 
+============================================================
+2025-06-16 09:43:37,035 - INFO - 🔍 处理文档 3/3: 4012567.pdf
+2025-06-16 09:43:37,035 - INFO - ❓ 查询: What is the maximum percentage of "total application percentage" for the Mesket Census Area in Texas on Map 5.2?
+2025-06-16 09:43:37,036 - INFO - 📋 证据页面: [81]
+2025-06-16 09:43:55,902 - INFO - 📖 成功转换PDF: 4012567.pdf, 页数: 113
+2025-06-16 09:43:55,918 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\paddleocr_save\4012567.json
+2025-06-16 09:43:55,919 - INFO - 📑 成功创建 113 个文档对象
+2025-06-16 09:43:55,919 - INFO - 📝 总文本长度: 136283 字符
+2025-06-16 09:44:10,611 - INFO - 🔍 意图拆分结果: ["What is the correct terminology for 'total application percentage' as used in Map 5.2?", 'Does the Mesket Census Area exist in Texas?', 'What is the specific data source or publication where Map 5.2 originates from?', 'What is the maximum value recorded for the verified census area parameter in Map 5.2?']
+2025-06-16 09:44:10,612 - INFO - 🔍 检索意图 1/4: What is the correct terminology for 'total application percentage' as used in Map 5.2?
+2025-06-16 09:47:56,094 - INFO - 🔍 检索意图 2/4: Does the Mesket Census Area exist in Texas?
+2025-06-16 09:51:13,523 - INFO - 🔍 检索意图 3/4: What is the specific data source or publication where Map 5.2 originates from?
+2025-06-16 09:54:46,931 - INFO - 🔍 检索意图 4/4: What is the maximum value recorded for the verified census area parameter in Map 5.2?
+2025-06-16 09:58:29,711 - INFO - 📊 最终结果: 8 条
+2025-06-16 09:58:29,711 - INFO - [0.41543635606765744, 0.39485496473312376, 0.4100121207237244, 0.3692401294708252, 0.3874845156669617, 0.4091362018585205, 0.42715202808380126, 0.41456731510162353]
+2025-06-16 09:58:29,786 - INFO - ⏱️ 检索耗时: 873.75秒
+2025-06-16 09:58:29,786 - INFO - 🎯 检索到页面: [10, 24, 72, 74, 79, 80, 81, 83]
+2025-06-16 09:58:29,786 - INFO - ✅ 正确页面: [81]
+2025-06-16 09:58:29,786 - INFO - 📊 检索分数: [0.42715202808380126, 0.41543635606765744, 0.41456731510162353, 0.4100121207237244, 0.4091362018585205]
+2025-06-16 09:58:29,786 - INFO - 📈 召回率: 1.0000
+2025-06-16 09:58:29,786 - INFO - 📈 精确率: 0.1250
+2025-06-16 09:58:29,786 - INFO - 📈 F1值: 0.2222
+2025-06-16 09:58:29,790 - INFO - 
+============================================================
+2025-06-16 09:58:29,791 - INFO - 📊 多意图检索性能分析
+2025-06-16 09:58:29,791 - INFO - ============================================================
+2025-06-16 09:58:29,791 - INFO - 📋 测试文档数: 3
+2025-06-16 09:58:29,791 - INFO - 📈 平均召回率: 0.8333
+2025-06-16 09:58:29,791 - INFO - 📈 平均精确率: 0.2417
+2025-06-16 09:58:29,791 - INFO - 📈 平均F1值: 0.3598
+2025-06-16 09:58:29,791 - INFO - ⏱️ 平均检索时间: 1177.97秒
+2025-06-16 09:58:29,791 - INFO - 🎯 成功率: 66.67% (2/3)
+2025-06-16 09:58:29,791 - INFO - 
+📊 分数质量分析:
+2025-06-16 09:58:29,791 - INFO -    总分数数量: 23
+2025-06-16 09:58:29,791 - INFO -    非零分数数量: 23
+2025-06-16 09:58:29,791 - INFO -    非零分数比例: 100.0%
+2025-06-16 09:58:29,791 - INFO -    最高分数: 0.4393
+2025-06-16 09:58:29,791 - INFO -    平均非零分数: 0.4137
+2025-06-16 09:58:29,791 - INFO - ✅ 检索分数正常
+2025-06-16 09:58:29,791 - INFO - 
+📋 按任务类型分析:
+2025-06-16 09:58:29,791 - INFO -    Reasoning: F1=0.3968, 成功率=100.0% (2样本)
+2025-06-16 09:58:29,791 - INFO -    Locating: F1=0.2857, 成功率=0.0% (1样本)
+2025-06-16 09:58:29,791 - INFO - ============================================================
+2025-06-16 09:58:29,791 - INFO - 🎉 多意图检索测试结果已保存到: ./test_results\multi_intent_results.json
+2025-06-16 09:58:29,867 - INFO - 
+🎉 测试完成！
+2025-06-16 09:58:29,867 - INFO - ⏱️ 总耗时: 3584.03秒
+2025-06-16 09:58:29,867 - INFO - 📁 结果已保存到: ./test_results
+2025-06-17 00:33:24,366 - INFO - === 多意图检索测试开始 ===
+2025-06-17 00:33:27,839 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-17 00:33:27,916 - INFO - DeepSearch_Beta模块初始化
+2025-06-17 00:33:27,916 - INFO - 🚀 初始化多意图检索模型...
+2025-06-17 00:33:27,967 - INFO - 🎮 使用设备: cuda:0
+2025-06-17 00:33:42,943 - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-06-17 00:34:06,260 - INFO - ✅ 已初始化多模态匹配器
+2025-06-17 00:34:06,260 - INFO - ✅ 模型初始化完成
+2025-06-17 00:34:06,260 - INFO - 🚀 开始多意图检索测试...
+2025-06-17 00:34:06,260 - INFO - 🎯 开始多意图检索测试...
+2025-06-17 00:34:06,260 - INFO - 📚 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-17 00:34:06,282 - INFO - ✅ 成功加载 1 条测试数据
+2025-06-17 00:34:06,284 - INFO - 
+============================================================
+2025-06-17 00:34:06,284 - INFO - 🔍 处理文档 1/1: 4064501.pdf
+2025-06-17 00:34:06,284 - INFO - ❓ 查询: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-06-17 00:34:06,284 - INFO - 📋 证据页面: [48, 49]
+2025-06-17 00:34:13,396 - INFO - 📖 成功转换PDF: 4064501.pdf, 页数: 66
+2025-06-17 00:34:13,412 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\pytesseract_save\4064501.json
+2025-06-17 00:34:13,412 - INFO - 📑 成功创建 66 个文档对象
+2025-06-17 00:34:13,412 - INFO - 📝 总文本长度: 78598 字符
+2025-06-17 00:34:26,506 - INFO - 🔍 意图拆分结果: ["What is the number of inpatient beds listed for 'South Wing Phase 1'?", "What is the number of inpatient beds listed for 'South Wing Phase 2'?"]
+2025-06-17 00:34:26,506 - INFO - 🔍 检索意图 1/2: What is the number of inpatient beds listed for 'South Wing Phase 1'?
+2025-06-17 00:36:50,847 - INFO - 🔍 检索意图 2/2: What is the number of inpatient beds listed for 'South Wing Phase 2'?
+2025-06-17 00:39:14,969 - INFO - 📊 最终结果: 8 条
+2025-06-17 00:39:14,969 - INFO - [0.4876038813591003, 0.48578741073608395, 0.4845370545387268, 0.4895614213943481, 0.4806821937561035, 0.4790475721359253, 0.47488217544555666, 0.4755236139297485]
+2025-06-17 00:39:15,011 - INFO - ⏱️ 检索耗时: 301.60秒
+2025-06-17 00:39:15,011 - INFO - 🎯 检索到页面: [48, 49, 52, 53, 54, 58, 59, 65]
+2025-06-17 00:39:15,011 - INFO - ✅ 正确页面: [48, 49]
+2025-06-17 00:39:15,011 - INFO - 📊 检索分数: [0.4895614213943481, 0.4876038813591003, 0.48578741073608395, 0.4845370545387268, 0.4806821937561035]
+2025-06-17 00:39:15,011 - INFO - 📈 召回率: 1.0000
+2025-06-17 00:39:15,011 - INFO - 📈 精确率: 0.2500
+2025-06-17 00:39:15,011 - INFO - 📈 F1值: 0.4000
+2025-06-17 00:39:15,012 - INFO - 
+============================================================
+2025-06-17 00:39:15,012 - INFO - 📊 多意图检索性能分析
+2025-06-17 00:39:15,012 - INFO - ============================================================
+2025-06-17 00:39:15,012 - INFO - 📋 测试文档数: 1
+2025-06-17 00:39:15,012 - INFO - 📈 平均召回率: 1.0000
+2025-06-17 00:39:15,012 - INFO - 📈 平均精确率: 0.2500
+2025-06-17 00:39:15,012 - INFO - 📈 平均F1值: 0.4000
+2025-06-17 00:39:15,012 - INFO - ⏱️ 平均检索时间: 301.60秒
+2025-06-17 00:39:15,012 - INFO - 🎯 成功率: 100.00% (1/1)
+2025-06-17 00:39:15,012 - INFO - 
+📊 分数质量分析:
+2025-06-17 00:39:15,012 - INFO -    总分数数量: 8
+2025-06-17 00:39:15,012 - INFO -    非零分数数量: 8
+2025-06-17 00:39:15,012 - INFO -    非零分数比例: 100.0%
+2025-06-17 00:39:15,012 - INFO -    最高分数: 0.4896
+2025-06-17 00:39:15,012 - INFO -    平均非零分数: 0.4822
+2025-06-17 00:39:15,012 - INFO - ✅ 检索分数正常
+2025-06-17 00:39:15,012 - INFO - ============================================================
+2025-06-17 00:39:15,012 - INFO - 🎉 多意图检索测试结果已保存到: ./test_results\multi_intent_results.json
+2025-06-17 00:39:15,055 - INFO - 
+🎉 测试完成！
+2025-06-17 00:39:15,056 - INFO - ⏱️ 总耗时: 308.80秒
+2025-06-17 00:39:15,056 - INFO - 📁 结果已保存到: ./test_results
+2025-06-17 00:50:20,136 - INFO - === 多意图检索测试开始 ===
+2025-06-17 00:50:22,112 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-17 00:50:22,183 - INFO - DeepSearch_Beta模块初始化
+2025-06-17 00:50:22,183 - INFO - 🚀 初始化多意图检索模型...
+2025-06-17 00:50:22,197 - INFO - 🎮 使用设备: cuda:0
+2025-06-17 00:50:41,314 - INFO - ✅ 已初始化多模态匹配器
+2025-06-17 00:50:41,314 - INFO - ✅ 模型初始化完成
+2025-06-17 00:50:41,314 - INFO - 🚀 开始多意图检索测试...
+2025-06-17 00:50:41,314 - INFO - 🎯 开始多意图检索测试...
+2025-06-17 00:50:41,314 - INFO - 📚 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-17 00:50:41,318 - INFO - ✅ 成功加载 1 条测试数据
+2025-06-17 00:50:41,319 - INFO - 
+============================================================
+2025-06-17 00:50:41,319 - INFO - 🔍 处理文档 1/1: 4064501.pdf
+2025-06-17 00:50:41,319 - INFO - ❓ 查询: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-06-17 00:50:41,319 - INFO - 📋 证据页面: [48, 49]
+2025-06-17 00:50:47,419 - INFO - 📖 成功转换PDF: 4064501.pdf, 页数: 66
+2025-06-17 00:50:47,421 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\pytesseract_save\4064501.json
+2025-06-17 00:50:47,421 - INFO - 📑 成功创建 66 个文档对象
+2025-06-17 00:50:47,421 - INFO - 📝 总文本长度: 78598 字符
+2025-06-17 00:51:10,495 - INFO - 🔍 意图拆分结果: ["What is the number of inpatient beds listed specifically for 'South Wing Phase 1'?", "What is the number of inpatient beds listed specifically for 'South Wing Phase 2'?", "Are there any additional inpatient beds listed under combined/special categorizations for both 'South Wing Phase 1' and 'South Wing Phase 2'?"]
+2025-06-17 00:51:10,495 - INFO - 🔍 检索意图 1/3: What is the number of inpatient beds listed specifically for 'South Wing Phase 1'?
+2025-06-17 00:53:09,952 - INFO - 🔍 检索意图 2/3: What is the number of inpatient beds listed specifically for 'South Wing Phase 2'?
+2025-06-17 00:55:08,492 - INFO - 🔍 检索意图 3/3: Are there any additional inpatient beds listed under combined/special categorizations for both 'South Wing Phase 1' and 'South Wing Phase 2'?
+2025-06-17 00:57:25,024 - INFO - 📊 最终结果: 4 条
+2025-06-17 00:57:25,024 - INFO - [0.6246516494750977, 0.6253605556488038, 0.6235986366271973, 0.62379398727417]
+2025-06-17 00:57:25,065 - INFO - ⏱️ 检索耗时: 397.64秒
+2025-06-17 00:57:25,065 - INFO - 🎯 检索到页面: [48, 53, 54]
+2025-06-17 00:57:25,065 - INFO - ✅ 正确页面: [48]
+2025-06-17 00:57:25,065 - INFO - 📊 检索分数: [0.6253605556488038, 0.6246516494750977, 0.62379398727417]
+2025-06-17 00:57:25,065 - INFO - 📈 召回率: 0.5000
+2025-06-17 00:57:25,065 - INFO - 📈 精确率: 0.3333
+2025-06-17 00:57:25,065 - INFO - 📈 F1值: 0.4000
+2025-06-17 00:57:25,066 - INFO - 
+============================================================
+2025-06-17 00:57:25,066 - INFO - 📊 多意图检索性能分析
+2025-06-17 00:57:25,066 - INFO - ============================================================
+2025-06-17 00:57:25,066 - INFO - 📋 测试文档数: 1
+2025-06-17 00:57:25,066 - INFO - 📈 平均召回率: 0.5000
+2025-06-17 00:57:25,066 - INFO - 📈 平均精确率: 0.3333
+2025-06-17 00:57:25,066 - INFO - 📈 平均F1值: 0.4000
+2025-06-17 00:57:25,066 - INFO - ⏱️ 平均检索时间: 397.64秒
+2025-06-17 00:57:25,066 - INFO - 🎯 成功率: 0.00% (0/1)
+2025-06-17 00:57:25,066 - INFO - 
+📊 分数质量分析:
+2025-06-17 00:57:25,066 - INFO -    总分数数量: 3
+2025-06-17 00:57:25,066 - INFO -    非零分数数量: 3
+2025-06-17 00:57:25,066 - INFO -    非零分数比例: 100.0%
+2025-06-17 00:57:25,066 - INFO -    最高分数: 0.6254
+2025-06-17 00:57:25,066 - INFO -    平均非零分数: 0.6246
+2025-06-17 00:57:25,066 - INFO - ✅ 检索分数正常
+2025-06-17 00:57:25,066 - INFO - ============================================================
+2025-06-17 00:57:25,067 - INFO - 🎉 多意图检索测试结果已保存到: ./test_results\multi_intent_results.json
+2025-06-17 00:57:25,101 - INFO - 
+🎉 测试完成！
+2025-06-17 00:57:25,101 - INFO - ⏱️ 总耗时: 403.79秒
+2025-06-17 00:57:25,101 - INFO - 📁 结果已保存到: ./test_results
+2025-06-17 01:15:55,609 - INFO - === 多意图检索测试开始 ===
+2025-06-17 01:15:58,621 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-17 01:15:58,692 - INFO - DeepSearch_Beta模块初始化
+2025-06-17 01:15:58,692 - INFO - 🚀 初始化多意图检索模型...
+2025-06-17 01:15:58,715 - INFO - 🎮 使用设备: cuda:0
+2025-06-17 01:16:18,143 - INFO - ✅ 已初始化多模态匹配器
+2025-06-17 01:16:18,143 - INFO - ✅ 模型初始化完成
+2025-06-17 01:16:18,143 - INFO - 🚀 开始多意图检索测试...
+2025-06-17 01:16:18,143 - INFO - 🎯 开始多意图检索测试...
+2025-06-17 01:16:18,143 - INFO - 📚 加载测试数据: D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl
+2025-06-17 01:16:18,153 - INFO - ✅ 成功加载 5 条测试数据
+2025-06-17 01:16:18,154 - INFO - 
+============================================================
+2025-06-17 01:16:18,154 - INFO - 🔍 处理文档 1/5: 4064501.pdf
+2025-06-17 01:16:18,154 - INFO - ❓ 查询: Count the total inpatient beds listed for "South Wing Phase l" and "South Wing Phase 2" combined.
+2025-06-17 01:16:18,154 - INFO - 📋 证据页面: [48, 49]
+2025-06-17 01:16:25,691 - INFO - 📖 成功转换PDF: 4064501.pdf, 页数: 66
+2025-06-17 01:16:25,704 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\pytesseract_save\4064501.json
+2025-06-17 01:16:25,705 - INFO - 📑 成功创建 66 个文档对象
+2025-06-17 01:16:25,705 - INFO - 📝 总文本长度: 78598 字符
+2025-06-17 01:16:46,711 - INFO - 🔍 意图拆分结果: ["What is the total number of inpatient beds listed for 'South Wing Phase 1'?", "What is the total number of inpatient beds listed for 'South Wing Phase 2'?"]
+2025-06-17 01:16:46,711 - INFO - 🔍 检索意图 1/2: What is the total number of inpatient beds listed for 'South Wing Phase 1'?
+2025-06-17 01:18:54,649 - INFO - 🔍 检索意图 2/2: What is the total number of inpatient beds listed for 'South Wing Phase 2'?
+2025-06-17 01:21:01,361 - INFO - 📊 最终结果: 4 条
+2025-06-17 01:21:01,361 - INFO - [0.619630485534668, 0.6222419757843017, 0.6153576812744141, 0.6137674026489258]
+2025-06-17 01:21:01,406 - INFO - ⏱️ 检索耗时: 275.70秒
+2025-06-17 01:21:01,406 - INFO - 🎯 检索到页面: [48, 52, 53, 54]
+2025-06-17 01:21:01,406 - INFO - ✅ 正确页面: [48]
+2025-06-17 01:21:01,406 - INFO - 📊 检索分数: [0.6222419757843017, 0.619630485534668, 0.6153576812744141, 0.6137674026489258]
+2025-06-17 01:21:01,407 - INFO - 📈 召回率: 0.5000
+2025-06-17 01:21:01,407 - INFO - 📈 精确率: 0.2500
+2025-06-17 01:21:01,407 - INFO - 📈 F1值: 0.3333
+2025-06-17 01:21:01,407 - INFO - 
+============================================================
+2025-06-17 01:21:01,407 - INFO - 🔍 处理文档 2/5: 4129670.pdf
+2025-06-17 01:21:01,407 - INFO - ❓ 查询: Which section best matches the follwing description: 
+<description>The text describes the backgrounds and roles of Marco Conner DiAquoi and Alex Elegudin. Marco is the Deputy Director at Transportation Alternatives in New York City, overseeing the organization's advocacy for livable, inclusive, and safe streets. He has led campaigns for speed safety cameras near schools and the legalization of e-bikes and e-scooters. Alex is the President and Co-founder of Wheeling Forward, a disability advocacy organization. He has worked as an attorney and an Accessibility Program Manager at the New York City Taxi and Limousine Commission, and as a Senior Advisor for Systemwide Accessibility at MTA New York City Transit.</description>
+Select titles from the doc that best answer the question, do not alter or analyze the titles themselves.
+2025-06-17 01:21:01,407 - INFO - 📋 证据页面: [118, 120, 121, 122]
+2025-06-17 01:21:25,321 - INFO - 📖 成功转换PDF: 4129670.pdf, 页数: 129
+2025-06-17 01:21:25,366 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\pytesseract_save\4129670.json
+2025-06-17 01:21:25,366 - INFO - 📑 成功创建 129 个文档对象
+2025-06-17 01:21:25,366 - INFO - 📝 总文本长度: 286986 字符
+2025-06-17 01:21:39,880 - INFO - 🔍 意图拆分结果: ["Which section best matches Marco Conner DiAquoi's role as Deputy Director at Transportation Alternatives in New York City focusing on livable, inclusive, and safe streets advocacy?", "Which section aligns with Marco Conner DiAquoi's leadership of campaigns for speed safety cameras near schools?", "Which section corresponds to Marco Conner DiAquoi's advocacy efforts for legalizing e-bikes and e-scooters in NYC?", "Which section best matches Alex Elegudin's position as President and Co-founder of Wheeling Forward, a disability advocacy organization?", "Which section aligns with Alex Elegudin's prior experience as an attorney?", "Which section corresponds to Alex Elegudin's work as Accessibility Program Manager at the NYC Taxi and Limousine Commission?", "Which section matches Alex Elegudin's role as Senior Advisor for Systemwide Accessibility at MTA New York City Transit?"]
+2025-06-17 01:21:39,882 - INFO - 🔍 检索意图 1/7: Which section best matches Marco Conner DiAquoi's role as Deputy Director at Transportation Alternatives in New York City focusing on livable, inclusive, and safe streets advocacy?
+2025-06-17 01:27:55,303 - INFO - 🔍 检索意图 2/7: Which section aligns with Marco Conner DiAquoi's leadership of campaigns for speed safety cameras near schools?
+2025-06-17 01:33:44,962 - INFO - 🔍 检索意图 3/7: Which section corresponds to Marco Conner DiAquoi's advocacy efforts for legalizing e-bikes and e-scooters in NYC?
+2025-06-17 01:39:39,475 - INFO - 🔍 检索意图 4/7: Which section best matches Alex Elegudin's position as President and Co-founder of Wheeling Forward, a disability advocacy organization?
+2025-06-17 01:45:30,373 - INFO - 🔍 检索意图 5/7: Which section aligns with Alex Elegudin's prior experience as an attorney?
+2025-06-17 01:50:59,944 - INFO - 🔍 检索意图 6/7: Which section corresponds to Alex Elegudin's work as Accessibility Program Manager at the NYC Taxi and Limousine Commission?
+2025-06-17 01:56:46,361 - INFO - 🔍 检索意图 7/7: Which section matches Alex Elegudin's role as Senior Advisor for Systemwide Accessibility at MTA New York City Transit?
+2025-06-17 02:02:38,907 - INFO - 📊 最终结果: 4 条
+2025-06-17 02:02:38,907 - INFO - [0.486015739440918, 0.41582680702209474, 0.45892942237854006, 0.5747246379852295]
+2025-06-17 02:02:39,016 - INFO - ⏱️ 检索耗时: 2473.61秒
+2025-06-17 02:02:39,018 - INFO - 🎯 检索到页面: [63, 68, 109, 121]
+2025-06-17 02:02:39,018 - INFO - ✅ 正确页面: [121]
+2025-06-17 02:02:39,018 - INFO - 📊 检索分数: [0.5747246379852295, 0.486015739440918, 0.45892942237854006, 0.41582680702209474]
+2025-06-17 02:02:39,018 - INFO - 📈 召回率: 0.2500
+2025-06-17 02:02:39,018 - INFO - 📈 精确率: 0.2500
+2025-06-17 02:02:39,018 - INFO - 📈 F1值: 0.2500
+2025-06-17 02:02:39,020 - INFO - 
+============================================================
+2025-06-17 02:02:39,020 - INFO - 🔍 处理文档 3/5: 4012567.pdf
+2025-06-17 02:02:39,020 - INFO - ❓ 查询: What is the maximum percentage of "total application percentage" for the Mesket Census Area in Texas on Map 5.2?
+2025-06-17 02:02:39,020 - INFO - 📋 证据页面: [81]
+2025-06-17 02:02:56,851 - INFO - 📖 成功转换PDF: 4012567.pdf, 页数: 113
+2025-06-17 02:02:56,873 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\pytesseract_save\4012567.json
+2025-06-17 02:02:56,873 - INFO - 📑 成功创建 113 个文档对象
+2025-06-17 02:02:56,873 - INFO - 📝 总文本长度: 173110 字符
+2025-06-17 02:03:18,912 - INFO - 🔍 意图拆分结果: ['Is the Mesket Census Area located within Texas?', "What is the data source or scope of Map 5.2 regarding the 'total application percentage' metric?", "What specific criteria define the 'total application percentage' measured in Map 5.2?", "Does Map 5.2 explicitly label maximum values for any census areas' 'total application percentage'?", "How is the 'total application percentage' calculated for geographic subdivisions in Map 5.2?"]
+2025-06-17 02:03:18,912 - INFO - 🔍 检索意图 1/5: Is the Mesket Census Area located within Texas?
+2025-06-17 02:07:17,087 - INFO - 🔍 检索意图 2/5: What is the data source or scope of Map 5.2 regarding the 'total application percentage' metric?
+2025-06-17 02:11:37,486 - INFO - 🔍 检索意图 3/5: What specific criteria define the 'total application percentage' measured in Map 5.2?
+2025-06-17 02:15:48,141 - INFO - 🔍 检索意图 4/5: Does Map 5.2 explicitly label maximum values for any census areas' 'total application percentage'?
+2025-06-17 02:20:03,921 - INFO - 🔍 检索意图 5/5: How is the 'total application percentage' calculated for geographic subdivisions in Map 5.2?
+2025-06-17 02:24:17,044 - INFO - 📊 最终结果: 6 条
+2025-06-17 02:24:17,044 - INFO - [0.5257374420166016, 0.4389394702911377, 0.5975695476531983, 0.5365777969360352, 0.5315919685363769, 0.5491726989746094]
+2025-06-17 02:24:17,120 - INFO - ⏱️ 检索耗时: 1280.14秒
+2025-06-17 02:24:17,120 - INFO - 🎯 检索到页面: [15, 72, 74, 81]
+2025-06-17 02:24:17,120 - INFO - ✅ 正确页面: [81]
+2025-06-17 02:24:17,120 - INFO - 📊 检索分数: [0.5975695476531983, 0.5491726989746094, 0.5365777969360352, 0.5315919685363769]
+2025-06-17 02:24:17,120 - INFO - 📈 召回率: 1.0000
+2025-06-17 02:24:17,121 - INFO - 📈 精确率: 0.2500
+2025-06-17 02:24:17,121 - INFO - 📈 F1值: 0.4000
+2025-06-17 02:24:17,121 - INFO - 
+============================================================
+2025-06-17 02:24:17,121 - INFO - 🔍 处理文档 4/5: 4057714.pdf
+2025-06-17 02:24:17,121 - INFO - ❓ 查询: Count the total number of steps in the continuum of harm as described in the document.
+2025-06-17 02:24:17,121 - INFO - 📋 证据页面: [49, 50]
+2025-06-17 02:24:44,031 - INFO - 📖 成功转换PDF: 4057714.pdf, 页数: 129
+2025-06-17 02:24:44,051 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\pytesseract_save\4057714.json
+2025-06-17 02:24:44,051 - INFO - 📑 成功创建 129 个文档对象
+2025-06-17 02:24:44,051 - INFO - 📝 总文本长度: 83243 字符
+2025-06-17 02:25:05,262 - INFO - 🔍 意图拆分结果: ["Identify all the specific steps mentioned in the 'continuum of harm' as outlined in the document.", "Determine the exact number of distinct stages or phases labeled within the defined 'continuum of harm'."]
+2025-06-17 02:25:05,263 - INFO - 🔍 检索意图 1/2: Identify all the specific steps mentioned in the 'continuum of harm' as outlined in the document.
+2025-06-17 02:28:37,159 - INFO - 🔍 检索意图 2/2: Determine the exact number of distinct stages or phases labeled within the defined 'continuum of harm'.
+2025-06-17 02:32:06,077 - INFO - 📊 最终结果: 6 条
+2025-06-17 02:32:06,077 - INFO - [0.509083013534546, 0.49868389511108396, 0.43428826141357424, 0.41998856925964356, 0.46956504821777345, 0.4602549057006836]
+2025-06-17 02:32:06,144 - INFO - ⏱️ 检索耗时: 442.02秒
+2025-06-17 02:32:06,144 - INFO - 🎯 检索到页面: [22, 48, 49, 50]
+2025-06-17 02:32:06,144 - INFO - ✅ 正确页面: [49, 50]
+2025-06-17 02:32:06,145 - INFO - 📊 检索分数: [0.509083013534546, 0.49868389511108396, 0.46956504821777345, 0.4602549057006836]
+2025-06-17 02:32:06,145 - INFO - 📈 召回率: 1.0000
+2025-06-17 02:32:06,145 - INFO - 📈 精确率: 0.5000
+2025-06-17 02:32:06,145 - INFO - 📈 F1值: 0.6667
+2025-06-17 02:32:06,145 - INFO - 
+============================================================
+2025-06-17 02:32:06,145 - INFO - 🔍 处理文档 5/5: 4196005.pdf
+2025-06-17 02:32:06,145 - INFO - ❓ 查询: Which demographic is most likely to experience material hardship in Kent County?
+2025-06-17 02:32:06,145 - INFO - 📋 证据页面: [33]
+2025-06-17 02:32:22,138 - INFO - 📖 成功转换PDF: 4196005.pdf, 页数: 98
+2025-06-17 02:32:22,150 - INFO - 📖 成功读取OCR文件: D:\Desktop\colpali_longdoc\picked_LongDoc\pytesseract_save\4196005.json
+2025-06-17 02:32:22,151 - INFO - 📑 成功创建 98 个文档对象
+2025-06-17 02:32:22,151 - INFO - 📝 总文本长度: 209095 字符
+2025-06-17 02:32:35,480 - INFO - 🔍 意图拆分结果: ['In Kent County, which age group faces the highest material hardship rates?', 'What income level group in Kent County is most prone to material hardship?', 'Which racial or ethnic groups in Kent County experience material hardship most frequently?', 'How does educational attainment in Kent County correlate with material hardship probability?', 'Which family structures (e.g., single-parent households) in Kent County show highest material hardship prevalence?', 'Are there specific immigrant/refugee communities in Kent County disproportionately affected by material hardship?']
+2025-06-17 02:32:35,480 - INFO - 🔍 检索意图 1/6: In Kent County, which age group faces the highest material hardship rates?
+2025-06-17 02:36:30,022 - INFO - 🔍 检索意图 2/6: What income level group in Kent County is most prone to material hardship?
+2025-06-17 02:40:24,452 - INFO - 🔍 检索意图 3/6: Which racial or ethnic groups in Kent County experience material hardship most frequently?
+2025-06-17 02:44:18,912 - INFO - 🔍 检索意图 4/6: How does educational attainment in Kent County correlate with material hardship probability?
+2025-06-17 02:48:30,728 - INFO - 🔍 检索意图 5/6: Which family structures (e.g., single-parent households) in Kent County show highest material hardship prevalence?
+2025-06-17 02:52:43,925 - INFO - 🔍 检索意图 6/6: Are there specific immigrant/refugee communities in Kent County disproportionately affected by material hardship?
+2025-06-17 04:04:51,382 - INFO - 📊 最终结果: 6 条
+2025-06-17 04:04:51,382 - INFO - [0.634136661529541, 0.5570205154418946, 0.5932063026428223, 0.5855973510742188, 0.54828590965271, 0.5933312759399415]
+2025-06-17 04:04:51,443 - INFO - ⏱️ 检索耗时: 5549.22秒
+2025-06-17 04:04:51,443 - INFO - 🎯 检索到页面: [22, 29, 33, 35]
+2025-06-17 04:04:51,443 - INFO - ✅ 正确页面: [33]
+2025-06-17 04:04:51,443 - INFO - 📊 检索分数: [0.634136661529541, 0.5933312759399415, 0.5932063026428223, 0.5855973510742188]
+2025-06-17 04:04:51,443 - INFO - 📈 召回率: 1.0000
+2025-06-17 04:04:51,443 - INFO - 📈 精确率: 0.2500
+2025-06-17 04:04:51,443 - INFO - 📈 F1值: 0.4000
+2025-06-17 04:04:51,449 - INFO - 
+============================================================
+2025-06-17 04:04:51,449 - INFO - 📊 多意图检索性能分析
+2025-06-17 04:04:51,449 - INFO - ============================================================
+2025-06-17 04:04:51,449 - INFO - 📋 测试文档数: 5
+2025-06-17 04:04:51,449 - INFO - 📈 平均召回率: 0.7500
+2025-06-17 04:04:51,449 - INFO - 📈 平均精确率: 0.3000
+2025-06-17 04:04:51,449 - INFO - 📈 平均F1值: 0.4100
+2025-06-17 04:04:51,449 - INFO - ⏱️ 平均检索时间: 2004.14秒
+2025-06-17 04:04:51,449 - INFO - 🎯 成功率: 60.00% (3/5)
+2025-06-17 04:04:51,449 - INFO - 
+📊 分数质量分析:
+2025-06-17 04:04:51,449 - INFO -    总分数数量: 20
+2025-06-17 04:04:51,449 - INFO -    非零分数数量: 20
+2025-06-17 04:04:51,449 - INFO -    非零分数比例: 100.0%
+2025-06-17 04:04:51,449 - INFO -    最高分数: 0.6341
+2025-06-17 04:04:51,449 - INFO -    平均非零分数: 0.5483
+2025-06-17 04:04:51,449 - INFO - ✅ 检索分数正常
+2025-06-17 04:04:51,449 - INFO - 
+📋 按任务类型分析:
+2025-06-17 04:04:51,450 - INFO -    Reasoning: F1=0.4500, 成功率=75.0% (4样本)
+2025-06-17 04:04:51,450 - INFO -    Locating: F1=0.2500, 成功率=0.0% (1样本)
+2025-06-17 04:04:51,450 - INFO - ============================================================
+2025-06-17 04:04:51,450 - INFO - 🎉 多意图检索测试结果已保存到: ./test_results\multi_intent_results.json
+2025-06-17 04:04:51,511 - INFO - 
+🎉 测试完成！
+2025-06-17 04:04:51,511 - INFO - ⏱️ 总耗时: 10113.37秒
+2025-06-17 04:04:51,511 - INFO - 📁 结果已保存到: ./test_results

@@ -1,6 +1,12 @@
-2025-06-09 23:31:10,766 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
-2025-06-09 23:31:10,874 - INFO - DeepSearch_Beta模块初始化
-2025-06-09 23:33:10,132 - INFO - 🔍 意图拆分结果: ['Enumerate the key features associated with "Huddle" section.']
-2025-06-09 23:33:10,133 - INFO - 🔍 检索意图 1/1: Enumerate the key features associated with "Huddle" section.
-2025-06-09 23:33:38,193 - INFO - 📊 最终结果: 5 条
-2025-06-09 23:33:38,193 - INFO - [0.0, 0.0, 0.0, 0.0, 0.0]
+2025-06-16 08:47:25,167 - WARNING - USER_AGENT environment variable not set, consider setting it to identify your requests.
+2025-06-16 08:47:25,279 - INFO - DeepSearch_Beta模块初始化
+2025-06-16 08:47:43,481 - ERROR - ❌ PDF转换失败: D:\Desktop\colpali_longdoc\picked_LongDoc\4057524.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:47:43,481 - WARNING - ⚠️ 跳过文档: 无有效内容
+2025-06-16 08:47:43,482 - ERROR - ❌ PDF转换失败: D:\Desktop\colpali_longdoc\picked_LongDoc\4057121.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:47:43,482 - WARNING - ⚠️ 跳过文档: 无有效内容
+2025-06-16 08:47:43,482 - ERROR - ❌ PDF转换失败: D:\Desktop\colpali_longdoc\picked_LongDoc\4176503.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:47:43,482 - WARNING - ⚠️ 跳过文档: 无有效内容
+2025-06-16 08:47:43,483 - ERROR - ❌ PDF转换失败: D:\Desktop\colpali_longdoc\picked_LongDoc\4046173.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:47:43,483 - WARNING - ⚠️ 跳过文档: 无有效内容
+2025-06-16 08:47:43,483 - ERROR - ❌ PDF转换失败: D:\Desktop\colpali_longdoc\picked_LongDoc\4064501.pdf, 错误: Unable to get page count. Is poppler installed and in PATH?
+2025-06-16 08:47:43,483 - WARNING - ⚠️ 跳过文档: 无有效内容

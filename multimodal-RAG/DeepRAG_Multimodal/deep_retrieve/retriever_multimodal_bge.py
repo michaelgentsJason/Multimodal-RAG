@@ -525,10 +525,10 @@ class MultimodalMatcher:
                 pdf_path = doc.get("pdf_path", "")
                 text_score = self._compute_text_score(query, text)
                 image_score = self._compute_image_score(query, image)
-                # combined_score = self._combine_scores(text_score, image_score)
+                combined_score = self._combine_scores(text_score, image_score)
 
-                # doc["score"] = combined_score
-                doc["score"] = image_score
+                doc["score"] = combined_score
+                #doc["score"] = image_score
                 doc["metadata"] = doc.get("metadata", {})  # Ensure metadata exists
                 text_scores.append(text_score)
                 image_scores.append(image_score)
