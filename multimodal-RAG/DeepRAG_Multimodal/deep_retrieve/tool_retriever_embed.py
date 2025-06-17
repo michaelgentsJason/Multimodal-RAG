@@ -30,7 +30,7 @@ class WebRetriever:
             split_texts = self.text_splitter.split_text(content)
             return [Document(page_content=text) for text in split_texts]
 
-    def retrieve_relevant_chunks(self, search_results: List[Dict[str, str]], query: str, k: int = 4) -> Dict[str, Dict[str, str]]:
+    def retrieve_relevant_chunks(self, search_results: List[Dict[str, str]], query: str, k: int = 4) -> List[Dict[str, str]]:
         all_documents = []
         for result in search_results:
             try:
@@ -60,8 +60,9 @@ class WebRetriever:
                 # print(result)
                 print(f"Error processing content for {result['link']}: {str(e)}")
         
-        if len(all_documents)<1:
-            return search_results
+        if len(all_documents) < 1:
+            # Nothing to vectorize, return empty result list
+            return []
         
         # Create Chroma vectorstore with unique collection name and persist directory
         collection_name = f"search_{uuid.uuid4().hex}"
