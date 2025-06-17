@@ -48,13 +48,15 @@ load_dotenv("D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\configs
 # 导入必要的库
 from DeepRAG_Multimodal.deep_retrieve.ming.deepsearch_optimize_ming import DeepSearch_Beta
 from DeepRAG_Multimodal.deep_retrieve.retriever_multimodal_bge import RetrieverConfig, MultimodalMatcher
+from DeepRAG_Multimodal.deep_retrieve.mcts_retriever import MCTSWrapper
 
 
 class MultiIntentTester:
     """多意图检索测试类"""
 
-    def __init__(self):
+    def __init__(self, strategy: str = "mcts"):
         """初始化测试器"""
+        self.strategy = strategy  # 在setup_models之前设置strategy
         self.config = self.load_config()
         os.makedirs(self.config['results_dir'], exist_ok=True)
         self.setup_models()
@@ -62,14 +64,14 @@ class MultiIntentTester:
     def load_config(self):
         """加载配置"""
         config = {
-            # 路径配置 - 使用你的数据路径
+            # 路径配置 - 请根据你的实际路径修改
             'test_data_path': r'D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl',
             'pdf_base_dir': r'D:\Desktop\colpali_longdoc\picked_LongDoc',
             'results_dir': './test_results',
 
             # 采样配置
             'sample_size': 10,  # 测试10个样本
-            'debug': True,
+            'debug': True,  # 调试模式：True=测试1个样本，False=测试10个样本
 
             # 检索配置
             'max_iterations': 2,
@@ -86,10 +88,16 @@ class MultiIntentTester:
             'batch_size': 2,
             'retrieval_mode': 'mixed',
             'ocr_method': 'pytesseract',
+
+            # MCTS超参 - 🔥 降低参数避免内存问题
+            'rollout_budget': 50,  # 从300降低到50
+            'k_per_intent': 3,  # 从5降低到3
+            'max_depth': 5,  # 从10降低到5
+            'c_puct': 1.0,  # 从1.2降低到1.0
         }
 
         if config['debug']:
-            config['sample_size'] = 5  # 调试模式下只测试3个样本
+            config['sample_size'] = 1  # 调试模式下只测试3个样本
 
         return config
 
@@ -99,46 +107,120 @@ class MultiIntentTester:
         device = "cuda:0" if torch.cuda.is_available() else "cpu"
         logger.info(f"🎮 使用设备: {device}")
 
-        # 初始化重排序器
-        self.reranker = FlagReranker(
-            model_name_or_path="BAAI/bge-reranker-large",
-            use_fp16=True,
-            device=device
-        )
+        # 🔥 提前清理GPU内存
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            initial_memory = torch.cuda.memory_allocated() / (1024 ** 3)
+            logger.info(f"🧹 初始GPU内存使用: {initial_memory:.2f}GB")
 
-        # 初始化多模态匹配器配置
-        retriever_config = RetrieverConfig(
-            model_name=self.config['mm_model_name'],
-            processor_name=self.config['mm_processor_name'],
-            bge_model_name=self.config['bge_model_name'],
-            device=self.config['device'],
-            use_fp16=True,
-            batch_size=self.config['batch_size'],
-            mode=self.config['retrieval_mode'],
-            ocr_method=self.config['ocr_method']
-        )
+        try:
+            # 初始化重排序器
+            logger.info("⏳ 初始化重排序器...")
+            self.reranker = FlagReranker(
+                model_name_or_path="BAAI/bge-reranker-large",
+                use_fp16=True,
+                device=device
+            )
 
-        # 使用标准多模态匹配器
-        self.mm_matcher = MultimodalMatcher(
-            config=retriever_config,
-            embedding_weight=self.config['text_weight'],
-            topk=self.config['rerank_topk']
-        )
-        logger.info("✅ 已初始化多模态匹配器")
+            if torch.cuda.is_available():
+                after_reranker_memory = torch.cuda.memory_allocated() / (1024 ** 3)
+                logger.info(f"📊 重排序器后GPU内存: {after_reranker_memory:.2f}GB")
 
-        # 🔥 只初始化多意图检索器
-        self.multi_intent_search = DeepSearch_Beta(
-            max_iterations=self.config['max_iterations'],
-            reranker=self.reranker,
-            params={
-                "embedding_topk": self.config['embedding_topk'],
-                "rerank_topk": self.config['rerank_topk'],
-                "text_weight": self.config['text_weight'],
-                "image_weight": self.config['image_weight']
-            }
-        )
+            # 初始化多模态匹配器配置
+            logger.info("⏳ 初始化多模态匹配器...")
+            retriever_config = RetrieverConfig(
+                model_name=self.config['mm_model_name'],
+                processor_name=self.config['mm_processor_name'],
+                bge_model_name=self.config['bge_model_name'],
+                device=self.config['device'],
+                use_fp16=True,
+                batch_size=self.config['batch_size'],
+                mode=self.config['retrieval_mode'],
+                ocr_method=self.config['ocr_method']
+            )
 
-        logger.info("✅ 模型初始化完成")
+            self.mm_matcher = MultimodalMatcher(
+                config=retriever_config,
+                embedding_weight=self.config['text_weight'],
+                topk=self.config['rerank_topk']
+            )
+            logger.info("✅ 已初始化多模态匹配器")
+
+            if torch.cuda.is_available():
+                after_matcher_memory = torch.cuda.memory_allocated() / (1024 ** 3)
+                logger.info(f"📊 多模态匹配器后GPU内存: {after_matcher_memory:.2f}GB")
+
+            # 初始化 DeepSearch_Beta（多意图拆解）检索器
+            logger.info("⏳ 初始化多意图检索器...")
+            self.multi_intent_search = DeepSearch_Beta(
+                max_iterations=self.config['max_iterations'],
+                reranker=self.reranker,
+                params={
+                    "embedding_topk": self.config['embedding_topk'],
+                    "rerank_topk": self.config['rerank_topk'],
+                    "text_weight": self.config['text_weight'],
+                    "image_weight": self.config['image_weight']
+                }
+            )
+
+            # 根据 strategy 组装最终"底层检索器"
+            if self.strategy.lower() == "mcts":
+                logger.info("♟️  尝试使用 MCTSWrapper 组合检索结果")
+                try:
+                    # 🔥 清理GPU内存避免冲突
+                    if torch.cuda.is_available():
+                        torch.cuda.empty_cache()
+                        logger.info("🧹 清理GPU内存完成")
+
+                    # 尝试导入MCTSWrapper
+                    from DeepRAG_Multimodal.deep_retrieve.mcts_retriever import MCTSWrapper
+
+                    # 🔥 使用更保守的MCTS参数避免内存问题
+                    conservative_config = {
+                        'rollout_budget': min(self.config['rollout_budget'], 30),  # 进一步降低
+                        'k_per_intent': min(self.config['k_per_intent'], 2),  # 进一步降低
+                        'max_depth': min(self.config['max_depth'], 3),  # 进一步降低
+                        'c_puct': self.config['c_puct']
+                    }
+
+                    logger.info(f"🎛️  使用保守MCTS参数: {conservative_config}")
+
+                    self.retriever = MCTSWrapper(
+                        base_retriever=self.mm_matcher,
+                        rollout_budget=conservative_config['rollout_budget'],
+                        k_per_intent=conservative_config['k_per_intent'],
+                        max_depth=conservative_config['max_depth'],
+                        c_puct=conservative_config['c_puct'],
+                        reward_weights={"coverage": 0.8, "quality": 0.6, "diversity": 0.2},  # 降低权重
+                    )
+                    logger.info("✅ MCTSWrapper 初始化成功")
+
+                except ImportError as e:
+                    logger.warning(f"⚠️ 无法导入MCTSWrapper: {e}")
+                    logger.info("💡 如果需要使用MCTS，请检查mcts_retriever.py文件是否存在")
+                    logger.info("🔄 回退到 baseline 策略")
+                    self.retriever = self.mm_matcher
+                    self.strategy = "baseline"
+
+                except Exception as e:
+                    logger.error(f"❌ MCTSWrapper 初始化失败: {str(e)}")
+                    logger.info("🔄 回退到 baseline 策略")
+                    self.retriever = self.mm_matcher
+                    self.strategy = "baseline"
+            else:
+                logger.info("📄  使用 baseline 多模态检索器")
+                self.retriever = self.mm_matcher
+
+            # 最终内存检查
+            if torch.cuda.is_available():
+                final_memory = torch.cuda.memory_allocated() / (1024 ** 3)
+                logger.info(f"📊 最终GPU内存使用: {final_memory:.2f}GB")
+
+            logger.info("✅ 模型初始化完成")
+
+        except Exception as e:
+            logger.error(f"❌ 模型初始化失败: {str(e)}")
+            raise
 
     def load_test_data(self):
         """加载测试数据"""
@@ -273,7 +355,24 @@ class MultiIntentTester:
                 }
 
                 start_time = time.time()
-                retrieval_results = self.multi_intent_search.search_retrieval(data, retriever=self.mm_matcher)
+                # 🔥 修复：根据策略使用不同的检索方法
+                if self.strategy.lower() == "mcts":
+                    # MCTS策略：直接使用retriever.retrieve方法
+                    retrieval_results = self.retriever.retrieve(query, document_pages)
+                    # 转换结果格式以匹配预期
+                    retrieval_results = [
+                        {
+                            "text": r.get("text", ""),
+                            "score": r.get("score", 0),
+                            "page": r.get("metadata", {}).get("page_index", 0),
+                            "metadata": r.get("metadata", {})
+                        }
+                        for r in retrieval_results
+                    ]
+                else:
+                    # 基础策略：使用多意图检索
+                    retrieval_results = self.multi_intent_search.search_retrieval(data, retriever=self.mm_matcher)
+
                 elapsed_time = time.time() - start_time
 
                 # 提取检索结果中的页码
@@ -431,11 +530,49 @@ class MultiIntentTester:
 
 def main():
     """主函数"""
-    print("🎯 多意图检索测试")
+    print("🎯 多意图检索测试 (默认MCTS策略)")
+    print("=" * 50)
+    print("💡 如需切换策略:")
+    print("   - MCTS策略 (智能增强): 直接运行即可")
+    print("   - Baseline策略 (标准): 修改代码中 strategy='baseline'")
     print("=" * 50)
 
+    # 解析命令行参数
+    parser = argparse.ArgumentParser(description="多意图检索测试工具")
+    parser.add_argument(
+        "--strategy",
+        default="mcts",  # 🔥 改为默认MCTS
+        choices=["baseline", "mcts"],
+        help="选择检索策略：baseline=标准多模态检索；mcts=Monte-Carlo Tree Search增强检索"
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="启用调试模式（测试更少的样本）"
+    )
+
+    try:
+        args = parser.parse_args()
+    except SystemExit:
+        # 如果没有传递参数或参数错误，使用默认值
+        logger.info("📝 使用默认参数运行 (MCTS策略)")
+        args = argparse.Namespace(strategy="mcts", debug=False)  # 🔥 改为默认使用MCTS
+
+    logger.info(f"🎛️  检索策略: {args.strategy.upper()}")
+    if args.strategy == "mcts":
+        logger.info("💡 使用Monte-Carlo Tree Search增强检索")
+    logger.info(f"🐛 调试模式: {args.debug}")
+
     # 创建测试器并运行
-    tester = MultiIntentTester()
+    tester = MultiIntentTester(strategy=args.strategy)
+
+    # 🔥 如果策略被自动切换，通知用户
+    if args.strategy == "mcts" and tester.strategy == "baseline":
+        logger.info("💡 已自动切换到baseline策略，如需使用MCTS请检查相关依赖")
+
+    elif args.strategy == "mcts" and tester.strategy == "mcts":
+        logger.info("🎉 MCTS策略初始化成功，开始增强检索！")
+
     tester.run()
 
 
