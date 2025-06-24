@@ -16,6 +16,8 @@ from pdf2image import convert_from_path
 from PIL import Image
 import logging
 
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+
 # 创建日志目录
 log_dir = Path("./log")
 log_dir.mkdir(exist_ok=True)
@@ -42,21 +44,24 @@ logger.info("=== 多意图检索测试开始 ===")
 
 # 添加必要的路径
 sys.path.append("multimodal-RAG/DeepRAG_Multimodal/deep_retrieve")
+
 # 加载环境变量
-load_dotenv("D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\configs\.env")
+# load_dotenv("D:\Desktop\multimodal-RAG\multimodal-RAG\DeepRAG_Multimodal\configs\.env")
+
+# 远程环境变量加载
+load_dotenv("/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/configs/.env")
 
 # 导入必要的库
 from DeepRAG_Multimodal.deep_retrieve.ming.deepsearch_optimize_ming import DeepSearch_Beta
 from DeepRAG_Multimodal.deep_retrieve.retriever_multimodal_bge import RetrieverConfig, MultimodalMatcher
-from DeepRAG_Multimodal.deep_retrieve.mcts_retriever import MCTSWrapper
 
 
 class MultiIntentTester:
     """多意图检索测试类"""
 
-    def __init__(self, strategy: str = "mcts"):
+    def __init__(self, strategy: str = "baseline"):
         """初始化测试器"""
-        self.strategy = strategy  # 在setup_models之前设置strategy
+        self.strategy = strategy
         self.config = self.load_config()
         os.makedirs(self.config['results_dir'], exist_ok=True)
         self.setup_models()
@@ -70,34 +75,35 @@ class MultiIntentTester:
             'results_dir': './test_results',
 
             # 采样配置
-            'sample_size': 10,  # 测试10个样本
-            'debug': True,  # 调试模式：True=测试1个样本，False=测试10个样本
+            'sample_size': 10,
+            'debug': True,
 
             # 检索配置
             'max_iterations': 2,
             'embedding_topk': 12,
             'rerank_topk': 4,
-            'text_weight': 0.8,  # 平衡权重
+            'text_weight': 0.8,
             'image_weight': 0.2,
 
             # 模型配置
-            'mm_model_name': "vidore/colqwen2.5-v0.2",
-            'mm_processor_name': "vidore/colqwen2.5-v0.1",
-            'bge_model_name': "BAAI/bge-large-en-v1.5",
+            'mm_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.2",
+            'mm_processor_name': "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.1",
+            'bge_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/bge-large-en-v1.5",
+
             'device': 'cuda:0',
             'batch_size': 2,
             'retrieval_mode': 'mixed',
             'ocr_method': 'pytesseract',
 
-            # MCTS超参 - 🔥 降低参数避免内存问题
-            'rollout_budget': 50,  # 从300降低到50
-            'k_per_intent': 3,  # 从5降低到3
-            'max_depth': 5,  # 从10降低到5
-            'c_puct': 1.0,  # 从1.2降低到1.0
+            # MCTS超参 - 保守参数避免内存问题
+            'rollout_budget': 30,
+            'k_per_intent': 2,
+            'max_depth': 3,
+            'c_puct': 1.0,
         }
 
         if config['debug']:
-            config['sample_size'] = 1  # 调试模式下只测试3个样本
+            config['sample_size'] = 1
 
         return config
 
@@ -107,7 +113,6 @@ class MultiIntentTester:
         device = "cuda:0" if torch.cuda.is_available() else "cpu"
         logger.info(f"🎮 使用设备: {device}")
 
-        # 🔥 提前清理GPU内存
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
             initial_memory = torch.cuda.memory_allocated() / (1024 ** 3)
@@ -117,14 +122,11 @@ class MultiIntentTester:
             # 初始化重排序器
             logger.info("⏳ 初始化重排序器...")
             self.reranker = FlagReranker(
-                model_name_or_path="BAAI/bge-reranker-large",
+                model_name_or_path="/root/autodl-tmp/multimodal-RAG/hf_models/bge-reranker-large",
                 use_fp16=True,
-                device=device
+                device=device,
+                local_files_only=True
             )
-
-            if torch.cuda.is_available():
-                after_reranker_memory = torch.cuda.memory_allocated() / (1024 ** 3)
-                logger.info(f"📊 重排序器后GPU内存: {after_reranker_memory:.2f}GB")
 
             # 初始化多模态匹配器配置
             logger.info("⏳ 初始化多模态匹配器...")
@@ -146,10 +148,6 @@ class MultiIntentTester:
             )
             logger.info("✅ 已初始化多模态匹配器")
 
-            if torch.cuda.is_available():
-                after_matcher_memory = torch.cuda.memory_allocated() / (1024 ** 3)
-                logger.info(f"📊 多模态匹配器后GPU内存: {after_matcher_memory:.2f}GB")
-
             # 初始化 DeepSearch_Beta（多意图拆解）检索器
             logger.info("⏳ 初始化多意图检索器...")
             self.multi_intent_search = DeepSearch_Beta(
@@ -163,27 +161,21 @@ class MultiIntentTester:
                 }
             )
 
-            # 根据 strategy 组装最终"底层检索器"
+            # 根据策略组装最终检索器
             if self.strategy.lower() == "mcts":
                 logger.info("♟️  尝试使用 MCTSWrapper 组合检索结果")
                 try:
-                    # 🔥 清理GPU内存避免冲突
-                    if torch.cuda.is_available():
-                        torch.cuda.empty_cache()
-                        logger.info("🧹 清理GPU内存完成")
+                    # 🔥 导入修复后的MCTS
+                    from fixed_mcts_retriever import MCTSWrapper
 
-                    # 尝试导入MCTSWrapper
-                    from DeepRAG_Multimodal.deep_retrieve.mcts_retriever import MCTSWrapper
-
-                    # 🔥 使用更保守的MCTS参数避免内存问题
                     conservative_config = {
-                        'rollout_budget': min(self.config['rollout_budget'], 30),  # 进一步降低
-                        'k_per_intent': min(self.config['k_per_intent'], 2),  # 进一步降低
-                        'max_depth': min(self.config['max_depth'], 3),  # 进一步降低
+                        'rollout_budget': self.config['rollout_budget'],
+                        'k_per_intent': self.config['k_per_intent'],
+                        'max_depth': self.config['max_depth'],
                         'c_puct': self.config['c_puct']
                     }
 
-                    logger.info(f"🎛️  使用保守MCTS参数: {conservative_config}")
+                    logger.info(f"🎛️  使用MCTS参数: {conservative_config}")
 
                     self.retriever = MCTSWrapper(
                         base_retriever=self.mm_matcher,
@@ -191,13 +183,12 @@ class MultiIntentTester:
                         k_per_intent=conservative_config['k_per_intent'],
                         max_depth=conservative_config['max_depth'],
                         c_puct=conservative_config['c_puct'],
-                        reward_weights={"coverage": 0.8, "quality": 0.6, "diversity": 0.2},  # 降低权重
+                        reward_weights={"coverage": 0.8, "quality": 0.6, "diversity": 0.2},
                     )
                     logger.info("✅ MCTSWrapper 初始化成功")
 
                 except ImportError as e:
                     logger.warning(f"⚠️ 无法导入MCTSWrapper: {e}")
-                    logger.info("💡 如果需要使用MCTS，请检查mcts_retriever.py文件是否存在")
                     logger.info("🔄 回退到 baseline 策略")
                     self.retriever = self.mm_matcher
                     self.strategy = "baseline"
@@ -246,7 +237,7 @@ class MultiIntentTester:
                         test_data.append(item)
 
         if self.config['sample_size'] > 0 and len(test_data) > self.config['sample_size']:
-            np.random.seed(42)  # 设置随机种子确保可重复性
+            np.random.seed(42)
             test_data = np.random.choice(test_data, self.config['sample_size'], replace=False).tolist()
 
         logger.info(f"✅ 成功加载 {len(test_data)} 条测试数据")
@@ -280,7 +271,6 @@ class MultiIntentTester:
             logger.info(f"📖 成功读取OCR文件: {ocr_file}")
         else:
             logger.warning(f"⚠️ 找不到OCR文件: {ocr_file}")
-            # 如果没有OCR文件，创建空文本
             loaded_data = {f"Page_{i + 1}": "" for i in range(len(pages))}
 
         # 验证页面数量匹配
@@ -306,7 +296,7 @@ class MultiIntentTester:
             # 获取OCR文本
             page_text = loaded_data[page_keys[idx]] if idx < len(page_keys) else ""
             if not page_text.strip():
-                page_text = f"第{idx + 1}页内容"  # 备用文本
+                page_text = f"第{idx + 1}页内容"
 
             # 创建文档结构
             documents.append({
@@ -348,40 +338,54 @@ class MultiIntentTester:
                     logger.warning(f"⚠️ 跳过文档 {doc_data.get('pdf_path', '')}: 无有效内容")
                     continue
 
-                # 执行多意图检索
-                data = {
-                    "query": query,
-                    "documents": document_pages
-                }
-
+                # 🔥 修复后的检索调用
                 start_time = time.time()
-                # 🔥 修复：根据策略使用不同的检索方法
+
                 if self.strategy.lower() == "mcts":
-                    # MCTS策略：直接使用retriever.retrieve方法
-                    retrieval_results = self.retriever.retrieve(query, document_pages)
-                    # 转换结果格式以匹配预期
-                    retrieval_results = [
-                        {
-                            "text": r.get("text", ""),
-                            "score": r.get("score", 0),
-                            "page": r.get("metadata", {}).get("page_index", 0),
-                            "metadata": r.get("metadata", {})
-                        }
-                        for r in retrieval_results
-                    ]
+                    # MCTS策略：使用修复后的接口
+                    logger.info("🎯 使用MCTS增强检索")
+                    try:
+                        retrieval_results = self.retriever.retrieve(query, document_pages)
+                        logger.info(f"✅ MCTS检索成功，结果数量: {len(retrieval_results)}")
+                    except Exception as e:
+                        logger.error(f"❌ MCTS检索失败: {str(e)}")
+                        logger.info("🔄 回退到基础检索")
+                        retrieval_results = self.mm_matcher.retrieve(query, document_pages)
                 else:
-                    # 基础策略：使用多意图检索
+                    # 基础策略：使用多意图检索 + 多模态匹配器
+                    logger.info("📄 使用多意图拆解检索")
+                    data = {"query": query, "documents": document_pages}
                     retrieval_results = self.multi_intent_search.search_retrieval(data, retriever=self.mm_matcher)
 
                 elapsed_time = time.time() - start_time
 
-                # 提取检索结果中的页码
+                # 🔥 统一处理检索结果格式
                 retrieved_pages = set()
+                processed_results = []
+
                 for result in retrieval_results:
-                    if 'metadata' in result and 'page_index' in result['metadata']:
-                        retrieved_pages.add(result['metadata']['page_index'])
-                    elif 'page' in result and result['page'] is not None:
-                        retrieved_pages.add(result['page'])
+                    # 处理不同格式的结果
+                    if isinstance(result, dict):
+                        text = result.get("text", "")
+                        score = result.get("score", 0)
+                        metadata = result.get("metadata", {})
+                        page_index = result.get("page", metadata.get("page_index", None))
+                    else:
+                        # 处理Document对象
+                        text = getattr(result, 'page_content', str(result))
+                        score = getattr(result, 'score', 0)
+                        metadata = getattr(result, 'metadata', {})
+                        page_index = metadata.get("page_index", None)
+
+                    if page_index is not None:
+                        retrieved_pages.add(page_index)
+
+                    processed_results.append({
+                        "text": text,
+                        "score": score,
+                        "page": page_index,
+                        "metadata": metadata
+                    })
 
                 # 评估结果
                 evidence_set = set(evidence_pages)
@@ -392,7 +396,7 @@ class MultiIntentTester:
                 f1 = 2 * recall * precision / (recall + precision) if (recall + precision) > 0 else 0
 
                 # 获取检索分数
-                retrieval_scores = [r.get('score', 0) for r in retrieval_results]
+                retrieval_scores = [r.get('score', 0) for r in processed_results]
 
                 logger.info(f"⏱️ 检索耗时: {elapsed_time:.2f}秒")
                 logger.info(f"🎯 检索到页面: {sorted(list(retrieved_pages))}")
@@ -416,17 +420,20 @@ class MultiIntentTester:
                     "precision": precision,
                     "f1": f1,
                     "retrieval_time": elapsed_time,
-                    "retrieval_scores": retrieval_scores[:10],  # 保存前10个分数
-                    "success": len(correct_pages) == len(evidence_set)
+                    "retrieval_scores": retrieval_scores[:10],
+                    "success": len(correct_pages) == len(evidence_set),
+                    "strategy": self.strategy
                 }
 
                 results.append(result)
 
             except Exception as e:
                 logger.error(f"❌ 处理文档 {doc_data.get('pdf_path', '')} 时出错: {str(e)}")
+                import traceback
+                traceback.print_exc()
 
         # 保存结果
-        result_file = os.path.join(self.config['results_dir'], 'multi_intent_results.json')
+        result_file = os.path.join(self.config['results_dir'], f'multi_intent_results_{self.strategy}.json')
         with open(result_file, 'w', encoding='utf-8') as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
 
@@ -465,7 +472,7 @@ class MultiIntentTester:
 
         # 打印结果
         logger.info(f"\n{'=' * 60}")
-        logger.info(f"📊 多意图检索性能分析")
+        logger.info(f"📊 多意图检索性能分析 ({self.strategy.upper()}策略)")
         logger.info(f"{'=' * 60}")
         logger.info(f"📋 测试文档数: {len(results)}")
         logger.info(f"📈 平均召回率: {avg_recall:.4f}")
@@ -532,31 +539,29 @@ def main():
     """主函数"""
     print("🎯 多意图检索测试 (默认MCTS策略)")
     print("=" * 50)
-    print("💡 如需切换策略:")
-    print("   - MCTS策略 (智能增强): 直接运行即可")
-    print("   - Baseline策略 (标准): 修改代码中 strategy='baseline'")
+    print("💡 策略选择:")
+    print("   - MCTS策略 (智能增强): 使用Monte-Carlo Tree Search")
+    print("   - Baseline策略 (标准): 使用多意图拆解 + 多模态检索")
     print("=" * 50)
 
     # 解析命令行参数
     parser = argparse.ArgumentParser(description="多意图检索测试工具")
     parser.add_argument(
         "--strategy",
-        default="mcts",  # 🔥 改为默认MCTS
+        default="baseline",
         choices=["baseline", "mcts"],
-        help="选择检索策略：baseline=标准多模态检索；mcts=Monte-Carlo Tree Search增强检索"
+        help="选择检索策略"
     )
     parser.add_argument(
         "--debug",
         action="store_true",
-        help="启用调试模式（测试更少的样本）"
+        help="启用调试模式"
     )
 
     try:
         args = parser.parse_args()
     except SystemExit:
-        # 如果没有传递参数或参数错误，使用默认值
-        logger.info("📝 使用默认参数运行 (MCTS策略)")
-        args = argparse.Namespace(strategy="mcts", debug=False)  # 🔥 改为默认使用MCTS
+        args = argparse.Namespace(strategy="mcts", debug=False)
 
     logger.info(f"🎛️  检索策略: {args.strategy.upper()}")
     if args.strategy == "mcts":
@@ -566,10 +571,9 @@ def main():
     # 创建测试器并运行
     tester = MultiIntentTester(strategy=args.strategy)
 
-    # 🔥 如果策略被自动切换，通知用户
+    # 如果策略被自动切换，通知用户
     if args.strategy == "mcts" and tester.strategy == "baseline":
         logger.info("💡 已自动切换到baseline策略，如需使用MCTS请检查相关依赖")
-
     elif args.strategy == "mcts" and tester.strategy == "mcts":
         logger.info("🎉 MCTS策略初始化成功，开始增强检索！")
 

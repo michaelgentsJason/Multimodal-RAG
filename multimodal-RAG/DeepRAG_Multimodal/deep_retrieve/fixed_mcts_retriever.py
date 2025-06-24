@@ -9,6 +9,7 @@ import random
 import numpy as np
 from copy import deepcopy
 
+
 # ---------- 适配器类 -------------------------------------------------
 @dataclass
 class Document:
@@ -29,6 +30,7 @@ class Document:
             embedding=doc_dict.get("embedding", None),
             metadata=doc_dict.get("metadata", {})
         )
+
 
 class MultimodalMatcherAdapter:
     """MultimodalMatcher的适配器，提供MCTS需要的接口"""
@@ -56,21 +58,23 @@ class MultimodalMatcherAdapter:
             print(f"检索出错: {str(e)}")
             return []
 
+
 # ---------- 数据结构 -------------------------------------------------
 @dataclass
 class State:
     """已选文档集合 & 已覆盖意图集合"""
-    docs: Set             # {doc_id, ...}
-    covered: Set          # {intent_idx, ...}
+    docs: Set  # {doc_id, ...}
+    covered: Set  # {intent_idx, ...}
 
     def clone(self) -> "State":
         return State(set(self.docs), set(self.covered))
+
 
 @dataclass
 class MCTSNode:
     state: State
     parent: Optional["MCTSNode"]
-    action: Optional[Tuple[int, int]]          # (intent_idx, cand_idx)
+    action: Optional[Tuple[int, int]]  # (intent_idx, cand_idx)
     children: List["MCTSNode"] = field(default_factory=list)
     visit_count: int = 0
     total_value: float = 0.0
@@ -80,21 +84,23 @@ class MCTSNode:
     def q(self) -> float:
         return self.total_value / self.visit_count if self.visit_count else 0.0
 
+
 # ---------- 修复后的MCTS包装器 ----------------------------------------------
 class MCTSWrapper:
     """
     修复后的MCTS包装器，解决接口不匹配问题
     """
+
     def __init__(
-        self,
-        base_retriever,
-        rollout_budget: int = 100,  # 降低默认值
-        k_per_intent: int = 3,      # 降低默认值
-        max_depth: int = 5,         # 降低默认值
-        c_puct: float = 1.0,
-        reward_weights: Dict[str, float] = None,
-        diversity_metric: str = "cos",
-        random_seed: int = None,
+            self,
+            base_retriever,
+            rollout_budget: int = 100,  # 降低默认值
+            k_per_intent: int = 3,  # 降低默认值
+            max_depth: int = 5,  # 降低默认值
+            c_puct: float = 1.0,
+            reward_weights: Dict[str, float] = None,
+            diversity_metric: str = "cos",
+            random_seed: int = None,
     ):
         self.base = base_retriever
         self.rollout_budget = rollout_budget
@@ -162,7 +168,7 @@ class MCTSWrapper:
 
             root = MCTSNode(state=State(set(), set()), parent=None, action=None)
             root.untried_actions = [(i, j) for i in range(len(intents))
-                                          for j in range(len(self.intent_pool[i]))]
+                                    for j in range(len(self.intent_pool[i]))]
 
             # 🔥 添加检查避免无限循环
             if not root.untried_actions:
@@ -237,6 +243,7 @@ class MCTSWrapper:
                 break
 
             log_N = math.log(max(node.visit_count, 1))  # 避免log(0)
+
             def uct(n: MCTSNode) -> float:
                 if n.visit_count == 0:
                     return float('inf')  # 优先访问未访问的节点
@@ -258,7 +265,7 @@ class MCTSWrapper:
 
         # 检查索引有效性
         if (intent_idx >= len(self.intent_pool) or
-            cand_idx >= len(self.intent_pool[intent_idx])):
+                cand_idx >= len(self.intent_pool[intent_idx])):
             return node
 
         doc = self.intent_pool[intent_idx][cand_idx]
@@ -269,7 +276,7 @@ class MCTSWrapper:
 
         child = MCTSNode(state=new_state, parent=node, action=action)
         child.untried_actions = [a for a in node.untried_actions
-                                if a[0] != intent_idx or self.intent_pool[a[0]][a[1]].doc_id not in new_state.docs]
+                                 if a[0] != intent_idx or self.intent_pool[a[0]][a[1]].doc_id not in new_state.docs]
         node.children.append(child)
         return child
 
@@ -292,7 +299,7 @@ class MCTSWrapper:
 
             # 检查索引有效性
             if (intent_idx >= len(self.intent_pool) or
-                cand_idx >= len(self.intent_pool[intent_idx])):
+                    cand_idx >= len(self.intent_pool[intent_idx])):
                 continue
 
             doc = self.intent_pool[intent_idx][cand_idx]
@@ -345,8 +352,8 @@ class MCTSWrapper:
                     diversity_r = 1.0 - np.mean(upper) if len(upper) > 0 else 0.0
 
             total_reward = (self.rw["coverage"] * coverage_r +
-                          self.rw["quality"] * quality_r +
-                          self.rw["diversity"] * diversity_r)
+                            self.rw["quality"] * quality_r +
+                            self.rw["diversity"] * diversity_r)
 
             return max(0.0, min(1.0, total_reward))  # 限制在[0,1]范围内
 
