@@ -108,27 +108,27 @@ class DeepSearch_Beta(DeepSearch_Alpha):
                     all_search_results[intent_query] = [r['text']]
                     final_search_results.append(r)
 
-        # # 第三步：基于第一轮检索结果进行意图细化
-        # refined_intent_queries = self._refine_query_intent(original_query, intent_queries,
-        #                                                   json.dumps(all_search_results, ensure_ascii=False, indent=2))
-        # logger.info(f"🔍 意图细化结果: {refined_intent_queries}")
+        # 第三步：基于第一轮检索结果进行意图细化
+        refined_intent_queries = self._refine_query_intent(original_query, intent_queries,
+                                                          json.dumps(all_search_results, ensure_ascii=False, indent=2))
+        logger.info(f"🔍 意图细化结果: {refined_intent_queries}")
 
-        # # 第四步：对细化后的意图进行第二轮检索
-        # if set(refined_intent_queries) != set(intent_queries):
-        #     for intent_idx, intent_query in enumerate(refined_intent_queries):
-        #         logger.info(f"🔍 检索细化意图 {intent_idx + 1}/{len(refined_intent_queries)}: {intent_query}")
+        # 第四步：对细化后的意图进行第二轮检索
+        if set(refined_intent_queries) != set(intent_queries):
+            for intent_idx, intent_query in enumerate(refined_intent_queries):
+                logger.info(f"🔍 检索细化意图 {intent_idx + 1}/{len(refined_intent_queries)}: {intent_query}")
     
-        #         retrieval_list = retriever.retrieve(intent_query, data_ori['documents'])
+                retrieval_list = retriever.retrieve(intent_query, data_ori['documents'])
     
-        #         # 合并结果并去重
-        #         for result in retrieval_list:
-        #             if result['text'] not in seen_texts:
-        #                 seen_texts.add(result['text'])
-        #                 final_search_results.append(result)
+                # 合并结果并去重
+                for result in retrieval_list:
+                    if result['text'] not in seen_texts:
+                        seen_texts.add(result['text'])
+                        final_search_results.append(result)
 
         # 第五步：对所有结果进行最终排序
-        # final_search_results = self.llm_rerank(original_query, final_search_results, self.reranker, rerank_topk)
-        # print("final_search_results: ", final_search_results)
+        final_search_results = self.llm_rerank(original_query, final_search_results, self.reranker, rerank_topk)
+        print("final_search_results: ", final_search_results)
 
         logger.info(f"📊 最终结果: {len(final_search_results)} 条")
 
@@ -137,7 +137,7 @@ class DeepSearch_Beta(DeepSearch_Alpha):
             {
                 "text": doc['text'],
                 "score": doc['score'],
-                "page": doc['metadata']['page_index']  # 获取页码
+                "page": doc['page']  # 获取页码
             }
             for doc in final_search_results
         ]
