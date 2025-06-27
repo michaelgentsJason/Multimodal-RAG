@@ -97,7 +97,7 @@ class AzureGPT4Chat:
                 api_key=os.getenv("SILICONFLOW_API_KEY"),
                 base_url="https://api.siliconflow.cn/v1"
             )
-            self.deployment_name = model_name or "Qwen/QwQ-32B"
+            self.deployment_name = model_name or "deepseek-ai/DeepSeek-R1"
             self.is_azure = False
         elif os.getenv("AZURE_OPENAI_API_KEY"):
             self.client = AzureOpenAI(

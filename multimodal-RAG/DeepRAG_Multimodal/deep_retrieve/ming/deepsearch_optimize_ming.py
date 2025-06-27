@@ -83,6 +83,12 @@ class DeepSearch_Beta(DeepSearch_Alpha):
 
     def search_retrieval(self, data: dict, retriever: MultimodalMatcher):
         original_query = deepcopy(data['query'])
+
+        # 🔥 新增：简单查询检测
+        if self._is_simple_query(original_query):
+            logger.info(f"🔍 检测到简单查询，使用直接检索: {original_query}")
+            return self._direct_simple_retrieval(data, retriever)
+
         data_ori = deepcopy(data)
         embedding_topk = self.params['embedding_topk']
         rerank_topk = self.params['rerank_topk']
@@ -110,8 +116,14 @@ class DeepSearch_Beta(DeepSearch_Alpha):
 
         # 第三步：基于第一轮检索结果进行意图细化
         refined_intent_queries = self._refine_query_intent(original_query, intent_queries,
-                                                          json.dumps(all_search_results, ensure_ascii=False, indent=2))
-        logger.info(f"🔍 意图细化结果: {refined_intent_queries}")
+                                                           json.dumps(all_search_results, ensure_ascii=False, indent=2))
+        logger.info("意图细化结果：{refined_intent_queries}")
+        # refined_intent_queries = self._refine_query_intent_with_knowledge_graph(
+        #     original_query,
+        #     intent_queries,
+        #     json.dumps(all_search_results, ensure_ascii=False, indent=2)
+        # )
+        # logger.info(f"知识图谱精准化结果: {refined_intent_queries}")
 
         # 第四步：对细化后的意图进行第二轮检索
         if set(refined_intent_queries) != set(intent_queries):
@@ -145,33 +157,85 @@ class DeepSearch_Beta(DeepSearch_Alpha):
 
         return sorted(final_results_with_pages, key=lambda x: x['score'], reverse=True)[:rerank_topk]
 
+
+    def _is_simple_query(self, query: str) -> bool:
+        """检测是否为简单查询"""
+        query_lower = query.lower().strip()
+
+        # 简单查询的特征
+        simple_patterns = [
+            'what is the title of',
+            'what is the name of',
+            'how many',
+            'which',
+            'when',
+            'where',
+            'who is',
+            'what does',
+        ]
+
+        # 检查是否匹配简单模式
+        for pattern in simple_patterns:
+            if pattern in query_lower:
+                return True
+
+        # 检查查询长度和复杂度
+        word_count = len(query.split())
+        question_count = query.count('?')
+
+        # 短查询且只有一个问号，很可能是简单查询
+        if word_count <= 12 and question_count == 1:
+            return True
+
+        return False
+
+    def _direct_simple_retrieval(self, data: dict, retriever: MultimodalMatcher) -> List[dict]:
+        """简单查询的直接检索"""
+        original_query = data['query']
+
+        # 直接检索
+        retrieval_list = retriever.retrieve(original_query, data['documents'])
+
+        # 重排序
+        final_results = self.llm_rerank(original_query, retrieval_list, self.reranker, self.params['rerank_topk'])
+
+        logger.info(f"📊 简单检索结果: {len(final_results)} 条")
+
+        # 格式化返回结果
+        return [{
+            "text": doc['text'],
+            "score": doc['score'],
+            "page": doc.get('page', doc.get('metadata', {}).get('page_index'))
+        } for doc in final_results]
+
     def _split_query_intent(self, query: str) -> List[str]:
         """将查询拆分为多个不同维度的意图查询"""
         SYSTEM_MESSAGE = dedent("""
-        你是一个专业的查询意图分析专家。你的任务是分析用户的查询，并将其拆分为多个不同维度的子查询。
+            You are a professional query intent analysis expert. Your task is to analyze the user's query and decompose it into multiple sub-queries covering different dimensions of information needs.
 
-        请遵循以下规则：
-        1. 如果查询包含多个不同的信息需求或关注点，请将其拆分为多个子查询
-        2. 确保每个子查询关注不同的维度或方面，保证多样性
-        3. 不要仅仅改变问题的表述形式，而应该关注不同的信息维度
-        4. 如果原始查询已经非常明确且只关注单一维度，则不需要拆分
-        5. 子查询应该更加具体和明确，有助于检索到更精准的信息
+            Please follow these rules:
+            1. If the query contains multiple distinct information needs or concerns, split it into separate sub-queries.
+            2. Ensure that each sub-query focuses on a different aspect or dimension to maintain diversity.
+            3. Do not merely rephrase the original query—each sub-query should target a distinct informational angle.
+            4. If the original query is already very specific and focuses on a single dimension, no decomposition is needed.
+            5. Each sub-query should be more specific and concrete to support more accurate information retrieval.
 
-        请以JSON格式返回，包含以下字段：
-        {
-            "intent_queries": ["子查询1", "子查询2", ...]
-        }
+            Return your response in JSON format, with the following structure:
+            {
+                "intent_queries": ["Sub-query 1", "Sub-query 2", ...]
+            }
         """)
 
         messages = [
             {"role": "system", "content": SYSTEM_MESSAGE},
-            {"role": "user", "content": f"请分析以下查询并拆分为多个不同维度的子查询：\n\n{query}"}
+            {"role": "user",
+             "content": f"Please analyze the following query and decompose it into sub-queries that cover different dimensions:\n\n{query}"}
         ]
 
         response_format = create_response_format({
             "intent_queries": {
                 "type": "array",
-                "description": "拆分后的子查询列表",
+                "description": "List of decomposed sub-queries",
                 "items": {"type": "string"}
             }
         })
@@ -215,6 +279,163 @@ class DeepSearch_Beta(DeepSearch_Alpha):
         except Exception as e:
             logger.error(f"Error reading expanded queries from {jsonl_path}: {e}")
         return [query]  # Fallback to the original query if no match is found
+
+    def _refine_query_intent_with_knowledge_graph(
+            self,
+            original_query: str,
+            intent_queries: List[str],
+            context: str
+    ) -> List[str]:
+        """
+        ★ 核心创新：基于多意图协同关系的知识图谱精准化
+
+        重点分析多个子意图之间的关系和互补性：
+        1. 构建跨意图的统一知识图谱
+        2. 分析意图间的依赖、互补、层次关系
+        3. 基于意图协同效应生成精准化查询
+        """
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Constructing the System Prompt for Multi-Intent Synergistic Analysis
+        SYSTEM_MESSAGE = dedent("""
+        You are a professional expert in multi-intent synergistic analysis, specializing in identifying knowledge graph relationships and complementarities between multiple user intents.
+
+        【Core Task】
+        Do not analyze each intent in isolation. Instead, deeply analyze the relational network among intents to generate refined queries based on their synergistic effects.
+
+        【Multi-Intent Relationship Analysis Framework】
+
+        **Step 1: Construct Intent Relationship Network**
+        Analyze the multidimensional relationships between sub-intents:
+
+        1. Complementary Relationships:
+           - Which intents offer different perspectives that collectively address the original query?
+           - How does Intent A fill the information gap in Intent B?
+
+        2. Dependency Relationships:
+           - Which intents rely on the prior understanding of others?
+           - Does Intent A require the foundation provided by Intent B?
+
+        3. Hierarchical Relationships:
+           - Which intents follow a general-to-specific pattern?
+           - Is Intent A a broader concept or a subset of Intent B?
+
+        4. Comparative Relationships:
+           - Which intents should be compared to highlight contrasts?
+           - What insights emerge from comparing Intent A and Intent B?
+
+        5. Temporal Relationships:
+           - Which intents involve a chronological sequence?
+           - How does the past in Intent A affect the present in Intent B?
+
+        **Step 2: Build Cross-Intent Knowledge Graph**
+        Construct a unified knowledge graph focusing on:
+
+        1. Shared Entity Recognition:
+           - Which key entities appear in multiple intents?
+           - How do these shared entities connect different intent dimensions?
+
+        2. Cross-Intent Relation Chains:
+           - What relational paths connect entities in Intent A to those in Intent B?
+           - What deeper links do these paths reveal?
+
+        3. Synergistic Information Gaps:
+           - What knowledge gaps require coordination across intents?
+           - Which questions cannot be answered by a single intent alone?
+
+        **Step 3: Generate Synergistic Refined Queries**
+        Based on the above intent relationship analysis, generate refined and synergistic queries:
+
+        1. Bridging Queries – Connect key information from related intents  
+        2. Comparative Queries – Emphasize differences between intents  
+        3. Integrative Queries – Synthesize perspectives from multiple intents  
+        4. Deepening Queries – Explore layers based on dependency  
+        5. Gap-Filling Queries – Target queries to close missing information
+
+        Current Time: {current_time}
+
+        【Output Format】
+        {{
+            "intent_relationship_analysis": {{
+                "complementary_pairs": [
+                    {{"intent_a": "Intent 1", "intent_b": "Intent 2", "relationship": "Description of complementarity", "synergy": "Synergistic effect"}},
+                    ...
+                ],
+                "dependency_chains": [
+                    {{"prerequisite": "Prior intent", "dependent": "Dependent intent", "reason": "Dependency reasoning"}},
+                    ...
+                ],
+                "hierarchical_structure": [
+                    {{"parent": "Higher-level intent", "child": "Lower-level intent", "relationship_type": "Contains / Refines / Instantiates"}},
+                    ...
+                ],
+                "temporal_sequence": [
+                    {{"earlier": "Earlier intent", "later": "Later intent", "connection": "Temporal relation"}},
+                    ...
+                ]
+            }},
+            "unified_knowledge_graph": {{
+                "shared_entities": ["Shared entity 1", "Shared entity 2", ...],
+                "cross_intent_relations": [
+                    {{"from_intent": "Intent 1", "to_intent": "Intent 2", "via_entity": "Linking entity", "relation_type": "Relation type"}},
+                    ...
+                ],
+                "synergistic_gaps": ["Information gap 1 requiring coordination", "Gap 2", ...]
+            }},
+            "refined_intent_queries": [
+                "Bridging Query – Connects key info between Intent A and Intent B",
+                "Comparative Query – In-depth analysis highlighting differences",
+                "Integrative Query – Holistic perspective across multiple intents",
+                "Deepening Query – Hierarchical exploration based on dependencies",
+                "Gap-Filling Query – Targeted search for missing knowledge"
+            ]
+        }}
+        """)
+
+        messages = [
+            {
+                "role": "system",
+                "content": SYSTEM_MESSAGE.format(current_time=current_time)
+            },
+            {
+                "role": "user",
+                "content": dedent(f"""
+                【Original Query】
+                {original_query}
+
+                【Decomposed Intent Queries】
+                {json.dumps(intent_queries, ensure_ascii=False, indent=2)}
+
+                【Current Retrieval Context】
+                {context}
+
+                【Refinement Requirements】
+                Please optimize the decomposed intents by analyzing them through the lens of a knowledge graph.
+                Your goal is to generate more specific and professional refined queries, focusing on:
+                1. Entity concretization (replace vague terms with precise entity names)
+                2. Temporal precision (specify time frames and key events)
+                3. Relationship clarification (clearly express the links between entities)
+                4. Gap supplementation (formulate targeted queries for missing information)
+                """)
+            }
+        ]
+
+        # Call to LLM API for multi-intent synergistic analysis
+        response = AzureGPT4Chat().chat_with_message_format(
+            message_list=messages,
+            # response_format=self._create_multi_intent_kg_response_format()
+        )
+
+        try:
+            result = parse_llm_response(response)
+            refined_queries = result.get("refined_intent_queries", intent_queries)
+            unified_knowledge_graph = result.get("unified_knowledge_graph", {})
+            print("Unified knowledge graph:", unified_knowledge_graph)
+            print("Refined intent queries:", refined_queries)
+            return refined_queries if refined_queries else intent_queries
+        except Exception as e:
+            logger.error(f"Error in intent refinement: {e}")
+            return intent_queries
 
     def _refine_query_intent(self, original_query: str, intent_queries: List[str], context: str) -> List[str]:
         """基于检索结果细化查询意图"""

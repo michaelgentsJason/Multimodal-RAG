@@ -44,9 +44,9 @@ logger.setLevel(logging.INFO)
 logger.info("=== 日志系统初始化完成，日志文件: %s ===", log_file)
 
 # 添加必要的路径
-sys.path.append("multimodal-RAG/DeepRAG_Multimodal/deep_retrieve")
+sys.path.append("/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/deep_retrieve")
 # 加载环境变量
-load_dotenv("multimodal-RAG/DeepRAG_Multimodal/configs/.env")
+load_dotenv("/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/configs/.env")
 
 # 导入必要的库，特别是使用标准的MultimodalMatcher而不是CustomMultimodalMatcher
 from DeepRAG_Multimodal.deep_retrieve.ming.deepsearch_optimize_ming import DeepSearch_Beta
@@ -85,10 +85,10 @@ class MultimodalIntentTester:
         """解析命令行参数"""
         parser = argparse.ArgumentParser(description='多模态多意图检索测试')
         parser.add_argument('--test_data', type=str,
-                            default=r'D:\Desktop\colpali_longdoc\picked_LongDoc\selected_LongDocURL_public_with_subtask_category.jsonl',
+                            default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/selected_LongDocURL_public_with_subtask_category.jsonl',
                             help='测试数据集路径')
         parser.add_argument('--pdf_dir', type=str,
-                            default=r'D:\Desktop\colpali_longdoc\picked_LongDoc',
+                            default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc',
                             help='PDF文件目录')
         parser.add_argument('--results_dir', type=str,
                             default='./test_results',
@@ -134,9 +134,12 @@ class MultimodalIntentTester:
             'image_weight': 0.0,  # 纯文本模式
 
             # 模型配置
-            'mm_model_name': "vidore/colqwen2.5-v0.2",
-            'mm_processor_name': "vidore/colqwen2.5-v0.1",
-            'bge_model_name': "BAAI/bge-large-en-v1.5",
+            #'mm_model_name': "vidore/colqwen2.5-v0.2",
+            #'mm_processor_name': "vidore/colqwen2.5-v0.1",
+
+            'bge_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/bge-large-en-v1.5",
+            'reranker_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/bge-reranker-large",
+
             'device': self.args.device,
             'batch_size': 2,
             'retrieval_mode': self.args.retrieval_mode,

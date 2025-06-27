@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/multimodal-RAG" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.12.3 (sftp://root@connect.westb.seetacloud.com:23370/root/miniconda3/bin/python)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Remote Python 3.12.3 (sftp://root@connect.westc.gpuhub.com:22581/root/miniconda3/bin/python)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

@@ -14,6 +14,7 @@ import torch
 from pdf2image import convert_from_path
 from PIL import Image
 import logging
+from DeepRAG_Multimodal.deep_retrieve.retriever_multimodal_bge import MultimodalMatcher, RetrieverConfig
 
 # 创建日志
 log_dir = Path("./log")
@@ -43,7 +44,7 @@ from DeepRAG_Multimodal.deep_retrieve.ming.deepsearch_optimize_ming import DeepS
 
 
 class TextOnlyMultiIntentTester:
-    """纯文本多意图检索测试类"""
+    """混合多意图检索测试类"""
 
     def __init__(self):
         """初始化测试器"""
@@ -68,12 +69,12 @@ class TextOnlyMultiIntentTester:
             'max_iterations': 2,
             'embedding_topk': 12,
             'rerank_topk': 5,
-            'text_weight': 1.0,
-            'image_weight': 0.0,
+            'text_weight': 0.8,
+            'image_weight': 0.2,
 
             # 模型配置 - 只需要文本模型
-            # 'mm_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.2",
-            # 'mm_processor_name': "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.1",
+            'mm_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.2",
+            'mm_processor_name': "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.1",
             'bge_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/bge-large-en-v1.5",
             'reranker_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/bge-reranker-large",
 
@@ -123,15 +124,33 @@ class TextOnlyMultiIntentTester:
             )
             logger.info("✅ 重排序器初始化成功")
 
-            #初始化纯文本匹配器
-            logger.info("⏳ 初始化纯文本匹配器...")
-            self.text_matcher = TextOnlyMatcher(
-                bge_model_path=self.config['bge_model_name'],
-                device=device,
+            # 初始化纯文本匹配器
+            # logger.info("⏳ 初始化纯文本匹配器...")
+            # self.text_matcher = TextOnlyMatcher(
+            #     bge_model_path=self.config['bge_model_name'],
+            #     device=device,
+            #     topk=self.config['rerank_topk']
+            # )
+            # logger.info("✅ 纯文本匹配器初始化成功")
+
+            logger.info("⏳ 初始化多模态匹配器...")
+            retriever_config = RetrieverConfig(
+                model_name=self.config['mm_model_name'],
+                processor_name=self.config['mm_processor_name'],
+                bge_model_name=self.config['bge_model_name'],
+                device=self.config['device'],
+                use_fp16=True,
+                batch_size=self.config['batch_size'],
+                mode=self.config['retrieval_mode'],  # 'mixed'
+                ocr_method=self.config['ocr_method']
+            )
+
+            self.text_matcher = MultimodalMatcher(
+                config=retriever_config,
+                embedding_weight=self.config['text_weight'],
                 topk=self.config['rerank_topk']
             )
-            logger.info("✅ 纯文本匹配器初始化成功")
-
+            logger.info("✅ 多模态匹配器初始化成功")
 
             # 初始化单意图检索器
             logger.info("⏳ 初始化单意图检索器...")
@@ -233,8 +252,20 @@ class TextOnlyMultiIntentTester:
             if not page_text.strip():
                 page_text = f"第{idx + 1}页内容"
 
+            page_image = None
+            if self.config['retrieval_mode'] == 'mixed':
+                try:
+                    # 转换PDF页面为图像
+                    pdf_path = os.path.join(self.config['pdf_base_dir'], doc_data["pdf_path"])
+                    pages = convert_from_path(pdf_path)
+                    if idx < len(pages):
+                        page_image = pages[idx]
+                except Exception as e:
+                    logger.warning(f"⚠️ 无法加载图像页面 {idx + 1}: {str(e)}")
+
             documents.append({
                 "text": page_text,
+                "image": page_image,  # 添加图像
                 "metadata": {
                     "page_index": idx + 1,
                     "pdf_path": doc_data.get("pdf_path", "")

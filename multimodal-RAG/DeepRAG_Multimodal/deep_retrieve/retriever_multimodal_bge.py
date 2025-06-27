@@ -79,16 +79,20 @@ class DocumentRetriever:
 
     def _setup_models(self):
         qwen_model_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/vidore/colqwen2.5-v0.2"
+        qwen_processor_model_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/vidore/colqwen2.5-v0.1"
+
         self.model = ColQwen2_5.from_pretrained(
-            self.config.model_name,
+            qwen_model_dir,
             torch_dtype=torch.bfloat16,
             device_map=self.config.device,
             attn_implementation="flash_attention_2" if is_flash_attn_2_available() else None,
+            local_files_only=True,
         ).eval()
 
         self.processor = ColQwen2_5_Processor.from_pretrained(
-            self.config.processor_name,
-            size={"shortest_edge": 512, "longest_edge": 1024}
+            qwen_processor_model_dir,
+            size={"shortest_edge": 512, "longest_edge": 1024},
+            local_files_only=True
         )
 
         self.bge_model = FlagModel(
@@ -443,6 +447,9 @@ class MultimodalMatcher:
         self._setup_models()
 
     def _setup_models(self):
+        qwen_model_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.2"
+        qwen_processor_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.1"
+
         self.text_tokenizer = AutoTokenizer.from_pretrained(self.config.bge_model_name, use_fast=True)
         self.text_model = AutoModel.from_pretrained(self.config.bge_model_name).to(self.device)
         # self.text_model = FlagModel(
@@ -452,16 +459,17 @@ class MultimodalMatcher:
         #     device=self.config.device
         # )
         self.image_model = ColQwen2_5.from_pretrained(
-            self.config.model_name,
+            qwen_model_dir,
             torch_dtype=torch.bfloat16,
             device_map="cuda",
             attn_implementation="flash_attention_2" if is_flash_attn_2_available() else None,
-
+            local_files_only=True,
         ).eval()
-        self.processor = ColQwen2_5_Processor.from_pretrained(
-            self.config.processor_name,
-            size={"shortest_edge": 512, "longest_edge": 1024},
 
+        self.processor = ColQwen2_5_Processor.from_pretrained(
+         qwen_processor_dir,
+            size={"shortest_edge": 512, "longest_edge": 1024},
+            local_files_only=True,
         )
 
     def save_scores(self, query, pdf_path, text_scores, image_scores, save_path):
