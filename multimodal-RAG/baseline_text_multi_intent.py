@@ -146,9 +146,9 @@ class TextOnlyMultiIntentTester:
                 }
             )
             # 重写方法，强制单意图
-            self.single_intent_search._split_query_intent = lambda query: [query]
-            self.single_intent_search._refine_query_intent = lambda original_query, intent_queries, context: [
-                original_query]
+            # self.single_intent_search._split_query_intent = lambda query, context: [query]
+            # self.single_intent_search._refine_query_intent = lambda original_query, intent_queries, context: [
+            #     original_query]
 
             # 初始化多意图检索器
             logger.info("⏳ 初始化多意图检索器...")
@@ -318,13 +318,13 @@ class TextOnlyMultiIntentTester:
                 # 单意图检索
                 logger.info("📄 开始单意图检索...")
                 single_start_time = time.time()
-                single_results = self.single_intent_search.search_retrieval(data, retriever=self.text_matcher)
+                single_results = self.single_intent_search.search_retrieval(data, multi_intent=False, retriever=self.text_matcher)
                 single_elapsed = time.time() - single_start_time
 
                 # 多意图检索
                 logger.info("📄 开始多意图检索...")
                 multi_start_time = time.time()
-                multi_results = self.multi_intent_search.search_retrieval(data, retriever=self.text_matcher)
+                multi_results = self.multi_intent_search.search_retrieval(data, multi_intent=True, retriever=self.text_matcher)
                 multi_elapsed = time.time() - multi_start_time
 
                 # 评估单意图结果

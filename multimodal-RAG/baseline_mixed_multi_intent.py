@@ -62,15 +62,15 @@ class TextOnlyMultiIntentTester:
             'results_dir': './test_results',
 
             # 采样配置
-            'sample_size': 50,  # 默认50条数据
+            'sample_size': 1,  # 默认50条数据
             'debug': True,
 
             # 检索配置
             'max_iterations': 2,
             'embedding_topk': 12,
             'rerank_topk': 5,
-            'text_weight': 0.8,
-            'image_weight': 0.2,
+            'text_weight': 0.7,
+            'image_weight': 0.3,
 
             # 模型配置 - 只需要文本模型
             'mm_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.2",
@@ -164,10 +164,10 @@ class TextOnlyMultiIntentTester:
                     "image_weight": self.config['image_weight']
                 }
             )
-            # 重写方法，强制单意图
-            self.single_intent_search._split_query_intent = lambda query: [query]
-            self.single_intent_search._refine_query_intent = lambda original_query, intent_queries, context: [
-                original_query]
+            # # 重写方法，强制单意图
+            # self.single_intent_search._split_query_intent = lambda query: [query]
+            # self.single_intent_search._refine_query_intent = lambda original_query, intent_queries, context: [
+            #     original_query]
 
             # 初始化多意图检索器
             logger.info("⏳ 初始化多意图检索器...")
@@ -215,8 +215,7 @@ class TextOnlyMultiIntentTester:
             for line in f:
                 if line.strip():
                     item = json.loads(line)
-                    if item.get("pdf_path") in allowed_doc_nos:
-                        test_data.append(item)
+                    test_data.append(item)
 
         if self.config['sample_size'] > 0 and len(test_data) > self.config['sample_size']:
             np.random.seed(42)
@@ -349,13 +348,13 @@ class TextOnlyMultiIntentTester:
                 # 单意图检索
                 logger.info("📄 开始单意图检索...")
                 single_start_time = time.time()
-                single_results = self.single_intent_search.search_retrieval(data, retriever=self.text_matcher)
+                single_results = self.single_intent_search.search_retrieval(data, multi_intent=False, retriever=self.text_matcher)
                 single_elapsed = time.time() - single_start_time
 
                 # 多意图检索
                 logger.info("📄 开始多意图检索...")
                 multi_start_time = time.time()
-                multi_results = self.multi_intent_search.search_retrieval(data, retriever=self.text_matcher)
+                multi_results = self.multi_intent_search.search_retrieval(data, multi_intent=True, retriever=self.text_matcher)
                 multi_elapsed = time.time() - multi_start_time
 
                 # 评估单意图结果
@@ -591,92 +590,6 @@ class TextOnlyMultiIntentTester:
 
         except Exception as e:
             logger.error(f"❌ 测试过程中出现错误: {str(e)}", exc_info=True)
-
-
-class TextOnlyMatcher:
-    """纯文本匹配器"""
-
-    def __init__(self, bge_model_path: str, device: str = "cuda:0", topk: int = 10):
-        self.bge_model_path = bge_model_path
-        self.device = device
-        self.topk = topk
-        self._setup_models()
-
-    def _setup_models(self):
-        """设置文本模型"""
-        from transformers import AutoTokenizer, AutoModel
-
-        logger.info("🔧 初始化纯文本模型...")
-        self.text_tokenizer = AutoTokenizer.from_pretrained(
-            self.bge_model_path,
-            use_fast=True,
-            local_files_only=True
-        )
-        self.text_model = AutoModel.from_pretrained(
-            self.bge_model_path,
-            local_files_only=True
-        ).to(self.device)
-        logger.info("✅ 纯文本模型初始化完成")
-
-    def retrieve(self, query: str, documents: list) -> list:
-        """检索相关文档"""
-        if not documents:
-            return []
-
-        try:
-            # 计算查询嵌入
-            query_embedding = self._compute_text_embedding(query)
-
-            # 计算文档嵌入和相似度
-            scored_documents = []
-            for doc in documents:
-                text = doc.get("text", "")
-                if not text.strip():
-                    continue
-
-                doc_embedding = self._compute_text_embedding(text)
-                similarity = self._compute_similarity(query_embedding, doc_embedding)
-
-                scored_documents.append({
-                    "text": text,
-                    "score": float(similarity),
-                    "metadata": doc.get("metadata", {})
-                })
-
-            # 按相似度排序
-            scored_documents.sort(key=lambda x: x["score"], reverse=True)
-            return scored_documents[:self.topk]
-
-        except Exception as e:
-            logger.error(f"❌ 检索失败: {str(e)}")
-            return []
-
-    def _compute_text_embedding(self, text: str):
-        """计算文本嵌入"""
-        inputs = self.text_tokenizer(
-            text,
-            padding=True,
-            truncation=True,
-            return_tensors="pt",
-            max_length=512
-        ).to(self.device)
-
-        with torch.no_grad():
-            outputs = self.text_model(**inputs)
-            # 使用[CLS]向量
-            embedding = outputs.last_hidden_state[:, 0].cpu().numpy()
-
-        return embedding
-
-    def _compute_similarity(self, query_emb, doc_emb):
-        """计算余弦相似度"""
-        # 归一化
-        query_norm = query_emb / (np.linalg.norm(query_emb, axis=1, keepdims=True) + 1e-8)
-        doc_norm = doc_emb / (np.linalg.norm(doc_emb, axis=1, keepdims=True) + 1e-8)
-
-        # 计算余弦相似度
-        similarity = np.dot(query_norm, doc_norm.T)
-        return similarity[0][0]
 
 
 def main():

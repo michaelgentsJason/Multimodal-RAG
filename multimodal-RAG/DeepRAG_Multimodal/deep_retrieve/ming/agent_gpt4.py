@@ -85,7 +85,15 @@ class AzureGPT4Chat:
         print("调用栈如下：")
         traceback.print_stack()
         from openai import AzureOpenAI, OpenAI
-        if os.getenv("DASHSCOPE_API_KEY"):
+
+        if os.getenv("CUSTOM_API_KEY") and os.getenv("CUSTOM_API_BASE"):
+            self.client = OpenAI(
+                api_key=os.getenv("CUSTOM_API_KEY"),
+                base_url=os.getenv("CUSTOM_API_BASE")
+            )
+            self.deployment_name = model_name or "Qwen/Qwen3-32B"
+            self.is_azure = False
+        elif os.getenv("DASHSCOPE_API_KEY"):
             self.client = OpenAI(
                 api_key=os.getenv("DASHSCOPE_API_KEY"),
                 base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
@@ -95,7 +103,7 @@ class AzureGPT4Chat:
         elif os.getenv("SILICONFLOW_API_KEY"):
             self.client = OpenAI(
                 api_key=os.getenv("SILICONFLOW_API_KEY"),
-                base_url="https://api.siliconflow.cn/v1"
+                base_url="https://api.ap.siliconflow.com/v1" # 注意：国际版和国内版的url不一样
             )
             self.deployment_name = model_name or "deepseek-ai/DeepSeek-R1"
             self.is_azure = False
@@ -162,11 +170,36 @@ class AzureGPT4Chat:
             ]
         else:
             messages = message_list
-        response = self.client.chat.completions.create(
-            model=self.deployment_name,
-            messages=messages,
-            response_format=response_format if response_format else NOT_GIVEN
-        )
+
+        # 🔥 为自定义API添加特殊参数支持
+        if os.getenv("CUSTOM_API_KEY") and os.getenv("CUSTOM_API_BASE"):
+            # 使用自定义API的参数
+            chat_kwargs = {
+                "model": self.deployment_name,
+                "messages": messages,
+                "max_tokens": 32768,
+                "temperature": 0.6,
+                "top_p": 0.95,
+                "extra_body": {
+                    "chat_template_kwargs": {"enable_thinking": False},
+                }
+            }
+
+            # 只在有response_format时添加
+            if response_format:
+                chat_kwargs["response_format"] = response_format
+
+        else:
+            # 其他API使用原来的参数
+            chat_kwargs = {
+                "model": self.deployment_name,
+                "messages": messages
+            }
+
+            if response_format:
+                chat_kwargs["response_format"] = response_format
+
+        response = self.client.chat.completions.create(**chat_kwargs)
         print(response)
         return response.choices[0].message.content
 

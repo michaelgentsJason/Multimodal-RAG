@@ -130,7 +130,7 @@ class DeepSearch_Alpha:
         return sufficient, ranked_indices
 
 
-    def search_retrieval(self, data: dict, retriever: EmbeddingMatcher):
+    def search_retrieval(self, data: dict, multi_inetent: False, retriever: EmbeddingMatcher):
         all_search_results = []
         original_query = deepcopy(data['query'])
         query = deepcopy(data['query'])
