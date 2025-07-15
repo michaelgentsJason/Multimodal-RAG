@@ -702,7 +702,8 @@ class MultimodalMatcher:
         # total_weight = self.embedding_weight + (1 - self.embedding_weight)
         text_weight = self.text_embedding_weight
         image_weight = (1 - self.text_embedding_weight)
-        return text_weight * text_score + image_weight * image_score
+        normalized_text_score = (text_score + 1) / 2
+        return text_weight * normalized_text_score + image_weight * image_score
 
 
 def main():
