@@ -4,7 +4,11 @@ import os
 import re
 import json
 import ast
-
+import asyncio
+import aiohttp
+from concurrent.futures import ThreadPoolExecutor
+from typing import List
+import threading
 from typing import Annotated, Optional, Union, Dict, Any
 from openai._types import NOT_GIVEN
 from tenacity import retry, stop_after_attempt, wait_exponential, RetryError
@@ -78,10 +82,11 @@ class AzureGPT4Chat:
     def __init__(
             self,
             system_prompt="You are a helpfule assistant.",
-            model_name=None
+            model_name=None,
+
     ):
         import traceback
-        print("AzureGPT4Chat 被调用")
+        print("LLM API 被调用")
         print("调用栈如下：")
         traceback.print_stack()
         from openai import AzureOpenAI, OpenAI
@@ -91,21 +96,21 @@ class AzureGPT4Chat:
                 api_key=os.getenv("CUSTOM_API_KEY"),
                 base_url=os.getenv("CUSTOM_API_BASE")
             )
-            self.deployment_name = model_name or "Qwen/Qwen3-32B"
+            self.deployment_name = model_name or "deepseek-ai/DeepSeek-V3"
             self.is_azure = False
         elif os.getenv("DASHSCOPE_API_KEY"):
             self.client = OpenAI(
                 api_key=os.getenv("DASHSCOPE_API_KEY"),
                 base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
             )
-            self.deployment_name = model_name or "qwen-plus"
+            self.deployment_name = model_name or "qwen3-max-preview"
             self.is_azure = False
         elif os.getenv("SILICONFLOW_API_KEY"):
             self.client = OpenAI(
                 api_key=os.getenv("SILICONFLOW_API_KEY"),
-                base_url="https://api.ap.siliconflow.com/v1" # 注意：国际版和国内版的url不一样
+                base_url="https://api.siliconflow.cn/v1" #注意：国际版和国内版的url不一样 https://api.ap.siliconflow.com/v1 （国外版）
             )
-            self.deployment_name = model_name or "deepseek-ai/DeepSeek-R1"
+            self.deployment_name = model_name or "deepseek-ai/DeepSeek-V3"
             self.is_azure = False
         elif os.getenv("AZURE_OPENAI_API_KEY"):
             self.client = AzureOpenAI(
@@ -122,8 +127,12 @@ class AzureGPT4Chat:
 
         self.system_prompt = system_prompt
 
+
+
     def set_system_prompt(self, prompt):
         self.system_prompt = prompt
+
+
 
     @retry_with_exponential_backoff()
     def chat(self, question, system_prompt=None):
@@ -149,20 +158,20 @@ class AzureGPT4Chat:
 
     @retry_with_exponential_backoff()
     def chat_with_message_format(
-        self, 
-        question=None,
-        system_prompt=None, 
-        message_list=None,
-        response_format=None
+            self,
+            question=None,
+            system_prompt=None,
+            message_list=None,
+            response_format=None
     ):
         """
         使用指定的输出格式进行对话
-        
+
         Args:
             question (str): 用户问题
             response_format (dict): 响应格式,例如 {"type": "json_object"} 或 {"type": "text"}
             system_prompt (str, optional): 可选的系统提示
-        """        
+        """
         if message_list is None:
             messages = [
                 {"role": "system", "content": self.system_prompt if system_prompt is None else system_prompt},
@@ -171,33 +180,30 @@ class AzureGPT4Chat:
         else:
             messages = message_list
 
-        # 🔥 为自定义API添加特殊参数支持
+        # 🔥 为特定API添加特殊参数支持
+        chat_kwargs = {
+            "model": self.deployment_name,
+            "messages": messages
+        }
+
+        # 🔥 添加思考过程控制（最小化改动）
         if os.getenv("CUSTOM_API_KEY") and os.getenv("CUSTOM_API_BASE"):
-            # 使用自定义API的参数
-            chat_kwargs = {
-                "model": self.deployment_name,
-                "messages": messages,
+            # 自定义API的参数
+            chat_kwargs.update({
                 "max_tokens": 32768,
                 "temperature": 0.6,
                 "top_p": 0.95,
                 "extra_body": {
                     "chat_template_kwargs": {"enable_thinking": False},
                 }
-            }
+            })
+        elif os.getenv("DASHSCOPE_API_KEY"):
+            # 🔥 DashScope API 添加思考过程控制
+            chat_kwargs["extra_body"] = {"enable_thinking": False}
 
-            # 只在有response_format时添加
-            if response_format:
-                chat_kwargs["response_format"] = response_format
-
-        else:
-            # 其他API使用原来的参数
-            chat_kwargs = {
-                "model": self.deployment_name,
-                "messages": messages
-            }
-
-            if response_format:
-                chat_kwargs["response_format"] = response_format
+        # 添加响应格式（如果有）
+        if response_format:
+            chat_kwargs["response_format"] = response_format
 
         response = self.client.chat.completions.create(**chat_kwargs)
         print(response)
