@@ -1,6 +1,11 @@
+from copy import deepcopy
+
 import torch
+import transformers
 from PIL import Image
 import json
+import traceback
+from peft import PeftModel
 from tqdm import tqdm
 from pdf2image import convert_from_path
 from transformers.utils.import_utils import is_flash_attn_2_available
@@ -17,9 +22,15 @@ import argparse
 from paddleocr import PaddleOCR
 import os
 from pathlib import Path
-import pickle  # Add this import for saving and loading scores
+import pickle
 from transformers import AutoTokenizer, AutoModel
+from colpali_engine.models import ColPali, ColPaliProcessor
+import logging
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.info("Retriever模块初始化")
+print(f"当前模块的日志器名称: {logger.name}")
 
 @dataclass
 class RetrieverConfig:
@@ -438,40 +449,87 @@ class MultimodalMatcher:
             self,
             config: RetrieverConfig,
             embedding_weight: float = 0.2,
-            topk: int = 10
+            topk: int = 10,
+            # enable_boundary_windows: bool = True,  # 滑动窗口参数
+            # boundary_size: int = 200  # 滑动窗口参数
     ):
         self.config = config
         self.text_embedding_weight = embedding_weight
         self.topk = topk
         self.device = torch.device(config.device if torch.cuda.is_available() else "cpu")
         self._setup_models()
-
     def _setup_models(self):
-        qwen_model_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.2"
-        qwen_processor_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.1"
+        # base_model_path = "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-base"
+        # qwen_model_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.2"
+        # qwen_processor_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/colqwen2.5-v0.1"
+        #
+        #
+        #
+        # self.text_tokenizer = AutoTokenizer.from_pretrained(self.config.bge_model_name, use_fast=True)
+        # self.text_model = AutoModel.from_pretrained(self.config.bge_model_name).to(self.device)
+        # # self.text_model = FlagModel(
+        # #     self.config.bge_model_name,
+        # #     query_instruction_for_retrieval="Represent this sentence for searching relevant passages:",
+        # #     use_fp16=self.config.use_fp16,
+        # #     device=self.config.device
+        # # )
+        #
+        # base_model = ColQwen2_5.from_pretrained(
+        #     base_model_path,
+        #     torch_dtype=torch.bfloat16,
+        #     device_map=self.config.device,
+        #     attn_implementation="flash_attention_2" if is_flash_attn_2_available() else None,
+        #     local_files_only=True,
+        # )
+        # self.image_model = PeftModel.from_pretrained(
+        #     base_model,
+        #     qwen_model_dir,
+        #     device_map=self.config.device,
+        #     torch_dtype=torch.bfloat16,
+        #     local_files_only=True,
+        # ).eval()
+        # print(f"✅ 已加载模型: {self.image_model.__class__}")
+        #
+        # self.processor = ColQwen2_5_Processor.from_pretrained(
+        #     qwen_processor_dir,
+        #     size={"shortest_edge": 512, "longest_edge": 1024},
+        #     local_files_only=True
+        # )
+        # print(f"✅ 已加载模型: {self.processor.__class__}")
+        # 路径设置
 
+        base_model_path = "/root/autodl-tmp/multimodal-RAG/hf_models/colpaligemma-3b-pt-448-base"
+        peft_model_dir = "/root/autodl-tmp/multimodal-RAG/hf_models/colpali-v1.3"
+
+        # 文本模型保持不变
         self.text_tokenizer = AutoTokenizer.from_pretrained(self.config.bge_model_name, use_fast=True)
         self.text_model = AutoModel.from_pretrained(self.config.bge_model_name).to(self.device)
-        # self.text_model = FlagModel(
-        #     self.config.bge_model_name,
-        #     query_instruction_for_retrieval="Represent this sentence for searching relevant passages:",
-        #     use_fp16=self.config.use_fp16,
-        #     device=self.config.device
-        # )
-        self.image_model = ColQwen2_5.from_pretrained(
-            qwen_model_dir,
-            torch_dtype=torch.bfloat16,
-            device_map="cuda",
-            attn_implementation="flash_attention_2" if is_flash_attn_2_available() else None,
-            local_files_only=True,
-        ).eval()
 
-        self.processor = ColQwen2_5_Processor.from_pretrained(
-         qwen_processor_dir,
-            size={"shortest_edge": 512, "longest_edge": 1024},
+        # 加载基础ColPali模型（而不是ColQwen2_5）
+        base_model = ColPali.from_pretrained(
+            base_model_path,
+            torch_dtype=torch.bfloat16,
+            device_map=self.config.device,
+            attn_implementation="flash_attention_2" if is_flash_attn_2_available() else None,
             local_files_only=True,
         )
 
+        # 加载PEFT适配器
+        self.image_model = PeftModel.from_pretrained(
+            base_model,
+            peft_model_dir,
+            device_map=self.config.device,
+            torch_dtype=torch.bfloat16,
+            local_files_only=True,
+        ).eval()
+        print(f"✅ 已加载模型: {self.image_model.__class__}")
+
+        # 加载处理器
+        self.processor = ColPaliProcessor.from_pretrained(
+            peft_model_dir,  # 或者使用base_model_path，取决于处理器存储位置
+            local_files_only=True
+        )
+        print(f"✅ 已加载处理器: {self.processor.__class__}")
     def save_scores(self, query, pdf_path, text_scores, image_scores, save_path):
         """
         Save query, pdf_path, text scores, and image scores to a local file.
@@ -517,6 +575,7 @@ class MultimodalMatcher:
                 # 获取文本和图像
                 text = doc.get("text", "")
                 image = doc.get("image", None)
+                print("images size:", image.size)
 
                 # 检查图像是否有效
                 if image is not None:
@@ -534,11 +593,12 @@ class MultimodalMatcher:
 
                 pdf_path = doc.get("pdf_path", "")
                 text_score = self._compute_text_score(query, text)
-                image_score = self._compute_image_score(query, image)
+                image_score = self._compute_image_score(query, image)/100
                 combined_score = self._combine_scores(text_score, image_score)
 
+                doc["text_score"] = text_score
+                doc["image_score"] = image_score
                 doc["score"] = combined_score
-                #doc["score"] = image_score
                 doc["metadata"] = doc.get("metadata", {})  # Ensure metadata exists
                 text_scores.append(text_score)
                 image_scores.append(image_score)
@@ -546,6 +606,7 @@ class MultimodalMatcher:
             except Exception as e:
                 # 处理任何其他错误
                 print(f"处理文档时出错: {str(e)}")
+                traceback.print_exc()
                 continue
 
         # Save scores locally if a save path is provided
@@ -558,6 +619,7 @@ class MultimodalMatcher:
                 doc["metadata"]["page_index"] = None  # Default to None if page_index is missing
 
         return sorted(processed_documents, key=lambda x: x["score"], reverse=True)[:self.topk]
+
 
     def process_saved_scores(self, save_path):
         """
@@ -652,8 +714,7 @@ class MultimodalMatcher:
             })
 
         return extracted_pages
-        
-    
+
     def _extract_text_from_image(self, image: Image.Image) -> str:
         """
         Extract text from an image using OCR.
@@ -691,6 +752,7 @@ class MultimodalMatcher:
     def _compute_image_score(self, query: str, image: Optional[Image.Image]) -> float:
         if image is None:
             return 0.0
+
         with torch.no_grad():
             query_embedding = self.image_model(**self.processor.process_queries([query]).to(self.image_model.device))
             image_input = self.processor.process_images([image]).to(self.image_model.device)
@@ -698,7 +760,7 @@ class MultimodalMatcher:
             return float(self.processor.score_multi_vector(query_embedding, image_embedding).cpu().numpy().flatten()[0])
 
     def _combine_scores(self, text_score: float, image_score: float) -> float:
-        image_score = image_score / 100
+        image_score = image_score
         # total_weight = self.embedding_weight + (1 - self.embedding_weight)
         text_weight = self.text_embedding_weight
         image_weight = (1 - self.text_embedding_weight)
