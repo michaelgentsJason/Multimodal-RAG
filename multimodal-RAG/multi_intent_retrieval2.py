@@ -8,6 +8,7 @@ import time
 import argparse
 from pathlib import Path
 
+import transformers
 from pdf2image import convert_from_path
 from tqdm import tqdm
 import numpy as np
@@ -15,11 +16,14 @@ import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 from FlagEmbedding import FlagReranker
 import torch
+from baseline_text_multi_intent import TextOnlyMatcher
 # from pdf2image import convert_from_path  # 注释掉，避免Poppler依赖
 from PIL import Image
 import subprocess
-
 import logging
+from DeepRAG_Multimodal.deep_retrieve.ming.deepsearch_optimize_ming import DeepSearch_Beta
+
+transformers.logging.set_verbosity_error()
 
 # 创建日志目录
 log_dir = Path("./log")
@@ -41,6 +45,8 @@ logging.basicConfig(
 logging.getLogger().setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+logging.getLogger("transformers").setLevel(logging.WARNING)
+logging.getLogger("colpali_engine").setLevel(logging.WARNING)
 
 # 开头加入测试日志
 logger.info("=== 日志系统初始化完成，日志文件: %s ===", log_file)
@@ -87,25 +93,31 @@ class MultimodalIntentTester:
         """解析命令行参数"""
         parser = argparse.ArgumentParser(description='多模态多意图检索测试')
         parser.add_argument('--test_data', type=str,
-                            default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/selected_LongDocURL_public_with_subtask_category.jsonl',
+                            default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/converted_project/mmdocir_questions.jsonl',
                             help='测试数据集路径')
         parser.add_argument('--pdf_dir', type=str,
-                            default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc',
+                            default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/converted_project',
                             help='PDF文件目录')
+        # parser.add_argument('--test_data', type=str,
+        #                     default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc/selected_LongDocURL_public_with_subtask_category.jsonl',
+        #                     help='测试数据集路径')
+        # parser.add_argument('--pdf_dir', type=str,
+        #                     default=r'/root/autodl-tmp/multimodal-RAG/multimodal-RAG/DeepRAG_Multimodal/picked_LongDoc',
+        #                     help='PDF文件目录')
         parser.add_argument('--results_dir', type=str,
                             default='./test_results',
                             help='结果保存目录')
-        parser.add_argument('--sample_size', type=int, default=1,
+        parser.add_argument('--sample_size', type=int, default=100,
                             help='测试样本数量，0表示全部')
-        parser.add_argument('--ocr_method', type=str, default='paddleocr',
-                            choices=['paddleocr', 'pytesseract'],
+        parser.add_argument('--ocr_method', type=str, default='vlm_text',
+                            choices=['paddleocr', 'pytesseract','vlm_text'],
                             help='OCR方法选择')
         parser.add_argument('--device', type=str, default='cuda:0',
                             help='设备选择')
         parser.add_argument('--mode', type=str, default='all',
                             choices=['weight', 'intent', 'all'],
                             help='测试模式: weight(权重对比), intent(意图对比), all(全部)')
-        parser.add_argument('--retrieval_mode', type=str, default='mixed',
+        parser.add_argument('--retrieval_mode', type=str, default='text_only',
                             choices=['mixed', 'text_only'],
                             help='检索模式: mixed(多模态), text_only(仅文本)')
         parser.add_argument('--use_vespa', action='store_true', default=False,
@@ -130,14 +142,17 @@ class MultimodalIntentTester:
 
             # 检索配置
             'max_iterations': 2,
-            'embedding_topk': 15,
-            'rerank_topk': 10,
-            'text_weight': 0.7,  # 文本权重
-            'image_weight': 0.3,  # 图像权重
+            'embedding_topk': 12,
+            'rerank_topk': 5,
+            'text_weight': 0.5,  # 文本权重
+            'image_weight': 0.5,  # 图像权重
 
             # 模型配置
             'mm_model_name': "vidore/colqwen2.5-v0.2",
             'mm_processor_name': "vidore/colqwen2.5-v0.1",
+
+            'mm_model_name': "vidore/colpali-v1.3",
+            'mm_processor_name': "vidore/colpali-v1.3",
 
             'bge_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/bge-large-en-v1.5",
             'reranker_model_name': "/root/autodl-tmp/multimodal-RAG/hf_models/bge-reranker-large",
@@ -149,11 +164,16 @@ class MultimodalIntentTester:
 
             # Vespa配置
             'use_vespa': self.args.use_vespa,
-            'vespa_endpoint': self.args.vespa_endpoint
-        }
+            'vespa_endpoint': self.args.vespa_endpoint,
 
-        if config['debug']:
-            config['sample_size'] = 2  # 调试模式下只测试2个样本
+            'intent_scoring_enabled': True,
+            'intent_score_threshold': 0.6,
+            'max_intents_to_process': 3,
+            'refinement_threshold': 0.7,
+            'high_priority_allocation': 8,
+            'medium_priority_allocation': 5,
+            'low_priority_allocation': 3,
+        }
 
         return config
 
@@ -162,7 +182,7 @@ class MultimodalIntentTester:
         logger.info("初始化检索模型...")
 
         # 初始化重排序器
-        self.reranker = FlagReranker(model_name_or_path="BAAI/bge-reranker-large")
+        self.reranker = FlagReranker(model_name_or_path="/root/autodl-tmp/multimodal-RAG/hf_models/bge-reranker-large")
 
         # 初始化多模态匹配器配置
         retriever_config = RetrieverConfig(
@@ -183,7 +203,13 @@ class MultimodalIntentTester:
                 embedding_weight=self.config['text_weight'],
                 topk=self.config['rerank_topk']
             )
-            logger.info("已初始化标准多模态匹配器")
+            self.text_matcher = TextOnlyMatcher(
+                bge_model_path=self.config['bge_model_name'],
+                device="cuda",
+                topk=self.config['rerank_topk']
+            )
+            logger.info("✅ 纯文本匹配器初始化成功")
+            # logger.info("已初始化标准多模态匹配器")
         else:
             # 使用Vespa检索适配器
             try:
@@ -279,7 +305,6 @@ class MultimodalIntentTester:
             }
         )
 
-        # 🔥 修复：正确初始化单意图检索器（禁用意图拆解）
         self.single_intent_search = DeepSearch_Beta(
             max_iterations=self.config['max_iterations'],
             reranker=self.reranker,
@@ -291,18 +316,46 @@ class MultimodalIntentTester:
             }
         )
 
-        # 🔥 修复：正确禁用意图拆解功能（修复方法签名）
-        def single_intent_split(query: str, context: str = "") -> list:
-            """单意图模式：直接返回原查询，不进行拆解"""
-            return [query]
-
-        def single_intent_refine(original_query: str, intent_queries: list, context: str = "") -> list:
-            """单意图模式：直接返回原查询，不进行细化"""
-            return [original_query]
-
-        # 重写单意图检索器的方法
-        self.single_intent_search._split_query_intent = single_intent_split
-        self.single_intent_search._refine_query_intent = single_intent_refine
+        logger.info("⏳ 初始化增强版多意图检索器...")
+        # self.enhanced_multi_intent_search = EnhancedDeepSearch_Beta(  # 🔥 使用增强版
+        #     max_iterations=self.config['max_iterations'],
+        #     reranker=self.reranker,
+        #     params={
+        #         "embedding_topk": self.config['embedding_topk'],
+        #         "rerank_topk": self.config['rerank_topk'],
+        #         "text_weight": self.config['text_weight'],
+        #         "image_weight": self.config['image_weight'],
+        #         # 🔥 新增配置
+        #         "intent_scoring_enabled": True,
+        #         "intent_score_threshold": 0.6,
+        #         "max_intents_to_process": 3,
+        #         "refinement_threshold": 0.7,
+        #         "high_priority_allocation": 8,
+        #         "medium_priority_allocation": 5,
+        #         "low_priority_allocation": 3,
+        #     }
+        # )
+        # self.enhanced_multi_intent_search = PathScoringDeepSearch(
+        #     max_iterations=self.config['max_iterations'],
+        #     reranker=self.reranker,
+        #     params={
+        #         "embedding_topk": self.config['embedding_topk'],
+        #         "rerank_topk": self.config['rerank_topk'],
+        #         "text_weight": self.config['text_weight'],
+        #         "image_weight": self.config['image_weight']
+        #     }
+        # )
+        self.enhanced_multi_intent_search = PageCoverageDeepSearch(
+            max_iterations=self.config['max_iterations'],
+            reranker=self.reranker,
+            params={
+                "embedding_topk": self.config['embedding_topk'],
+                "rerank_topk": self.config['rerank_topk'],
+                "text_weight": self.config['text_weight'],
+                "image_weight": self.config['image_weight']
+            }
+        )
+        logger.info("✅ 增强版多意图检索器初始化成功")
 
         logger.info("模型初始化完成")
 
@@ -324,8 +377,8 @@ class MultimodalIntentTester:
             for line in f:
                 if line.strip():
                     item = json.loads(line)
-                    if item.get("pdf_path") in allowed_doc_nos:
-                        test_data.append(item)
+                    # if item.get("pdf_path") in allowed_doc_nos:
+                    test_data.append(item)
 
         if self.config['sample_size'] > 0 and len(test_data) > self.config['sample_size']:
             np.random.seed(42)  # 设置随机种子确保可重复性
@@ -350,11 +403,21 @@ class MultimodalIntentTester:
             logger.error(f"转换PDF时出错：{str(e)}")
             return []
 
-        # 获取预处理的OCR结果
+        #获取预处理的OCR结果
+        # ocr_file = os.path.join(
+        #     self.config['pdf_base_dir'],
+        #     f"{self.config['ocr_method']}_save",
+        #     f"{os.path.basename(doc_data['pdf_path']).replace('.pdf', '.json')}"
+        # )
+
+        # # 获取预处理的OCR结果
+        pdf_name = os.path.basename(doc_data['pdf_path'])
+        name_wo_ext = os.path.splitext(pdf_name)[0]
+        json_name = f"{name_wo_ext}_page.json"
         ocr_file = os.path.join(
             self.config['pdf_base_dir'],
             f"{self.config['ocr_method']}_save",
-            f"{os.path.basename(doc_data['pdf_path']).replace('.pdf', '.json')}"
+            json_name
         )
 
         # 读取预处理的文本数据
@@ -402,6 +465,7 @@ class MultimodalIntentTester:
             {"text": 0.5, "image": 0.5, "name": "平衡模式"},
             {"text": 0.3, "image": 0.7, "name": "图像为主"}
         ]
+        final_results = []
 
         # 对每个配置进行测试
         for config_idx, weight in enumerate(weight_configs):
@@ -446,7 +510,7 @@ class MultimodalIntentTester:
                     }
 
                     start_time = time.time()
-                    retrieval_results = self.multi_intent_search.search_retrieval(data, multi_intent=True,
+                    retrieval_results = self.multi_intent_search.search_retrieval(data, multi_intent=False,
                                                                                   retriever=self.mm_matcher)
                     elapsed_time = time.time() - start_time
 
@@ -503,6 +567,16 @@ class MultimodalIntentTester:
                             f"F1={avg_f1:.4f}, "
                             f"时间={avg_time:.2f}秒, "
                             f"成功率={success_rate:.2f}%")
+                result_avg = {
+                    f"{weight['name']} 平均指标": {
+                        "recall": avg_recall,
+                        "precision": avg_precision,
+                        "F1": avg_f1,
+                        "time": avg_time,
+                        "success_rate": success_rate
+                    }
+                }
+                final_results.append(result_avg)
 
             # 将当前配置的结果添加到总结果中
             results.extend(config_results)
@@ -510,58 +584,19 @@ class MultimodalIntentTester:
         # 保存结果
         retriever_type = "vespa" if self.config['use_vespa'] else "standard"
         result_file = os.path.join(self.config['results_dir'], f'modal_weights_results_{retriever_type}.json')
+        avg_file = os.path.join(self.config['results_dir'], f'modal_weights_avg_{retriever_type}.json')
         with open(result_file, 'w', encoding='utf-8') as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
+
+        with open(avg_file, 'w', encoding='utf-8') as f:
+            json.dump(final_results, f, ensure_ascii=False, indent=2)
 
         logger.info(f"模态权重测试结果已保存到: {result_file}")
         return results
 
-    def evaluate_results(self, results, evidence_pages, method_name):
-        """🔥 新增：评估检索结果（按照baseline_text_multi_intent.py的格式）"""
-        # 保持页面和分数的对应关系
-        page_score_pairs = []
-        for result in results:
-            page = None
-            if 'metadata' in result and 'page_index' in result['metadata']:
-                page = result['metadata']['page_index']
-            elif 'page' in result and result['page'] is not None:
-                page = result['page']
-
-            if page is not None:
-                page_score_pairs.append((page, result.get('score', 0)))
-
-        # 按分数排序（保持对应关系）
-        page_score_pairs.sort(key=lambda x: x[1], reverse=True)
-
-        retrieved_pages = [pair[0] for pair in page_score_pairs]
-        retrieval_scores = [pair[1] for pair in page_score_pairs]
-
-        evidence_set = set(evidence_pages)
-        correct_pages = evidence_set.intersection(set(retrieved_pages))
-
-        recall = len(correct_pages) / len(evidence_set) if evidence_set else 0
-        precision = len(correct_pages) / len(retrieved_pages) if retrieved_pages else 0
-        f1 = 2 * recall * precision / (recall + precision) if (recall + precision) > 0 else 0
-
-        logger.info(f"📊 {method_name}结果:")
-        logger.info(f"   🎯 检索到页面: {retrieved_pages[:5]}")  # 按分数顺序显示
-        logger.info(f"   ✅ 正确页面: {sorted(list(correct_pages))}")
-        logger.info(f"   📊 检索分数: {retrieval_scores[:5]}")
-        logger.info(f"   📊 页面-分数对应: {list(zip(retrieved_pages[:5], retrieval_scores[:5]))}")
-
-        return {
-            "retrieved_pages": retrieved_pages,
-            "correct_pages": list(correct_pages),
-            "recall": recall,
-            "precision": precision,
-            "f1": f1,
-            "retrieval_scores": retrieval_scores[:10],
-            "success": len(correct_pages) == len(evidence_set)
-        }
-
     def test_intent_modes(self):
-        """🔥 优化：测试单意图和多意图检索效果对比（优化输出格式）"""
-        logger.info("🎯 开始单意图和多意图检索效果对比...")
+        """测试单意图和多意图检索效果对比"""
+        logger.info("开始测试单意图和多意图检索效果对比...")
         test_data = self.load_test_data()
         results = []
 
@@ -569,11 +604,6 @@ class MultimodalIntentTester:
             try:
                 query = doc_data.get("question", "")
                 evidence_pages = doc_data.get("evidence_pages", [])
-
-                logger.info(f"\n{'=' * 60}")
-                logger.info(f"🔍 处理文档 {idx + 1}/{len(test_data)}: {doc_data.get('pdf_path', 'Unknown')}")
-                logger.info(f"❓ 查询: {query}")
-                logger.info(f"📋 证据页面: {evidence_pages}")
 
                 # 处理文档
                 document_pages = self.process_single_document(doc_data)
@@ -587,27 +617,51 @@ class MultimodalIntentTester:
                 }
 
                 # 测试单意图检索
-                logger.info("📄 开始单意图检索...")
                 single_start = time.time()
                 single_results = self.single_intent_search.search_retrieval(data, multi_intent=False,
                                                                             retriever=self.mm_matcher)
                 single_elapsed = time.time() - single_start
 
                 # 测试多意图检索
-                logger.info("📄 开始多意图检索...")
                 multi_start = time.time()
+                # multi_results = self.enhanced_multi_intent_search.search_retrieval_with_path_scoring(data, multi_intent=False,
+                #                                                           retriever=self.mm_matcher)
                 multi_results = self.multi_intent_search.search_retrieval(data, multi_intent=True,
-                                                                          retriever=self.mm_matcher)
+                                                                            retriever=self.mm_matcher)
                 multi_elapsed = time.time() - multi_start
 
-                # 评估单意图结果
-                single_eval = self.evaluate_results(single_results, evidence_pages, "单意图")
+                # 提取单意图检索结果中的页码
+                single_pages = set()
+                for result in single_results:
+                    if 'metadata' in result and 'page_index' in result['metadata']:
+                        single_pages.add(result['metadata']['page_index'])
+                    elif 'page' in result and result['page'] is not None:
+                        single_pages.add(result['page'])
 
-                # 评估多意图结果
-                multi_eval = self.evaluate_results(multi_results, evidence_pages, "多意图")
+                # 提取多意图检索结果中的页码
+                multi_pages = set()
+                for result in multi_results:
+                    if 'metadata' in result and 'page_index' in result['metadata']:
+                        multi_pages.add(result['metadata']['page_index'])
+                    elif 'page' in result and result['page'] is not None:
+                        multi_pages.add(result['page'])
 
-                logger.info(f"⏱️ 单意图检索耗时: {single_elapsed:.2f}秒")
-                logger.info(f"⏱️ 多意图检索耗时: {multi_elapsed:.2f}秒")
+                # 评估结果
+                evidence_set = set(evidence_pages)
+                single_correct = evidence_set.intersection(single_pages)
+                multi_correct = evidence_set.intersection(multi_pages)
+
+                # 计算指标 - 单意图
+                single_recall = len(single_correct) / len(evidence_set) if evidence_set else 0
+                single_precision = len(single_correct) / len(single_pages) if single_pages else 0
+                single_f1 = 2 * single_recall * single_precision / (single_recall + single_precision) if (
+                                                                                                                 single_recall + single_precision) > 0 else 0
+
+                # 计算指标 - 多意图
+                multi_recall = len(multi_correct) / len(evidence_set) if evidence_set else 0
+                multi_precision = len(multi_correct) / len(multi_pages) if multi_pages else 0
+                multi_f1 = 2 * multi_recall * multi_precision / (multi_recall + multi_precision) if (
+                                                                                                            multi_recall + multi_precision) > 0 else 0
 
                 # 记录结果
                 result = {
@@ -618,20 +672,22 @@ class MultimodalIntentTester:
                     "task_tag": doc_data.get("task_tag", ""),
                     "subTask": doc_data.get("subTask", []),
                     "single_intent": {
-                        **single_eval,
-                        "retrieval_time": single_elapsed
+                        "retrieved_pages": list(single_pages),
+                        "correct_pages": list(single_correct),
+                        "recall": single_recall,
+                        "precision": single_precision,
+                        "f1": single_f1,
+                        "retrieval_time": single_elapsed,
+                        "success": len(single_correct) == len(evidence_set)
                     },
                     "multi_intent": {
-                        **multi_eval,
-                        "retrieval_time": multi_elapsed
-                    },
-                    # 对比指标
-                    "comparison": {
-                        "f1_improvement": multi_eval["f1"] - single_eval["f1"],
-                        "recall_improvement": multi_eval["recall"] - single_eval["recall"],
-                        "precision_improvement": multi_eval["precision"] - single_eval["precision"],
-                        "time_overhead": multi_elapsed - single_elapsed,
-                        "multi_intent_better": multi_eval["f1"] > single_eval["f1"]
+                        "retrieved_pages": list(multi_pages),
+                        "correct_pages": list(multi_correct),
+                        "recall": multi_recall,
+                        "precision": multi_precision,
+                        "f1": multi_f1,
+                        "retrieval_time": multi_elapsed,
+                        "success": len(multi_correct) == len(evidence_set)
                     }
                 }
 
@@ -653,59 +709,116 @@ class MultimodalIntentTester:
         return results
 
     def analyze_intent_results(self, results):
-        """🔥 优化：分析并打印意图对比测试结果"""
+        """分析并打印意图对比测试结果"""
         if not results:
-            logger.warning("⚠️ 没有可用的结果进行分析")
+            logger.warning("没有可用的结果进行分析")
             return
 
-        # 单意图指标
+        # 计算平均指标
         single_recalls = [r["single_intent"]["recall"] for r in results]
-        single_precisions = [r["single_intent"]["precision"] for r in results]
-        single_f1s = [r["single_intent"]["f1"] for r in results]
-        single_times = [r["single_intent"]["retrieval_time"] for r in results]
-        single_success_count = sum(1 for r in results if r["single_intent"]["success"])
-
-        # 多意图指标
         multi_recalls = [r["multi_intent"]["recall"] for r in results]
+
+        single_precisions = [r["single_intent"]["precision"] for r in results]
         multi_precisions = [r["multi_intent"]["precision"] for r in results]
+
+        single_f1s = [r["single_intent"]["f1"] for r in results]
         multi_f1s = [r["multi_intent"]["f1"] for r in results]
+
+        single_times = [r["single_intent"]["retrieval_time"] for r in results]
         multi_times = [r["multi_intent"]["retrieval_time"] for r in results]
-        multi_success_count = sum(1 for r in results if r["multi_intent"]["success"])
 
-        # 改进指标
-        f1_improvements = [r["comparison"]["f1_improvement"] for r in results]
-        multi_better_count = sum(1 for r in results if r["comparison"]["multi_intent_better"])
+        single_success = sum(1 for r in results if r["single_intent"]["success"])
+        multi_success = sum(1 for r in results if r["multi_intent"]["success"])
 
-        logger.info(f"\n{'=' * 80}")
-        logger.info(f"📊 多模态单意图 vs 多意图检索性能对比分析")
-        logger.info(f"{'=' * 80}")
-        logger.info(f"📋 测试文档数: {len(results)}")
+        # 计算平均值
+        avg_single_recall = np.mean(single_recalls)
+        avg_multi_recall = np.mean(multi_recalls)
 
-        logger.info(f"\n🔹 单意图检索性能:")
-        logger.info(f"   平均召回率: {np.mean(single_recalls):.4f}")
-        logger.info(f"   平均精确率: {np.mean(single_precisions):.4f}")
-        logger.info(f"   平均F1值: {np.mean(single_f1s):.4f}")
-        logger.info(f"   平均检索时间: {np.mean(single_times):.2f}秒")
-        logger.info(
-            f"   成功率: {(single_success_count / len(results)) * 100:.2f}% ({single_success_count}/{len(results)})")
+        avg_single_precision = np.mean(single_precisions)
+        avg_multi_precision = np.mean(multi_precisions)
 
-        logger.info(f"\n🔹 多意图检索性能:")
-        logger.info(f"   平均召回率: {np.mean(multi_recalls):.4f}")
-        logger.info(f"   平均精确率: {np.mean(multi_precisions):.4f}")
-        logger.info(f"   平均F1值: {np.mean(multi_f1s):.4f}")
-        logger.info(f"   平均检索时间: {np.mean(multi_times):.2f}秒")
-        logger.info(
-            f"   成功率: {(multi_success_count / len(results)) * 100:.2f}% ({multi_success_count}/{len(results)})")
+        avg_single_f1 = np.mean(single_f1s)
+        avg_multi_f1 = np.mean(multi_f1s)
 
-        logger.info(f"\n🔸 性能提升分析:")
-        logger.info(f"   平均F1提升: {np.mean(f1_improvements):+.4f}")
-        logger.info(f"   平均召回率提升: {np.mean([r['comparison']['recall_improvement'] for r in results]):+.4f}")
-        logger.info(f"   平均精确率提升: {np.mean([r['comparison']['precision_improvement'] for r in results]):+.4f}")
-        logger.info(f"   平均时间开销: {np.mean([r['comparison']['time_overhead'] for r in results]):+.2f}秒")
-        logger.info(
-            f"   多意图优于单意图的比例: {(multi_better_count / len(results)) * 100:.2f}% ({multi_better_count}/{len(results)})")
+        avg_single_time = np.mean(single_times)
+        avg_multi_time = np.mean(multi_times)
 
-        logger.info(f"{'=' * 80}")
+        single_success_rate = single_success / len(results) * 100
+        multi_success_rate = multi_success / len(results) * 100
+
+        # 计算提升幅度
+        recall_improvement = (
+                                     avg_multi_recall - avg_single_recall) / avg_single_recall * 100 if avg_single_recall > 0 else float(
+            'inf')
+        precision_improvement = (
+                                        avg_multi_precision - avg_single_precision) / avg_single_precision * 100 if avg_single_precision > 0 else float(
+            'inf')
+        f1_improvement = (avg_multi_f1 - avg_single_f1) / avg_single_f1 * 100 if avg_single_f1 > 0 else float('inf')
+        time_increase = (avg_multi_time - avg_single_time) / avg_single_time * 100 if avg_single_time > 0 else float(
+            'inf')
+        success_improvement = multi_success_rate - single_success_rate
+
+        # 打印结果
+        retriever_type = "Vespa" if self.config['use_vespa'] else "标准"
+        logger.info(f"\n============ {retriever_type}检索: 单意图 vs 多意图检索性能分析 ============")
+        logger.info(f"测试文档数: {len(results)}")
+        logger.info("\n单意图检索性能:")
+        logger.info(f"  平均召回率: {avg_single_recall:.4f}")
+        logger.info(f"  平均精确率: {avg_single_precision:.4f}")
+        logger.info(f"  平均F1值: {avg_single_f1:.4f}")
+        logger.info(f"  平均检索时间: {avg_single_time:.2f}秒")
+        logger.info(f"  成功率: {single_success_rate:.2f}% ({single_success}/{len(results)})")
+
+        logger.info("\n多意图检索性能:")
+        logger.info(f"  平均召回率: {avg_multi_recall:.4f}")
+        logger.info(f"  平均精确率: {avg_multi_precision:.4f}")
+        logger.info(f"  平均F1值: {avg_multi_f1:.4f}")
+        logger.info(f"  平均检索时间: {avg_multi_time:.2f}秒")
+        logger.info(f"  成功率: {multi_success_rate:.2f}% ({multi_success}/{len(results)})")
+
+        logger.info("\n性能提升:")
+        logger.info(f"  召回率提升: {recall_improvement:.2f}%")
+        logger.info(f"  精确率提升: {precision_improvement:.2f}%")
+        logger.info(f"  F1值提升: {f1_improvement:.2f}%")
+        logger.info(f"  成功率提升: {success_improvement:.2f}%")
+        logger.info(f"  检索时间增加: {time_increase:.2f}%")
+
+        # 按任务类型分析
+        task_types = {}
+        for r in results:
+            task_tag = r.get("task_tag", "Unknown")
+
+            if task_tag not in task_types:
+                task_types[task_tag] = {
+                    "count": 0,
+                    "single_f1": 0,
+                    "multi_f1": 0,
+                    "single_success": 0,
+                    "multi_success": 0
+                }
+
+            task_types[task_tag]["count"] += 1
+            task_types[task_tag]["single_f1"] += r["single_intent"]["f1"]
+            task_types[task_tag]["multi_f1"] += r["multi_intent"]["f1"]
+            task_types[task_tag]["single_success"] += 1 if r["single_intent"]["success"] else 0
+            task_types[task_tag]["multi_success"] += 1 if r["multi_intent"]["success"] else 0
+
+        logger.info("\n按任务类型分析:")
+        for task_tag, stats in task_types.items():
+            count = stats["count"]
+            avg_single_f1 = stats["single_f1"] / count
+            avg_multi_f1 = stats["multi_f1"] / count
+            single_success_rate = stats["single_success"] / count * 100
+            multi_success_rate = stats["multi_success"] / count * 100
+            f1_improvement = (avg_multi_f1 - avg_single_f1) / avg_single_f1 * 100 if avg_single_f1 > 0 else float('inf')
+            success_improvement = multi_success_rate - single_success_rate
+
+            logger.info(f"\n  {task_tag} (样本数: {count}):")
+            logger.info(f"    单意图 F1: {avg_single_f1:.4f}, 成功率: {single_success_rate:.2f}%")
+            logger.info(f"    多意图 F1: {avg_multi_f1:.4f}, 成功率: {multi_success_rate:.2f}%")
+            logger.info(f"    F1提升: {f1_improvement:.2f}%, 成功率提升: {success_improvement:.2f}%")
+
+        logger.info("\n=================================================")
 
         # 创建可视化图表
         self.visualize_intent_results(results)
@@ -817,10 +930,9 @@ class MultimodalIntentTester:
         try:
             test_mode = self.args.mode.lower()
 
-            if test_mode in ['weight', 'all']:
-                self.test_modal_weights()
+            # if test_mode in ['weight', 'all']:
+            #     self.test_modal_weights()
 
-            # 🔥 修复：取消注释，启用意图对比测试
             if test_mode in ['intent', 'all']:
                 self.test_intent_modes()
 
